@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+$base-red: #d30000;
+$base-gray: #2b2b2b;
+
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}

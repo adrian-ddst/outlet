@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'outlet';
+
+  constructor() {}
+
+  goToLogin(): void {
+    console.log("go to login ...");
+  }
 }
