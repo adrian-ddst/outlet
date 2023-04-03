@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-choose-one',
@@ -8,10 +8,16 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ChooseOneComponent implements OnInit {
   category: string | null | undefined;
-  isMan = false;
+  isMan = true;
   isWoman = false
+  chooseOneRouter: Router;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+    this.chooseOneRouter = router;
+  }
 
   ngOnInit(): void {
     this.route.params.subscribe(res => {
@@ -24,5 +30,9 @@ export class ChooseOneComponent implements OnInit {
         this.isWoman = true;
       }
     });
+  }
+
+  navigateTo(specificCategory: string): void {
+    this.chooseOneRouter.navigateByUrl("/choose-one/" + this.category + "/specific/" + specificCategory);
   }
 }
