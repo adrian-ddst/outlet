@@ -1,0 +1,20 @@
+<div class="content" role="main">
+    <div class="card-container">
+        <div class="welcome-msg">
+            WELCOME TO <span class="red-text">THE OUTLET</span>
+        </div>
+        <div class="welcome-question-msg">
+            WHAT ARE YOU SHOPPING FOR TODAY ?
+        </div>
+        <div class="card-container-container">
+            <a [routerLink]="['/choose-one', 'men']" routerLinkActive="active" ariaCurrentWhenActive="page"
+                class="card">
+                <span>MEN'S</span>
+            </a>
+            <a [routerLink]="['/choose-one', 'women']" routerLinkActive="active" ariaCurrentWhenActive="page"
+                class="card">
+                <span>WOMEN'S</span>
+            </a>
+        </div>
+    </div>
+</div>

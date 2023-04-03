@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'outlet';
+  mainRouter: Router;
 
-  constructor() {}
+  constructor(router: Router) {
+    this.mainRouter = router;
+  }
+
+  goToHome(): void {
+    this.mainRouter.navigateByUrl('/');
+  }
 
   goToLogin(): void {
-    console.log("go to login ...");
+    this.mainRouter.navigateByUrl('/login');
   }
 }

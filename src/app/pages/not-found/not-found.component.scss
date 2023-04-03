@@ -1,0 +1,33 @@
+@import '../../../styles.scss';
+
+.not-found-page {
+    width: 100vw;
+    height: 100vh;
+    background-color: $base-gray;
+    display: flex;
+    justify-content: center;
+
+    .not-found-msg {
+        width: auto;
+        text-align: center;
+        color: white;
+        font-size: 3rem;
+        font-weight: 800;
+        margin-top: 20rem;
+        padding: 0 27rem 0;
+
+        .red-text {
+            color: $base-red;
+        }
+    }
+}
+
+@media screen and (max-width: 413px) {
+    .not-found-page {
+        .not-found-msg {
+            margin-top: 15rem;
+            font-size: 1.5rem;
+            padding: 0 2rem 0;
+        }
+    }
+}

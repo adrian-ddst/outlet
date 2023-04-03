@@ -1,0 +1,259 @@
+@import '../../../styles.scss';
+
+:host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 8px 0;
+}
+
+p {
+    margin: 0;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: $base-gray;
+    color: white;
+    font-weight: 600;
+}
+
+.toolbar img {
+    margin: 0 16px;
+}
+
+.toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 8px;
+}
+
+.toolbar #youtube-logo {
+    height: 40px;
+    margin: 0 16px;
+}
+
+.toolbar #twitter-logo:hover,
+.toolbar #youtube-logo:hover {
+    opacity: 0.8;
+}
+
+svg.material-icons {
+    height: 24px;
+    width: auto;
+}
+
+svg.material-icons:not(:last-child) {
+    margin-right: 8px;
+}
+
+.card svg.material-icons path {
+    fill: #888;
+}
+
+.card-container {
+    margin-top: 23rem;
+
+    .card-container-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 413px) {
+    .card-container {
+        margin-top: 15rem;
+    }
+}
+
+.card {
+    all: unset;
+    border-radius: 4px;
+    border: 1px solid $base-gray;
+    background-color: $base-gray;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 800;
+    height: 40px;
+    width: 200px;
+    margin: 0 8px 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 24px;
+}
+
+.card-container .card:not(:last-child) {
+    margin-right: 0;
+}
+
+.card.card-small {
+    height: 16px;
+    width: 168px;
+}
+
+.card-container .card:not(.highlight-card) {
+    cursor: pointer;
+}
+
+.card-container .card:not(.highlight-card):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgb(0, 0, 0);
+}
+
+.card-container .card:not(.highlight-card):hover .material-icons path {
+    fill: rgb(105, 103, 103);
+}
+
+.card.highlight-card {
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+    border: none;
+    width: auto;
+    min-width: 30%;
+    position: relative;
+}
+
+.card.card.highlight-card span {
+    margin-left: 60px;
+}
+
+svg#rocket {
+    width: 80px;
+    position: absolute;
+    left: -10px;
+    top: -24px;
+}
+
+svg#rocket-smoke {
+    height: calc(100vh - 95px);
+    position: absolute;
+    top: 10px;
+    right: 180px;
+    z-index: -10;
+}
+
+a,
+a:visited,
+a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: $base-red;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 767px) {
+
+    .card-container>*:not(.circle-link),
+    .terminal {
+        width: 100%;
+    }
+
+    .card:not(.highlight-card) {
+        height: 16px;
+        margin: 8px 0;
+    }
+
+    .card.highlight-card span {
+        margin-left: 72px;
+    }
+
+    svg#rocket-smoke {
+        right: 120px;
+        transform: rotate(-5deg);
+    }
+}
+
+@media screen and (max-width: 575px) {
+    svg#rocket-smoke {
+        display: none;
+        visibility: hidden;
+    }
+}
+
+.return-home {
+    display: inline-flex;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.return-home:hover {
+    color: $base-red;
+}
+
+.skip-to-login {
+    display: inline-flex;
+    margin-right: 1.5rem;
+    cursor: pointer;
+
+    .skip-arrow {
+        margin: 0 8px 4px 0;
+    }
+}
+
+.skip-to-login:hover {
+    color: $base-red;
+}
+
+.content {
+    width: 100%;
+    height: 100%;
+    background: url("../../../assets/bg.jpg") no-repeat;
+    background-size: cover;
+    display: flex;
+    margin: 60px auto 32px;
+    flex-direction: column;
+    align-items: center;
+
+    .welcome-msg {
+        color: white;
+        font-weight: 800;
+        font-size: 3rem;
+        text-align: center;
+        text-shadow: 1px 1px #2b2b2b7c;
+
+        .red-text {
+            color: $base-red;
+        }
+    }
+
+    .welcome-question-msg {
+        color: white;
+        font-weight: 500;
+        font-size: 1rem;
+        text-align: center;
+        text-shadow: 2px 2px #2b2b2b8f;
+        margin-top: 0.2rem;
+        margin-bottom: 1rem;
+    }
+}

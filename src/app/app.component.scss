@@ -81,6 +81,12 @@ svg.material-icons:not(:last-child) {
     }
 }
 
+@media screen and (max-width: 413px) {
+    .card-container {
+        margin-top: 15rem;
+    }
+}
+
 .card {
     all: unset;
     border-radius: 4px;
@@ -194,49 +200,27 @@ a:hover {
     }
 }
 
+.return-home {
+    display: inline-flex;
+    margin-left: 1.5rem;
+    cursor: pointer;
+    margin-bottom: 4px;
+}
+
+.return-home:hover {
+    color: $base-red;
+}
+
 .skip-to-login {
     display: inline-flex;
     margin-right: 1.5rem;
     cursor: pointer;
 
     .skip-arrow {
-        margin: 2px 8px 0 0;
+        margin: 0 8px 4px 0;
     }
 }
 
 .skip-to-login:hover {
     color: $base-red;
-}
-
-.content {
-    width: 100%;
-    height: 100%;
-    background: url("../assets/bg.jpg") no-repeat ;
-    background-size: cover;
-    display: flex;
-    margin: 60px auto 32px;
-    flex-direction: column;
-    align-items: center;
-
-    .welcome-msg {
-        color: white;
-        font-weight: 800;
-        font-size: 3rem;
-        text-align: center;
-        text-shadow: 1px 1px #2b2b2b7c;
-
-        .red-text {
-            color: $base-red;
-        }
-    }
-
-    .welcome-question-msg {
-        color: white;
-        font-weight: 500;
-        font-size: 1rem;
-        text-align: center;
-        text-shadow: 2px 2px #2b2b2b8f;
-        margin-top: 0.2rem;
-        margin-bottom: 1rem;
-    }
 }

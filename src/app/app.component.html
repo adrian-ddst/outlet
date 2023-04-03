@@ -1,5 +1,8 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
+  <div class="return-home" (click)="goToHome()">
+    Return To Homepage
+  </div>
   <div class="spacer"></div>
   <div class="skip-to-login" (click)="goToLogin()">
     <span>
@@ -9,22 +12,4 @@
   </div>
 </div>
 
-<div class="content" role="main">
-  <div class="card-container">
-    <div class="welcome-msg">
-      WELCOME TO <span class="red-text">THE OUTLET</span>
-    </div>
-    <div class="welcome-question-msg">
-      WHAT ARE YOU SHOPPING FOR TODAY ?
-    </div>
-    <div class="card-container-container">
-      <a class="card">
-        <span>MEN'S</span>
-      </a>
-      <a class="card">
-        <span>WOMEN'S</span>
-      </a>
-    </div>
-  </div>
-</div>
 <router-outlet></router-outlet>
