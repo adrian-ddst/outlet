@@ -52,6 +52,7 @@
         text-align: center;
         margin: 1rem;
         cursor: pointer;
+        transition: all 0.2s ease-in-out;
 
         .any-cloth-img {
             width: 12rem;
@@ -108,6 +109,12 @@
                 margin-top: 3.5rem;
             }
         }
+    }
+
+    .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 17px rgb(0, 0, 0);
+        color: $base-red;
     }
 }
 
