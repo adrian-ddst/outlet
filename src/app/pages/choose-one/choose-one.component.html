@@ -10,7 +10,7 @@
         <img src="../../../assets/shoes.png" class="any-cloth-img">
         Shoes
     </div>
-    <div class="card">
+    <div class="card" *ngIf="isMan">
         <img src="../../../assets/jeans.png" class="jeans-img">
         Jeans
     </div>
@@ -18,11 +18,11 @@
         <img src="../../../assets/sports.png" class="any-cloth-img">
         Sports
     </div>
-    <div class="card">
+    <div class="card" *ngIf="isMan">
         <img src="../../../assets/cap.png" class="any-cloth-img">
         Caps
     </div>
-    <div class="card">
+    <div class="card" *ngIf="isMan">
         <img src="../../../assets/hoodie.png" class="sweater-img">
         Sweaters
     </div>
@@ -30,7 +30,7 @@
         <img src="../../../assets/backpack.png" class="backpack-img">
         Backpacks
     </div>
-    <div class="card">
+    <div class="card" *ngIf="isWoman">
         <img src="../../../assets/dress.png" class="dress-img">
         Dresses
     </div>
@@ -38,11 +38,11 @@
         <img src="../../../assets/sunglasses.png" class="sunglasses-img">
         Sunglasses
     </div>
-    <div class="card">
+    <div class="card" *ngIf="isWoman">
         <img src="../../../assets/shorts.png" class="shorts-img">
         Shorts
     </div>
-    <div class="card">
+    <div class="card" *ngIf="isWoman">
         <img src="../../../assets/accessories.png" class="accessories-img">
         Accessories
     </div>
