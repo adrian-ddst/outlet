@@ -1,0 +1,116 @@
+@import '../../../styles.scss';
+
+.choose-one-specific-panel {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 3.7rem;
+    background: url("../../../assets/bg.jpg") no-repeat;
+    background-size: cover;
+    overflow-y: scroll;
+
+    .category-info-text {
+        font-size: 2rem;
+        font-weight: 800;
+        color: white;
+        margin-left: 1rem;
+        margin-top: 1rem;
+        text-shadow: 1px 1px #2b2b2b7c;
+
+        .red-text {
+            color: $base-red;
+            text-shadow: 1px 1px #2b2b2b7c;
+        }
+    }
+
+    @media screen and (max-width: 413px) {
+        .category-info-text {
+            font-size: 1.5rem;
+        }
+    }
+
+    .filter-items-row {
+        margin-left: 0;
+        margin-right: 1rem;
+        margin-top: 1rem;
+
+        .card {
+            background-color: $base-gray;
+            color: white;
+            // width: 2rem;
+
+            .card-body {
+                overflow-y: scroll;
+                height: calc(100vh - 15rem);
+            }
+        }
+
+        .card-header {
+            padding: 0;
+            background-color: $base-gray;
+        }
+
+        .filters-accordion-button {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: $base-red;
+            text-shadow: 1px 1px #2b2b2b7c;
+        }
+
+        .filters-accordion-button:hover {
+            color: #830000;
+        }
+
+        .filter-list-item {
+            font-weight: bold;
+
+            .subfilter {
+                margin-top: 5px;
+
+                label {
+                    font-weight: 300;
+                    margin-left: 5px;
+                }
+            }
+        }
+
+        .items-panel {
+            background-color: $base-gray;
+            border-radius: 4px;
+            overflow-y: scroll;
+            margin: 0;
+            padding-top: 2rem;
+            height: calc(100vh - 11.7rem);
+
+            .item-card {
+                font-size: 1rem;
+                font-weight: 800;
+                color: white;
+                width: 24rem;
+                height: 13rem;
+                padding: 2rem;
+                display: inline-flex;
+                transition: all 0.2s ease-in-out;
+                border-radius: 10px;
+                cursor: pointer;
+
+                .product-image {
+                    width: 12rem;
+                }
+
+                .product-name {
+                    margin-left: 1rem;
+
+                    .red-text {
+                        color: $base-red;
+                    }
+                }
+            }
+
+            .item-card:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 17px rgb(0, 0, 0);
+            }
+        }
+    }
+}

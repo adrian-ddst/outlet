@@ -1,1 +1,57 @@
-<p>choose-one-specific works!</p>
+<div class="choose-one-specific-panel">
+    <div class="category-info-text">
+        YOU ARE NOW BROWSING <span class="red-text">{{specificCategory}}</span> FOR <span
+            class="red-text">{{category}}</span>
+    </div>
+    <div class="row filter-items-row">
+        <div class="col-2">
+            <div class="accordion" id="filtersAccordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link filters-accordion-button" type="button" data-toggle="collapse"
+                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Filters
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                        data-parent="#filtersAccordion">
+                        <div class="card-body">
+                            <ul>
+                                <li *ngFor="let filter of filterList" class="filter-list-item">
+                                    {{filter}}
+                                    <ul class="subfilter">
+                                        <div>
+                                            <input type="checkbox" id="chx">
+                                            <label for="chx">SubFilter 1</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="chx">
+                                            <label for="chx">SubFilter 2</label>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="chx">
+                                            <label for="chx">SubFilter 3</label>
+                                        </div>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-10 items-panel row">
+            <div *ngFor="let item of items" class="item-card">
+                <img src="../../../assets/shirt-solid.svg" class="product-image">
+                <span class="product-name">
+                    {{item}}
+                    <br><br>
+                    <span class="red-text">340$</span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
