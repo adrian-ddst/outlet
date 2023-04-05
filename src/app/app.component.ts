@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from './services/app.service';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,11 @@ export class AppComponent {
   title = 'outlet';
   mainRouter: Router;
 
-  constructor(router: Router) {
-    this.mainRouter = router;
+  constructor(
+    private router: Router,
+    private appService: AppService
+  ) {
+    this.mainRouter = this.router;
   }
 
   goToHome(): void {
@@ -21,4 +25,9 @@ export class AppComponent {
   goToLogin(): void {
     this.mainRouter.navigateByUrl('/login');
   }
+
+  debugPost(): void {}
+
+  debugGet(): void {}
+
 }
