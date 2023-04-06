@@ -47,9 +47,9 @@
             <div *ngFor="let item of items" class="item-card">
                 <img src="../../../assets/shirt-solid.svg" class="product-image">
                 <span class="product-name">
-                    {{item}}
+                    {{item.itemName}}
                     <br><br>
-                    <span class="red-text">340$</span>
+                    <span class="red-text">{{item.price}}{{item.currency}}</span>
                 </span>
             </div>
         </div>

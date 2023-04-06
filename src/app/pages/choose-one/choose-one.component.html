@@ -2,48 +2,78 @@
     <div class="category-message">
         PLEASE CHOOSE YOUR DESIRED <span class="red-text">CATEGORY</span>
     </div>
-    <div class="card" (click)="navigateTo('jackets')">
-        <img src="../../../assets/jacket.png" class="any-cloth-img">
-        Jackets
-    </div>
-    <div class="card" (click)="navigateTo('shoes')">
-        <img src="../../../assets/shoes.png" class="any-cloth-img">
-        Shoes
-    </div>
-    <div class="card" *ngIf="isMan" (click)="navigateTo('jeans')">
-        <img src="../../../assets/jeans.png" class="jeans-img">
-        Jeans
-    </div>
-    <div class="card" (click)="navigateTo('sports')">
-        <img src="../../../assets/sports.png" class="any-cloth-img">
-        Sports
-    </div>
-    <div class="card" *ngIf="isMan" (click)="navigateTo('caps')">
-        <img src="../../../assets/cap.png" class="any-cloth-img">
-        Caps
-    </div>
-    <div class="card" *ngIf="isMan" (click)="navigateTo('sweaters')">
-        <img src="../../../assets/hoodie.png" class="sweater-img">
-        Sweaters
-    </div>
-    <div class="card" (click)="navigateTo('backpacks')">
-        <img src="../../../assets/backpack.png" class="backpack-img">
-        Backpacks
-    </div>
-    <div class="card" *ngIf="isWoman" (click)="navigateTo('dresses')">
-        <img src="../../../assets/dress.png" class="dress-img">
-        Dresses
-    </div>
-    <div class="card" (click)="navigateTo('sunglasses')">
-        <img src="../../../assets/sunglasses.png" class="sunglasses-img">
-        Sunglasses
-    </div>
-    <div class="card" *ngIf="isWoman" (click)="navigateTo('shorts')">
-        <img src="../../../assets/shorts.png" class="shorts-img">
-        Shorts
-    </div>
-    <div class="card" *ngIf="isWoman" (click)="navigateTo('accessories')">
-        <img src="../../../assets/accessories.png" class="accessories-img">
-        Accessories
-    </div>
+
+    <ng-container *ngFor="let clothCategory of clothCategories">
+        <ng-container [ngSwitch]="clothCategory">
+
+            <ng-container *ngSwitchCase="'jackets'">
+                <div class="card" (click)="navigateTo('jackets')">
+                    <img src="../../../assets/jacket.png" class="any-cloth-img">
+                    Jackets
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'shoes'">
+                <div class="card" (click)="navigateTo('shoes')" *ngSwitchCase="'shoes'">
+                    <img src="../../../assets/shoes.png" class="any-cloth-img">
+                    Shoes
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'jeans'">
+                <div class="card" *ngIf="isMan" (click)="navigateTo('jeans')">
+                    <img src="../../../assets/jeans.png" class="jeans-img">
+                    Jeans
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'sports'">
+                <div class="card" (click)="navigateTo('sports')">
+                    <img src="../../../assets/sports.png" class="any-cloth-img">
+                    Sports
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'caps'">
+                <div class="card" *ngIf="isMan" (click)="navigateTo('caps')">
+                    <img src="../../../assets/cap.png" class="any-cloth-img">
+                    Caps
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'sweaters'">
+                <div class="card" *ngIf="isMan" (click)="navigateTo('sweaters')">
+                    <img src="../../../assets/hoodie.png" class="sweater-img">
+                    Sweaters
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'backpacks'">
+                <div class="card" (click)="navigateTo('backpacks')">
+                    <img src="../../../assets/backpack.png" class="backpack-img">
+                    Backpacks
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'dresses'">
+                <div class="card" *ngIf="isWoman" (click)="navigateTo('dresses')">
+                    <img src="../../../assets/dress.png" class="dress-img">
+                    Dresses
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'sunglasses'">
+                <div class="card" (click)="navigateTo('sunglasses')">
+                    <img src="../../../assets/sunglasses.png" class="sunglasses-img">
+                    Sunglasses
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'shorts'">
+                <div class="card" *ngIf="isWoman" (click)="navigateTo('shorts')">
+                    <img src="../../../assets/shorts.png" class="shorts-img">
+                    Shorts
+                </div>
+            </ng-container>
+            <ng-container *ngSwitchCase="'accessories'">
+                <div class="card" *ngIf="isWoman" (click)="navigateTo('accessories')">
+                    <img src="../../../assets/accessories.png" class="accessories-img">
+                    Accessories
+                </div>
+            </ng-container>
+
+        </ng-container>
+    </ng-container>
+    
 </div>

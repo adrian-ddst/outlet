@@ -1,7 +1,11 @@
+require('dotenv').config();
+
 const express = require('express');
 
 const categoriesModel = require('../models/categoriesModel');
 const clothesModel = require('../models/clothesModel');
+
+const categories = process.env.CATEGORIES;
 
 const router = express.Router()
 const frontendURL = 'http://localhost:4200';
@@ -9,12 +13,25 @@ const allowCORS = 'Access-Control-Allow-Origin';
 
 module.exports = router;
 
-router.post('/post', async (req, res) => {
+router.get('/getCategories', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    res.status(200).json({ response: "POST succeeded" })
-})
+    console.log("Received request to /getCategories ... ");
+    try {
+        res.status(200).json({ categories: categories });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
-router.get('/getAll', async (req, res) => {
+router.post('/getClothes', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    res.status(200).json({ response: "GET succeeded" })
+    console.log("Received request to /getClothes ... ");
+    // req.body va avea filtrele
+    try {
+        const data = await clothesModel.find();
+        res.json(data);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });

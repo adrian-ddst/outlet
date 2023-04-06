@@ -13,15 +13,16 @@ export class AppService {
     private http: HttpClient
   ) { }
 
-  getTestData(): Observable<any> {
-    return this.http.get(SERVER_API_URL + "/getAll");
+  getCategories(): Observable<any> {
+    return this.http.get(SERVER_API_URL + "/getCategories");
   }
 
-  postTestData(body: any): Observable<any> {
+  getClothesNoFilter(): Observable<any> {
     const options: HttpRequestOptions = {
       observe: 'body',
       responseType: 'json'
     };
-    return this.http.post(SERVER_API_URL + "/post", body, options);
+    return this.http.post(SERVER_API_URL + "/getClothes", null, options);
   }
+
 }
