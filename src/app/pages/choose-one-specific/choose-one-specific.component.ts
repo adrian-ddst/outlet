@@ -15,6 +15,7 @@ export class ChooseOneSpecificComponent implements OnInit {
   chooseOneSpecificRouter: Router;
 
   filterList = ["Filter Type 1", "Filter Type 2", "Filter Type 3", "Filter Type 4", "Filter Type 5"];
+  rawItems: ClothItem[] | undefined = [];
   items: ClothItem[] | undefined = [];
 
   constructor(
@@ -29,13 +30,17 @@ export class ChooseOneSpecificComponent implements OnInit {
     this.appService.getClothesNoFilter().pipe(
       switchMap((res) => {
         if (res) {
-          this.items = res;
+          this.rawItems = res;
         }
         return this.route.params;
       })
     ).subscribe(res => {
       this.category = ((res['category'] ? res['category'] : "unknown") as string).toUpperCase();
       this.specificCategory = ((res['specificCategory'] ? res['specificCategory'] : "unknown") as string).toUpperCase();
+      this.items = this.rawItems?.filter(item =>
+        ((item.genderName === "any") ? true : (item.genderName === this.category?.toLowerCase())) &&
+        (item.categoryName === this.specificCategory?.toLowerCase())
+      );
     });
   }
 

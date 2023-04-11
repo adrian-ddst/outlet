@@ -5,6 +5,10 @@ const clothesSchema = new mongoose.Schema({
         required: true,
         type: String
     },
+    genderName: {
+        required: true,
+        type: String
+    },
     categoryName: {
         required: true,
         type: String

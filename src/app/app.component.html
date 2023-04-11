@@ -4,15 +4,15 @@
     Return To Homepage
   </div>
   <div class="spacer"></div>
-  <div class="skip-to-login" (click)="goToLogin()">
+  <div class="skip-to-login" (click)="goToAccountPage()">
     <span>
       <img src="../assets/forward-solid.svg" width="15" height="15" class="skip-arrow" />
     </span>
-    Skip directly to Log-In
+    Skip directly to Account Page
   </div>
 
   <!-- Debug Buttons -->
-  <div>
+  <!-- <div>
     <button (click)="debugPost()">
       Debug Button Post
     </button>
@@ -21,8 +21,20 @@
     <button (click)="debugGet()">
       Debug Button Get
     </button>
-  </div>
+  </div> -->
   <!-- Debug Buttons -->
+
+  <!-- Login Pop-up -->
+  <div class="login-popup">
+    <div id="loginPopupTitle" class="login-popup-title">
+      You are not logged in <span class="red-text">THE OUTLET</span>
+    </div>
+    <div class="separator"></div>
+    <div class="credentials-box">
+
+    </div>
+  </div>
+  <!-- Login Pop-up -->
 
 </div>
 

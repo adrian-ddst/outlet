@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from './services/app.service';
+import { interval, take, tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -9,25 +10,47 @@ import { AppService } from './services/app.service';
 })
 export class AppComponent {
   title = 'outlet';
-  mainRouter: Router;
+  appRouter: Router;
+  isLoggedIn: boolean = false;
+  showLoginPopup: boolean = false;
 
   constructor(
     private router: Router,
     private appService: AppService
   ) {
-    this.mainRouter = this.router;
+    this.appRouter = this.router;
   }
 
   goToHome(): void {
-    this.mainRouter.navigateByUrl('/');
+    this.appRouter.navigateByUrl('/');
   }
 
-  goToLogin(): void {
-    this.mainRouter.navigateByUrl('/login');
+  goToAccountPage(): void {
+    if (this.checkLoginState()) {
+      this.appRouter.navigateByUrl('/account');
+    } else {
+      this.showLoginPopup = true;
+      // highlight "You are not logged in" text ...
+      const ticker = interval(110);
+      ticker.pipe(
+        tap(index => {
+          if (index % 2 === 0) {
+            document.getElementById("loginPopupTitle")!.style.color = "#fff";
+          } else {
+            document.getElementById("loginPopupTitle")!.style.color = "#2b2b2b";
+          }
+        }),
+        take(7)
+      ).subscribe();
+    }
   }
 
-  debugPost(): void {}
+  checkLoginState(): boolean {
+    return this.isLoggedIn;
+  }
 
-  debugGet(): void {}
+  debugPost(): void { }
+
+  debugGet(): void { }
 
 }

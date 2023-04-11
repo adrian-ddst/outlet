@@ -224,3 +224,32 @@ a:hover {
 .skip-to-login:hover {
     color: $base-red;
 }
+
+.login-popup {
+    position: fixed;
+    top: 10%;
+    right: 1%;
+    border-radius: 3px;
+    background-color: $base-gray;
+    align-self: self-end;
+    width: 30rem;
+    height: 15rem;
+    
+    .login-popup-title {
+        font-weight: 600;
+        font-size: 1rem;
+        margin: 1rem 0 0.7rem 1.5rem;
+        text-shadow: 1px 1px #2b2b2b;
+
+        .red-text {
+            color: $base-red;
+        }
+    }
+
+    .separator {
+        background-color: #7e7e7e;
+        height: 1px;
+        width: 27rem;
+        margin: 0 0 1.5rem 1.5rem;
+    }
+}
