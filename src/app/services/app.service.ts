@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { SERVER_API_URL } from '../constants/app.constants';
 import { HttpRequestOptions } from '../interfaces/httpRequestOptionsInterface';
 import { Observable } from 'rxjs';
+import { User } from '../interfaces/userInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,14 @@ export class AppService {
       responseType: 'json'
     };
     return this.http.post(SERVER_API_URL + "/getClothes", null, options);
+  }
+
+  login(user: User): Observable<any> {
+    const options: HttpRequestOptions = {
+      observe: 'body',
+      responseType: 'json'
+    };
+    return this.http.post(SERVER_API_URL + "/login", user, options);
   }
 
 }

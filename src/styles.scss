@@ -28,3 +28,22 @@ body {
     background: $base-gray;
     border-radius: 10px;
 }
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    padding: 0.15rem 0.75rem;
+    border-radius: 2px;
+}
+
+.form-control:focus {
+    border: 1px solid $base-gray !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px $base-red;
+    outline: 0 none;
+}
+
+.text-muted {
+    color: #b1b1b1 !important;
+}

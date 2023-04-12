@@ -227,14 +227,17 @@ a:hover {
 
 .login-popup {
     position: fixed;
-    top: 10%;
-    right: 1%;
-    border-radius: 3px;
+    top: 4.7rem;
+    right: 1rem;
+    border-radius: 5px;
     background-color: $base-gray;
     align-self: self-end;
     width: 30rem;
-    height: 15rem;
-    
+    height: 20rem;
+    z-index: 2001;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #000;
+    border: 1px solid #1b1b1b;
+
     .login-popup-title {
         font-weight: 600;
         font-size: 1rem;
@@ -244,12 +247,59 @@ a:hover {
         .red-text {
             color: $base-red;
         }
+
+        .close {
+            color: white;
+            line-height: 0.5;
+            margin-right: 1.5rem;
+            font-size: 2rem;
+        }
     }
 
     .separator {
         background-color: #7e7e7e;
         height: 1px;
         width: 27rem;
-        margin: 0 0 1.5rem 1.5rem;
+        margin: 0 0 0 1.5rem;
+    }
+
+    .credentials-box {
+        padding: 0.7rem 1.5rem 1.5rem 1.5rem;
+
+        .buttons-row {
+            display: flex;
+
+            .login-btn,
+            .register-btn {
+                background-color: $base-gray;
+                border-color: $base-gray;
+                color: #fff;
+                border: 1px solid $base-gray;
+                border-radius: 4px;
+                margin-right: 1rem;
+                margin-top: 0.5rem;
+                transition: all 0.2s ease-in-out;
+                transform: translateY(-3px);
+                box-shadow: 0 4px 17px rgb(0, 0, 0);
+            }
+
+            .register-btn {
+                color: $base-red;
+            }
+
+            .login-btn:hover,
+            .register-btn:hover {
+                color: $base-red;
+            }
+
+            .register-btn:hover {
+                color: #fff;
+            }
+
+            .error-msg {
+                color: #fff;
+                display: none;
+            }
+        }
     }
 }

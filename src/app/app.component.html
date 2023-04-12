@@ -25,13 +25,34 @@
   <!-- Debug Buttons -->
 
   <!-- Login Pop-up -->
-  <div class="login-popup">
+  <div class="login-popup" *ngIf="loginPopupDisplayState === true">
     <div id="loginPopupTitle" class="login-popup-title">
       You are not logged in <span class="red-text">THE OUTLET</span>
+      <span class="close" (click)="loginPopupDisplayState = false">-</span>
     </div>
     <div class="separator"></div>
     <div class="credentials-box">
-
+      <form #loginForm="ngForm">
+        <div class="form-group">
+          <label for="userEmail">Email address</label>
+          <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp" placeholder="Email"
+            required minlength="3" [(ngModel)]="user.email" (ngModelChange)="updateUserEmailForm()" #userEmail="ngModel"
+            name="email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+          <label for="userPass">Password</label>
+          <input type="password" class="form-control" id="userPass" aria-describedby="passHelp" placeholder="Password"
+            required minlength="8" [(ngModel)]="user.password" (ngModelChange)="updateUserPassForm()"
+            #userPass="ngModel" name="password">
+          <small id="passHelp" class="form-text text-muted">Your password is securely encrypted in our system.</small>
+        </div>
+        <div class="buttons-row">
+          <button type="button" class="btn btn-primary login-btn" (click)="login()">Login</button>
+          <button type="button" class="btn btn-primary register-btn" (click)="register()">Register</button>
+          <span id="errorMsg" class="error-msg">Something went wrong. Please check your credentials or try again later.</span>
+        </div>
+      </form>
     </div>
   </div>
   <!-- Login Pop-up -->

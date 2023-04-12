@@ -8,6 +8,7 @@ import { ChooseOneComponent } from './pages/choose-one/choose-one.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ChooseOneSpecificComponent } from './pages/choose-one-specific/choose-one-specific.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
