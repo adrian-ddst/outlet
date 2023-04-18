@@ -9,6 +9,10 @@
       <img src="../assets/forward-solid.svg" width="15" height="15" class="skip-arrow" />
     </span>
     Skip directly to Account Page
+    <span class="red-text" *ngIf="isLoggedIn">&nbsp;{{'(' + username + ')'}}</span>
+  </div>
+  <div class="app-component-actions">
+    <button type="button" class="btn btn-primary btn-sm sign-out-btn">Sign Out</button>
   </div>
 
   <!-- Debug Buttons -->
@@ -50,7 +54,8 @@
         <div class="buttons-row">
           <button type="button" class="btn btn-primary login-btn" (click)="login()">Login</button>
           <button type="button" class="btn btn-primary register-btn" (click)="register()">Register</button>
-          <span id="errorMsg" class="error-msg">Something went wrong. Please check your credentials or try again later.</span>
+          <span id="errorMsg" class="error-msg">Something went wrong. Please check your credentials or try again
+            later.</span>
         </div>
       </form>
     </div>

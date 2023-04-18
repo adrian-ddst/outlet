@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from './services/app.service';
 import { interval, take, tap } from 'rxjs';
@@ -10,16 +10,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'outlet';
   appRouter: Router;
   isLoggedIn: boolean = false;
 
   loginForm: FormGroup | undefined;
   user: User = {
-    email: "aaaaaaaaaaaaaaaa",
-    password: "bbbbbbbbbbbbbb"
+    email: "",
+    password: ""
   }
+  username: String | undefined;
 
   static showLoginPopup: boolean = false;
 
@@ -71,9 +72,12 @@ export class AppComponent {
     AppComponent.showLoginPopup = value;
   }
 
-  // Auth flow that should always be present in background
+  ngOnInit(): void {
+    this.tryAutoLogin();
+  }
+
   goToAccountPage(): void {
-    if (this.checkLoginState()) {
+    if (this.isLoggedIn) {
       this.appRouter.navigateByUrl('/account');
     } else {
       AppComponent.showLoginPopup = true;
@@ -92,10 +96,6 @@ export class AppComponent {
     }
   }
 
-  // Check login state ... TODO: check jwt
-  checkLoginState(): boolean {
-    return this.isLoggedIn;
-  }
 
   login(): void {
     if (this.loginForm?.status === "INVALID") {
@@ -111,17 +111,32 @@ export class AppComponent {
         take(7)
       ).subscribe();
     } else {
+      var componentScope = this;
       this.appService.login(this.user).subscribe({
         next(response) {
-          console.log(response);
+          const user = response;
           document.getElementById("errorMsg")!.style.display = "none";
+          localStorage.setItem("currentlyLoggedAs", JSON.stringify(user));
+          componentScope.isLoggedIn = true;
+          AppComponent.showLoginPopup = false;
+          componentScope.goToAccountPage();
         },
         error(err) {
           console.log(err);
           document.getElementById("errorMsg")!.style.display = "block";
-        },
+        }
       })
-      
+    }
+  }
+
+  tryAutoLogin(): void {
+    const currentlyLoggedAs = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
+    if (currentlyLoggedAs?.token) {
+      this.appService.silentAutoLogin(currentlyLoggedAs.token).subscribe(() => {
+        this.isLoggedIn = true;
+        AppComponent.showLoginPopup = false;
+        this.username = currentlyLoggedAs.firstName;
+      });
     }
   }
 
@@ -133,9 +148,18 @@ export class AppComponent {
     this.appRouter.navigateByUrl('/');
   }
 
-  // Debug methods
-  debugPost(): void { }
 
-  debugGet(): void { }
+  // Debug methods
+  debugGet(): void {
+    this.appService.debugGet().subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  debugPost(): void {
+    this.appService.debugPost().subscribe(res => {
+      console.log(res);
+    });
+  }
 
 }
