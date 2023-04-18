@@ -124,7 +124,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/silentAutoLogin', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    const token = req.body.token;
+    const token = req.body.token; // test
     console.log("Received request to ['/silentAutoLogin'] with an existing token ...");
     try {
         const tokenState = verifyJWT(token);
