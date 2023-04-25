@@ -225,10 +225,11 @@ a:hover {
 }
 
 .app-component-actions {
+    margin-left: 1rem;
+    margin-right: 1.5rem;
+
     .sign-out-btn {
         padding: 0 0.5rem;
-        margin-left: 1rem;
-        margin-right: 1.5rem;
         background-color: $base-red-dark;
         border-color: $base-gray;
         box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #000;
@@ -253,12 +254,30 @@ a:hover {
     background-color: $base-gray;
     align-self: self-end;
     width: 30rem;
-    height: 20rem;
+    height: auto;
     z-index: 2001;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #000;
     border: 1px solid #1b1b1b;
 
     .login-popup-title {
+        font-weight: 600;
+        font-size: 1rem;
+        margin: 1rem 0 0.7rem 1.5rem;
+        text-shadow: 1px 1px #2b2b2b;
+
+        .red-text {
+            color: $base-red;
+        }
+
+        .close {
+            color: white;
+            line-height: 0.5;
+            margin-right: 1.5rem;
+            font-size: 2rem;
+        }
+    }
+
+    .register-popup-title {
         font-weight: 600;
         font-size: 1rem;
         margin: 1rem 0 0.7rem 1.5rem;
@@ -283,7 +302,8 @@ a:hover {
         margin: 0 0 0 1.5rem;
     }
 
-    .credentials-box {
+    .credentials-box,
+    .register-box {
         padding: 0.7rem 1.5rem 1.5rem 1.5rem;
 
         .buttons-row {
@@ -319,6 +339,18 @@ a:hover {
             .error-msg {
                 color: #fff;
                 display: none;
+            }
+            
+            .narrower-err-msg {
+                max-width: 10rem;
+            }
+
+            .return-link {
+                color: #fff;
+                margin-top: 0.8rem;
+                margin-right: 1rem;
+                cursor: pointer;
+                text-decoration: underline;
             }
         }
     }

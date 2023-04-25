@@ -12,7 +12,8 @@
     <span class="red-text" *ngIf="isLoggedIn">&nbsp;{{'(' + username + ')'}}</span>
   </div>
   <div class="app-component-actions">
-    <button type="button" class="btn btn-primary btn-sm sign-out-btn">Sign Out</button>
+    <button type="button" *ngIf="isLoggedIn" class="btn btn-primary btn-sm sign-out-btn" (click)="signOut()">Sign
+      Out</button>
   </div>
 
   <!-- Debug Buttons -->
@@ -30,35 +31,80 @@
 
   <!-- Login Pop-up -->
   <div class="login-popup" *ngIf="loginPopupDisplayState === true">
-    <div id="loginPopupTitle" class="login-popup-title">
-      You are not logged in <span class="red-text">THE OUTLET</span>
-      <span class="close" (click)="loginPopupDisplayState = false">-</span>
-    </div>
-    <div class="separator"></div>
-    <div class="credentials-box">
-      <form #loginForm="ngForm">
-        <div class="form-group">
-          <label for="userEmail">Email address</label>
-          <input type="email" class="form-control" id="userEmail" aria-describedby="emailHelp" placeholder="Email"
-            required minlength="3" [(ngModel)]="user.email" (ngModelChange)="updateUserEmailForm()" #userEmail="ngModel"
-            name="email">
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
-          <label for="userPass">Password</label>
-          <input type="password" class="form-control" id="userPass" aria-describedby="passHelp" placeholder="Password"
-            required minlength="8" [(ngModel)]="user.password" (ngModelChange)="updateUserPassForm()"
-            #userPass="ngModel" name="password">
-          <small id="passHelp" class="form-text text-muted">Your password is securely encrypted in our system.</small>
-        </div>
-        <div class="buttons-row">
-          <button type="button" class="btn btn-primary login-btn" (click)="login()">Login</button>
-          <button type="button" class="btn btn-primary register-btn" (click)="register()">Register</button>
-          <span id="errorMsg" class="error-msg">Something went wrong. Please check your credentials or try again
-            later.</span>
-        </div>
-      </form>
-    </div>
+    <ng-container *ngIf="registerPopupDisplayState == false">
+      <div id="highlightableTitle" class="login-popup-title">
+        You are not logged in <span class="red-text">THE OUTLET</span>
+        <span class="close" (click)="loginPopupDisplayState = false; registerPopupDisplayState = false">-</span>
+      </div>
+      <div class="separator"></div>
+      <div class="credentials-box">
+        <form #loginForm="ngForm">
+          <div class="form-group">
+            <label for="userForLoginEmail">Email address</label>
+            <input type="email" class="form-control" id="userForLoginEmail" aria-describedby="emailHelp"
+              placeholder="Email" required minlength="3" [(ngModel)]="userForLogin.email"
+              (ngModelChange)="updateUserForLoginEmailForm()" #userForLoginEmail="ngModel" name="emailForLogin">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div>
+          <div class="form-group">
+            <label for="userForLoginPass">Password</label>
+            <input type="password" class="form-control" id="userForLoginPass" aria-describedby="passHelp"
+              placeholder="Password" required minlength="8" [(ngModel)]="userForLogin.password"
+              (ngModelChange)="updateUserForLoginPassForm()" #userForLoginPass="ngModel" name="passwordForLogin">
+            <small id="passHelp" class="form-text text-muted">Your password is securely encrypted in our system.</small>
+          </div>
+          <div class="buttons-row">
+            <button type="button" class="btn btn-primary login-btn" (click)="login()">Login</button>
+            <button type="button" class="btn btn-primary register-btn"
+              (click)="registerPopupDisplayState = true">Register</button>
+            <span id="errorMsg" class="error-msg">Something went wrong. Please check your credentials or try again
+              later.</span>
+          </div>
+        </form>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="registerPopupDisplayState == true">
+      <div id="highlightableTitle" class="register-popup-title">
+        You are now registering as a customer in <span class="red-text">THE OUTLET</span>
+        <span class="close" (click)="loginPopupDisplayState = false; registerPopupDisplayState = false">-</span>
+      </div>
+      <div class="separator"></div>
+      <div class="register-box">
+        <form #registerForm="ngForm">
+          <div class="form-group">
+            <label for="userForRegisterFirstName">First Name</label>
+            <input type="text" class="form-control" id="userForRegisterFirstName" placeholder="First Name" required
+              [(ngModel)]="userForRegister.firstName" (ngModelChange)="updateUserForRegisterFirstNameForm()"
+              #userForRegisterFirstName="ngModel" name="firstNameForRegister">
+          </div>
+          <div class="form-group">
+            <label for="userForRegisterLastName">Last Name</label>
+            <input type="text" class="form-control" id="userForRegisterLastName" placeholder="Last Name" required
+              [(ngModel)]="userForRegister.lastName" (ngModelChange)="updateUserForRegisterLastNameForm()"
+              #userForRegisterLastName="ngModel" name="lastNameForRegister">
+          </div>
+          <div class="form-group">
+            <label for="userForRegisterEmail">Email</label>
+            <input type="text" class="form-control" id="userForRegisterEmail" placeholder="Email" required minlength="3"
+              [(ngModel)]="userForRegister.email" (ngModelChange)="updateUserForRegisterEmailForm()"
+              #userForRegisterEmail="ngModel" name="emailForRegister">
+          </div>
+          <div class="form-group">
+            <label for="userForRegisterPass">Password</label>
+            <input type="text" class="form-control" id="userForRegisterPass" placeholder="Password" required
+              aria-describedby="passHelp" minlength="8" [(ngModel)]="userForRegister.password"
+              (ngModelChange)="updateUserForRegisterPassForm()" #userForRegisterPass="ngModel"
+              name="passwordForRegister">
+            <small id="passHelp" class="form-text text-muted">The password must be at least 8 characters long.</small>
+          </div>
+          <div class="buttons-row">
+            <span class="return-link" (click)="registerPopupDisplayState = false"><< Back To Login</span>
+            <button type="button" class="btn btn-primary login-btn" (click)="register()">Register</button>
+            <span id="errorMsg" class="error-msg narrower-err-msg">Something went wrong. Please check your data.</span>
+          </div>
+        </form>
+      </div>
+    </ng-container>
   </div>
   <!-- Login Pop-up -->
 

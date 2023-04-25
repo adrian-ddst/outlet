@@ -16,13 +16,23 @@ export class AppComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   loginForm: FormGroup | undefined;
-  user: User = {
+  registerForm: FormGroup | undefined;
+
+  userForLogin: User = {
     email: "",
     password: ""
   }
+  userForRegister: User = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: ""
+  }
+
   username: String | undefined;
 
   static showLoginPopup: boolean = false;
+  static showRegisterPopup: boolean = false;
 
   constructor(
     private router: Router,
@@ -33,43 +43,36 @@ export class AppComponent implements OnInit {
       next(res: any) {
         if (res && res?.url !== "/") {
           AppComponent.showLoginPopup = false;
+          AppComponent.showRegisterPopup = false;
         }
       }
     });
     this.loginForm = new FormGroup({
-      userEmail: new FormControl(this.user.email, [
+      userEmail: new FormControl(this.userForLogin.email, [
         Validators.required,
         Validators.minLength(3)
       ]),
-      userPass: new FormControl(this.user.password, [
+      userPass: new FormControl(this.userForLogin.password, [
         Validators.required,
         Validators.minLength(8)
       ])
-    })
-  }
-
-  get userEmail() {
-    return this.loginForm!.get('userEmail');
-  }
-
-  updateUserEmailForm() {
-    this.userEmail?.setValue(this.user.email);
-  }
-
-  get userPass() {
-    return this.loginForm!.get('userPass');
-  }
-
-  updateUserPassForm() {
-    this.userPass?.setValue(this.user.password);
-  }
-
-  get loginPopupDisplayState() {
-    return AppComponent.showLoginPopup;
-  }
-
-  set loginPopupDisplayState(value) {
-    AppComponent.showLoginPopup = value;
+    });
+    this.registerForm = new FormGroup({
+      userFirstName: new FormControl(this.userForRegister.firstName, [
+        Validators.required
+      ]),
+      userLastName: new FormControl(this.userForRegister.lastName, [
+        Validators.required
+      ]),
+      userEmail: new FormControl(this.userForRegister.email, [
+        Validators.required,
+        Validators.minLength(3)
+      ]),
+      userPass: new FormControl(this.userForRegister.password, [
+        Validators.required,
+        Validators.minLength(8)
+      ])
+    });
   }
 
   ngOnInit(): void {
@@ -86,9 +89,9 @@ export class AppComponent implements OnInit {
       ticker.pipe(
         tap(index => {
           if (index % 2 === 0) {
-            document.getElementById("loginPopupTitle")!.style.color = "#fff";
+            document.getElementById("highlightableTitle")!.style.color = "#fff";
           } else {
-            document.getElementById("loginPopupTitle")!.style.color = "#2b2b2b";
+            document.getElementById("highlightableTitle")!.style.color = "#2b2b2b";
           }
         }),
         take(7)
@@ -112,17 +115,18 @@ export class AppComponent implements OnInit {
       ).subscribe();
     } else {
       var componentScope = this;
-      this.appService.login(this.user).subscribe({
+      this.appService.login(this.userForLogin).subscribe({
         next(response) {
           const user = response;
           document.getElementById("errorMsg")!.style.display = "none";
           localStorage.setItem("currentlyLoggedAs", JSON.stringify(user));
           componentScope.isLoggedIn = true;
           AppComponent.showLoginPopup = false;
+          componentScope.username = user['firstName'];
           componentScope.goToAccountPage();
         },
         error(err) {
-          console.log(err);
+          console.error(err);
           document.getElementById("errorMsg")!.style.display = "block";
         }
       })
@@ -131,17 +135,33 @@ export class AppComponent implements OnInit {
 
   tryAutoLogin(): void {
     const currentlyLoggedAs = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
+    var currentContext = this;
     if (currentlyLoggedAs?.token) {
-      this.appService.silentAutoLogin(currentlyLoggedAs.token).subscribe(() => {
-        this.isLoggedIn = true;
-        AppComponent.showLoginPopup = false;
-        this.username = currentlyLoggedAs.firstName;
-      });
+      this.appService.silentAutoLogin(currentlyLoggedAs.token).subscribe({
+        next() {
+          currentContext.isLoggedIn = true;
+          AppComponent.showLoginPopup = false;
+          currentContext.username = currentlyLoggedAs.firstName;
+        },
+        error(err) {
+          // BE returns 401 for bad token
+          if (err && err['status'] === 401) {
+            currentContext.isLoggedIn = false;
+            localStorage.clear();
+          }
+        },
+      })
     }
   }
 
-  register(): void {
+  signOut(): void {
+    localStorage.clear();
+    this.isLoggedIn = false;
+    this.goToHome();
+  }
 
+  register(): void {
+    console.log("register ok");
   }
 
   goToHome(): void {
@@ -160,6 +180,74 @@ export class AppComponent implements OnInit {
     this.appService.debugPost().subscribe(res => {
       console.log(res);
     });
+  }
+
+  // -----------------------------------------------------------------------------------
+  // ----------------------------- Getters, Setters, etc... ----------------------------
+  // -----------------------------------------------------------------------------------
+
+  get userForLoginEmail() {
+    return this.loginForm!.get('userEmail');
+  }
+
+  updateUserForLoginEmailForm() {
+    this.userForLoginEmail?.setValue(this.userForLogin.email);
+  }
+
+  get userForLoginPass() {
+    return this.loginForm!.get('userPass');
+  }
+
+  updateUserForLoginPassForm() {
+    this.userForLoginPass?.setValue(this.userForLogin.password);
+  }
+
+  get userForRegisterFirstName() {
+    return this.registerForm!.get('userFirstName');
+  }
+
+  updateUserForRegisterFirstNameForm() {
+    this.userForRegisterFirstName?.setValue(this.userForRegister.firstName);
+  }
+
+  get userForRegisterLastName() {
+    return this.registerForm!.get('userLastName');
+  }
+
+  updateUserForRegisterLastNameForm() {
+    this.userForRegisterLastName?.setValue(this.userForRegister.lastName);
+  }
+
+  get userForRegisterEmail() {
+    return this.registerForm!.get('userEmail');
+  }
+
+  updateUserForRegisterEmailForm() {
+    this.userForRegisterEmail?.setValue(this.userForRegister.email);
+  }
+
+  get userForRegisterPass() {
+    return this.registerForm!.get('userPass');
+  }
+
+  updateUserForRegisterPassForm() {
+    this.userForRegisterPass?.setValue(this.userForRegister.password);
+  }
+
+  get loginPopupDisplayState() {
+    return AppComponent.showLoginPopup;
+  }
+
+  set loginPopupDisplayState(value) {
+    AppComponent.showLoginPopup = value;
+  }
+
+  get registerPopupDisplayState() {
+    return AppComponent.showRegisterPopup;
+  }
+
+  set registerPopupDisplayState(value) {
+    AppComponent.showRegisterPopup = value
   }
 
 }
