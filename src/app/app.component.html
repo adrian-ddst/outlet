@@ -91,7 +91,7 @@
           </div>
           <div class="form-group">
             <label for="userForRegisterPass">Password</label>
-            <input type="text" class="form-control" id="userForRegisterPass" placeholder="Password" required
+            <input type="password" class="form-control" id="userForRegisterPass" placeholder="Password" required
               aria-describedby="passHelp" minlength="8" [(ngModel)]="userForRegister.password"
               (ngModelChange)="updateUserForRegisterPassForm()" #userForRegisterPass="ngModel"
               name="passwordForRegister">

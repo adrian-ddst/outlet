@@ -81,6 +81,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
 
   ngOnInit(): void {
     this.tryAutoLogin();
+    AppComponent.showSpinner = false;
   }
 
   ngAfterViewInit(): void {
