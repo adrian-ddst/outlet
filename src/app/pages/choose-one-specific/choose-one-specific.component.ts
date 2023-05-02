@@ -44,4 +44,8 @@ export class ChooseOneSpecificComponent implements OnInit {
     });
   }
 
+  addToCart(): void {
+    console.log("add to cart works!");
+  }
+
 }

@@ -77,33 +77,44 @@
         .items-panel {
             background-color: $base-gray;
             border-radius: 4px;
-            overflow-y: scroll;
+            overflow-y: auto;
             margin: 0;
             padding-top: 2rem;
             height: calc(100vh - 11.7rem);
 
             .item-card {
-                font-size: 1rem;
-                font-weight: 800;
-                color: white;
-                width: 24rem;
-                height: 13rem;
+                font-size: 1.3rem;
+                font-weight: 600;
+                color: #000;
+                width: 25rem;
+                height: 35rem;
                 padding: 2rem;
-                display: inline-flex;
                 transition: all 0.2s ease-in-out;
                 border-radius: 10px;
                 cursor: pointer;
+                text-align: center;
+                background-color: #f4f4f6;
+                margin-left: 5.5rem;
+                margin-top: 1.5rem;
+                margin-bottom: 3rem;
 
                 .product-image {
-                    width: 12rem;
+                    width: 18rem;
                 }
 
                 .product-name {
                     margin-left: 1rem;
+                    display: flex;
+                    justify-content: space-evenly;
 
                     .red-text {
                         color: $base-red;
                     }
+                }
+
+                .add-to-cart-btn {
+                    font-size: 1.1rem;
+                    font-weight: 500;
                 }
             }
 

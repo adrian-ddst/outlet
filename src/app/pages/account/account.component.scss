@@ -29,7 +29,7 @@
         .intro {
             color: #fff;
             width: 37rem;
-            font-size: 1.2rem;
+            font-size: 1rem;
         }
 
         .logo {
@@ -52,6 +52,7 @@
             color: #fff;
             text-align: center;
             margin-top: 2rem;
+            overflow-y: auto;
 
             .widgets-row {
                 display: flex;

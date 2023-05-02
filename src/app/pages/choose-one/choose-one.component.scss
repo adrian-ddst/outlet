@@ -39,7 +39,7 @@
 
     .card {
         width: 25rem;
-        height: 15rem;
+        height: 25rem;
         border-radius: 15px;
         background-color: #0000006c;
         // TBD
@@ -55,38 +55,42 @@
         transition: all 0.2s ease-in-out;
 
         .any-cloth-img {
-            width: 12rem;
+            width: 15rem;
+            margin-top: 3rem;
         }
 
         .jeans-img {
-            width: 8rem;
-        }
-
-        .shorts-img {
             width: 12rem;
             margin-top: 2rem;
         }
 
+        .shorts-img {
+            width: 16rem;
+            margin-top: 4rem;
+        }
+
         .backpack-img {
-            width: 12rem;
-            margin-top: 0.5rem;
+            width: 14rem;
+            margin-top: 3.5rem;
         }
 
         .dress-img {
-            width: 9rem;
+            width: 13rem;
         }
 
         .accessories-img {
-            width: 12rem;
-            margin-top: 1.5rem;
+            width: 13rem;
+            margin-top: 5.5rem;
         }
 
         .sweater-img {
-            width: 12rem;
+            width: 15rem;
+            margin-top: 2rem;
         }
 
         .sunglasses-img {
-            width: 12rem;
+            width: 14rem;
+            margin-top: 4rem;
         }
 
         @media screen and (max-width: 413px) {

@@ -45,12 +45,20 @@
         </div>
         <div class="col-10 items-panel row">
             <div *ngFor="let item of items" class="item-card">
-                <img src="../../../assets/shirt-solid.svg" class="product-image">
+                <img src="../../../assets/nike.png" class="product-image">
                 <span class="product-name">
+                    <i class="bi bi-cc-circle"></i>
                     {{item.itemName}}
                     <br><br>
                     <span class="red-text">{{item.price}}{{item.currency}}</span>
                 </span>
+                <div>
+                    <button type="button" class="btn btn-secondary add-to-cart-btn" (click)="addToCart()">
+                        <i class="bi bi-cart-check-fill"></i>
+                        &nbsp;
+                        Add to Cart
+                    </button>
+                </div>
             </div>
         </div>
     </div>
