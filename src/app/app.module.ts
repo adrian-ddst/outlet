@@ -7,8 +7,10 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ChooseOneComponent } from './pages/choose-one/choose-one.component';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { ChooseOneSpecificComponent } from './pages/choose-one-specific/choose-one-specific.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SpinnerComponent } from './interceptors/spinner/spinner.component';
+import { SpinnerInterceptor } from './interceptors/SpinnerInterceptor';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChooseOneComponent,
     NotFoundComponent,
     MainPageComponent,
-    ChooseOneSpecificComponent
+    ChooseOneSpecificComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

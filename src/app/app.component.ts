@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from './services/app.service';
 import { interval, take, tap } from 'rxjs';
 import { User } from './interfaces/userInterface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { SpinnerService } from './interceptors/SpinnerService';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked {
   title = 'outlet';
   appRouter: Router;
   isLoggedIn: boolean = false;
@@ -33,10 +34,13 @@ export class AppComponent implements OnInit {
 
   static showLoginPopup: boolean = false;
   static showRegisterPopup: boolean = false;
+  static showSpinner: boolean = true;
 
   constructor(
     private router: Router,
-    private appService: AppService
+    private appService: AppService,
+    private spinnerService: SpinnerService,
+    private cdref: ChangeDetectorRef
   ) {
     this.appRouter = this.router;
     this.appRouter.events.subscribe({
@@ -77,6 +81,20 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.tryAutoLogin();
+  }
+
+  ngAfterViewInit(): void {
+    this.spinnerService.httpProgress().subscribe((status: boolean) => {
+      if (status) {
+        AppComponent.showSpinner = true;
+      } else {
+        AppComponent.showSpinner = false;
+      }
+    });
+  }
+
+  ngAfterContentChecked(): void {
+    this.cdref.detectChanges();
   }
 
   goToAccountPage(): void {
@@ -248,6 +266,14 @@ export class AppComponent implements OnInit {
 
   set registerPopupDisplayState(value) {
     AppComponent.showRegisterPopup = value
+  }
+
+  get spinnerDisplayState() {
+    return AppComponent.showSpinner;
+  }
+
+  set spinnerDisplayState(value) {
+    AppComponent.showSpinner = value;
   }
 
 }
