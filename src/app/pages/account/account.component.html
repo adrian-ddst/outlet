@@ -1,0 +1,150 @@
+<div class="account-page-container">
+    <div class="account-panel">
+        <h1 class="welcome-msg">Hey, {{user?.firstName}}</h1>
+        <div class="row">
+            <div class="col-6">
+                <div class="intro">This is your account page. Here you can manage your personal data, your active and
+                    fulfilled orders, or check our suggestions for you.</div>
+            </div>
+            <div class="col-6">
+                <div class="logo">THE&nbsp;<span class="red-text">OUTLET</span></div>
+            </div>
+        </div>
+        <div class="account-widgets-container">
+            <div class="row widgets-row multi">
+                <div class="col-4 card personal-data">
+                    Personal Data
+                    <div class="personal-data-view">
+                        <div class="actions">
+                            <button type="button" class="btn btn-secondary view" [disabled]="isViewMode"
+                                (click)="isViewMode = true; isEditMode = false">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary edit" [disabled]="isEditMode"
+                                (click)="isViewMode = false; isEditMode = true">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                            <button type="button" class="btn btn-secondary save" [disabled]="isViewMode" (click)="saveData()">
+                                Save
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label for="firstNameAccountInput">First Name</label>
+                            <input type="text" class="form-control" id="firstNameAccountInput"
+                                [(ngModel)]="user!.firstName" placeholder="User First Name" [readonly]="isViewMode">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastNameAccountInput">Last Name</label>
+                            <input type="text" class="form-control" id="lastNameAccountInput"
+                                [(ngModel)]="user!.lastName" placeholder="User Last Name" [readonly]="isViewMode">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailAccountInput">E-Mail Address</label>
+                            <input type="text" class="form-control" id="emailAccountInput" placeholder="User Email"
+                                [(ngModel)]="user!.email" [readonly]="isViewMode">
+                        </div>
+                        <div class="form-group">
+                            <label for="currentPasswordAccountInput">Current Password</label>
+                            <input type="text" class="form-control" id="currentPasswordAccountInput"
+                                [(ngModel)]="currentPass" placeholder="Enter Your Current Password"
+                                [readonly]="isViewMode">
+                        </div>
+                        <div class="form-group">
+                            <label for="newPasswordAccountInput">New Password</label>
+                            <input type="text" class="form-control" id="newPasswordAccountInput" [(ngModel)]="newPass"
+                                placeholder="Enter Your Newly Desired Password" [readonly]="isViewMode">
+                        </div>
+                        <div class="info-text">
+                            * Please note that for any change you wish to make to your personal data, you must provide
+                            your current password for security reasons.
+                        </div>
+                        <div class="info-text">
+                            * For password changing requests, you must provide both the current password and the newly
+                            desired one.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7 others">
+                    <div class="row widgets-row multi">
+                        <div class="col-4 card expenses">
+                            Total Expenses
+                            <div class="chart-container">
+                                <canvas id="MyChart">{{ expensesChart }}</canvas>
+                            </div>
+                        </div>
+                        <div class="col-7 card">
+                            Suggestions
+                        </div>
+                    </div>
+                    <div class="row widgets-row orders">
+                        <div class="col-11 card orders-card">
+                            Orders
+                            <div class="orders-table">
+                                <table class="table">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">#Order No.</th>
+                                            <th scope="col">Order Placement Date</th>
+                                            <th scope="col">Order Total</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th scope="row">1874</th>
+                                            <td>16/04/2023 16:45</td>
+                                            <td>1,203$</td>
+                                            <td>Fulfilled</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1875</th>
+                                            <td>23/04/2023 10:04</td>
+                                            <td>607$</td>
+                                            <td>Fulfilled</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1876</th>
+                                            <td>29/04/2023 22:13</td>
+                                            <td>908$</td>
+                                            <td>In Progress</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1877</th>
+                                            <td>29/04/2023 21:25</td>
+                                            <td>1,873$</td>
+                                            <td>In Progress</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1878</th>
+                                            <td>29/04/2023 21:33</td>
+                                            <td>1,302$</td>
+                                            <td>In Progress</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1879</th>
+                                            <td>30/04/2023 14:25</td>
+                                            <td>104$</td>
+                                            <td>In Progress</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1880</th>
+                                            <td>30/04/2023 15:17</td>
+                                            <td>1,504$</td>
+                                            <td>In Progress</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">1881</th>
+                                            <td>31/04/2023 16:23</td>
+                                            <td>93$</td>
+                                            <td>In Progress</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

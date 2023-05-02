@@ -12,8 +12,9 @@
     <span class="red-text" *ngIf="isLoggedIn">&nbsp;{{'(' + username + ')'}}</span>
   </div>
   <div class="app-component-actions">
-    <button type="button" *ngIf="isLoggedIn" class="btn btn-primary btn-sm sign-out-btn" (click)="signOut()">Sign
-      Out</button>
+    <button type="button" *ngIf="isLoggedIn" class="btn btn-primary btn-sm sign-out-btn" (click)="signOut()">
+      <i class="bi bi-box-arrow-left"></i>
+    </button>
   </div>
 
   <!-- Debug Buttons -->

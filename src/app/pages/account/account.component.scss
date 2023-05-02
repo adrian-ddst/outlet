@@ -1,0 +1,165 @@
+@import '../../../styles.scss';
+
+.account-page-container {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 3.7rem;
+    display: flex;
+    background: url("../../../assets/bg.jpg") no-repeat;
+    background-size: cover;
+    overflow-y: scroll;
+    padding: 2rem;
+    margin-left: 0;
+    padding-bottom: 4rem;
+    padding-top: 1rem;
+
+    .account-panel {
+        padding: 3rem;
+        background-color: $base-gray;
+        width: 100%;
+        height: 90%;
+        margin-top: 3rem;
+        border-radius: 5px;
+
+        .welcome-msg {
+            color: #fff;
+            font-size: 3rem;
+        }
+
+        .intro {
+            color: #fff;
+            width: 37rem;
+            font-size: 1.2rem;
+        }
+
+        .logo {
+            color: #fff;
+            font-weight: 800;
+            font-size: 3rem;
+            text-shadow: 2px 2px rgba(0, 0, 0, 0.3862745098);
+            position: absolute;
+            top: -5rem;
+            right: 2rem;
+
+            .red-text {
+                color: $base-red;
+            }
+        }
+
+        .account-widgets-container {
+            width: 100%;
+            height: 87%;
+            color: #fff;
+            text-align: center;
+            margin-top: 2rem;
+
+            .widgets-row {
+                display: flex;
+                justify-content: center;
+
+                .personal-data {
+                    height: 50rem;
+                    margin: 0;
+
+                    .personal-data-view {
+                        font-size: 1.2rem;
+                        font-weight: 500;
+                        margin-top: 40px;
+
+                        .actions {
+                            text-align: initial;
+
+                            .view, .edit {
+                                margin-right: 5px;
+                            }
+                        }
+
+                        .form-group {
+                            text-align: initial;
+                            margin-top: 20px;
+                        }
+
+                        .info-text {
+                            text-align: initial;
+                            margin-top: 30px;
+                            font-size: 1rem;
+                        }
+                    }
+                }
+
+                .others {
+                    margin: 0;
+
+                    .expenses {
+                        margin-right: 30px;
+
+                        .chart-container {
+                            margin-top: 10px;
+                        }
+                    }
+
+                    .orders {
+                        margin-left: -25px;
+                        margin-right: -25px;
+                        margin-top: 15px;
+
+                        .orders-card {
+                            height: 28rem;
+                        }
+
+                        .orders-table {
+                            margin-top: 20px;
+                            height: 80%;
+                            overflow-y: scroll;
+                            font-size: 1.2rem;
+                            font-weight: 500;
+
+                            .table {
+                                .thead-dark {
+                                    position: sticky;
+                                    top: -1px;
+
+                                    tr {
+                                        th {
+                                            font-size: 1.2rem !important;
+                                            font-weight: 500 !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            .multi {
+                margin-left: -7px;
+                margin-right: -7px;
+            }
+
+            .card {
+                border-radius: 4px;
+                border: 1px solid $base-gray;
+                background-color: #fff;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                color: black;
+                font-size: 1.5rem;
+                font-weight: 700;
+                margin: 0 4px 16px;
+                padding: 16px;
+                transition: all 0.2s ease-in-out;
+                line-height: 24px;
+                box-shadow: 0 4px 17px rgb(0, 0, 0);
+                height: 20rem;
+            }
+
+            .card {
+                cursor: pointer;
+            }
+
+            .card:hover {
+                transform: translateY(-3px);
+            }
+        }
+    }
+}

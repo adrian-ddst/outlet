@@ -13,6 +13,7 @@ import { SpinnerComponent } from './interceptors/spinner/spinner.component';
 import { SpinnerInterceptor } from './interceptors/SpinnerInterceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { AccountComponent } from './pages/account/account.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ToastrModule } from 'ngx-toastr';
     NotFoundComponent,
     MainPageComponent,
     ChooseOneSpecificComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
