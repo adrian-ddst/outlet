@@ -5,6 +5,7 @@ import { interval, take, tap } from 'rxjs';
 import { User } from './interfaces/userInterface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SpinnerService } from './interceptors/SpinnerService';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -40,7 +41,8 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
     private router: Router,
     private appService: AppService,
     private spinnerService: SpinnerService,
-    private cdref: ChangeDetectorRef
+    private cdref: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {
     this.appRouter = this.router;
     this.appRouter.events.subscribe({
@@ -143,6 +145,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
           componentScope.isLoggedIn = true;
           AppComponent.showLoginPopup = false;
           componentScope.username = user['firstName'];
+          componentScope.showToastrSuccess("You have successfully logged in.");
           componentScope.goToAccountPage();
         },
         error(err) {
@@ -178,6 +181,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
     localStorage.clear();
     this.isLoggedIn = false;
     this.goToHome();
+    this.showToastrWarn("You have signed out.");
   }
 
   register(): void {
@@ -194,11 +198,13 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
         take(7)
       ).subscribe();
     } else {
+      var componentScope = this;
       this.appService.register(this.userForRegister).subscribe({
         next() {
           document.getElementById("errorMsg")!.style.display = "none";
           AppComponent.showRegisterPopup = false;
           AppComponent.showLoginPopup = true;
+          componentScope.showToastrSuccess("You have successfully registered! Now you can log in.");
         },
         error(err) {
           console.error(err);
@@ -309,6 +315,22 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
 
   set spinnerDisplayState(value) {
     AppComponent.showSpinner = value;
+  }
+
+  showToastrSuccess(msg: string): void {
+    this.toastr.success(msg, '', { positionClass: "toast-top-left" });
+  }
+
+  showToastrInfo(msg: string): void {
+    this.toastr.info(msg, '', { positionClass: "toast-top-left" });
+  }
+
+  showToastrWarn(msg: string): void {
+    this.toastr.warning(msg, '', { positionClass: "toast-top-left" });
+  }
+
+  showToastrError(msg: string): void {
+    this.toastr.error(msg, '', { positionClass: "toast-top-left" });
   }
 
 }
