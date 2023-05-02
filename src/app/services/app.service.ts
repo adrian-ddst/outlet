@@ -42,6 +42,13 @@ export class AppService {
     return this.http.post(SERVER_API_URL + "/silentAutoLogin", { token: token }, options);
   }
 
+  register(user: User): Observable<any> {
+    const options: HttpRequestOptions = {
+      observe: 'body',
+      responseType: 'json'
+    };
+    return this.http.post(SERVER_API_URL + "/register", user, options);
+  }
 
   // Debug Get method
   debugGet(): Observable<any> {

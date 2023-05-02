@@ -124,7 +124,7 @@ router.post('/login', async (req, res) => {
 
 router.post('/silentAutoLogin', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    const token = req.body.token; // test
+    const token = req.body.token;
     console.log("Received request to ['/silentAutoLogin'] with an existing token ...");
     try {
         const tokenState = verifyJWT(token);
@@ -137,6 +137,25 @@ router.post('/silentAutoLogin', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
+router.post('/register', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    console.log("Received request to ['/register'] ...");
+    const { firstName, lastName, email, password } = req.body;
+    const newUser = new userModel({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: await bcrypt.hash(password, 10),
+        role: "ROLE_CUSTOMER"
+    });
+    try {
+        const dataToSave = await newUser.save();
+        res.status(200).json(dataToSave)
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+})
 
 
 // Debug GET route

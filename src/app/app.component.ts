@@ -102,6 +102,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
     if (this.isLoggedIn) {
       this.appRouter.navigateByUrl('/account');
     } else {
+      this.clearLoginAndRegisterInputs();
       AppComponent.showLoginPopup = true;
       // highlight "You are not logged in" text ...
       const ticker = interval(110);
@@ -180,7 +181,31 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
   }
 
   register(): void {
-    console.log("register ok");
+    if (this.registerForm?.status === "INVALID") {
+      const ticker = interval(110);
+      ticker.pipe(
+        tap(index => {
+          if (index % 2 === 0) {
+            document.getElementById("errorMsg")!.style.display = "block";
+          } else {
+            document.getElementById("errorMsg")!.style.display = "none";
+          }
+        }),
+        take(7)
+      ).subscribe();
+    } else {
+      this.appService.register(this.userForRegister).subscribe({
+        next() {
+          document.getElementById("errorMsg")!.style.display = "none";
+          AppComponent.showRegisterPopup = false;
+          AppComponent.showLoginPopup = true;
+        },
+        error(err) {
+          console.error(err);
+          document.getElementById("errorMsg")!.style.display = "block";
+        }
+      })
+    }
   }
 
   goToHome(): void {
@@ -251,6 +276,15 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
 
   updateUserForRegisterPassForm() {
     this.userForRegisterPass?.setValue(this.userForRegister.password);
+  }
+
+  clearLoginAndRegisterInputs(): void {
+    this.userForLogin.email = "";
+    this.userForLogin.password = "";
+    this.userForRegister.firstName = "";
+    this.userForRegister.lastName = "";
+    this.userForRegister.email = "";
+    this.userForRegister.password = "";
   }
 
   get loginPopupDisplayState() {
