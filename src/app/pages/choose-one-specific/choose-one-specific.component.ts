@@ -14,7 +14,31 @@ export class ChooseOneSpecificComponent implements OnInit {
   specificCategory: string | null | undefined;
   chooseOneSpecificRouter: Router;
 
-  filterList = ["Filter Type 1", "Filter Type 2", "Filter Type 3", "Filter Type 4", "Filter Type 5"];
+  moneyFilterMin: number | undefined = 825;
+  moneyFilterMax: number | undefined = 3100;
+
+  filterList = [
+    {
+      filterName: "Brand",
+      opts: ["Armani Exchange", "Gucci", "Nike", "Tommy Jeans", "Tommy Hillfiger"]
+    },
+    {
+      filterName: "Size",
+      opts: ["XL", "L", "M", "S", "XS"]
+    },
+    {
+      filterName: "Color",
+      opts: ["Black", "Blue", "White", "Red", "Green"]
+    },
+    {
+      filterName: "Material",
+      opts: ["Leather", "Polymer", "Cotton"]
+    },
+    {
+      filterName: "Type",
+      opts: ["Bomber", "Sports Jacket", "Slim fit", "Loosely Fit"]
+    }
+  ];
   rawItems: ClothItem[] | undefined = [];
   items: ClothItem[] | undefined = [];
 
@@ -46,6 +70,14 @@ export class ChooseOneSpecificComponent implements OnInit {
 
   addToCart(): void {
     console.log("add to cart works!");
+  }
+  
+  registerMinPriceChange(event: any): void {
+    this.moneyFilterMin = parseInt(event.target.value);
+  }
+
+  registerMaxPriceChange(event: any): void {
+    this.moneyFilterMax = parseInt(event.target.value);
   }
 
 }

@@ -2,6 +2,7 @@
 $base-red: #d30000;
 $base-red-dark: #830000;
 $base-gray: #2b2b2b;
+$white: #f4f4f6;
 
 html {
     background-color: $base-gray;
@@ -39,9 +40,9 @@ body {
     border-radius: 2px;
 }
 
-.form-control:focus {
+.form-control:focus, .form-select:focus {
     border: 1px solid $base-gray !important;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px $base-red;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #000;
     outline: 0 none;
 }
 
@@ -108,4 +109,9 @@ body {
 .toast-top-left {
     top: 5rem !important;
     left: 1rem !important;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    background-color: $base-red-dark;
+    -webkit-box-shadow: 2px 3px 2px 0px rgba(0,0,0,0.6);
 }

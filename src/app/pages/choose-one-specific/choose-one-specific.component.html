@@ -4,60 +4,80 @@
             class="red-text">{{category}}</span>
     </div>
     <div class="row filter-items-row">
-        <div class="col-2">
-            <div class="accordion" id="filtersAccordion">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link filters-accordion-button" type="button" data-toggle="collapse"
-                                data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Filters
-                            </button>
-                        </h5>
+        <div class="col-3">
+            <div class="card above">
+                <div class="card-body">
+                    <div class="filter-icon-container">
+                        <i class="bi bi-filter-circle-fill"></i>
                     </div>
-
-                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
-                        data-parent="#filtersAccordion">
-                        <div class="card-body">
-                            <ul>
-                                <li *ngFor="let filter of filterList" class="filter-list-item">
-                                    {{filter}}
-                                    <ul class="subfilter">
-                                        <div>
-                                            <input type="checkbox" id="chx">
-                                            <label for="chx">SubFilter 1</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="chx">
-                                            <label for="chx">SubFilter 2</label>
-                                        </div>
-                                        <div>
-                                            <input type="checkbox" id="chx">
-                                            <label for="chx">SubFilter 3</label>
-                                        </div>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                    <div *ngFor="let filter of filterList" class="filter-list-item">
+                        <label class="filter-label"
+                            for="filter-item- + {{filter.filterName}}">{{filter.filterName}}</label>
+                        <select id="filter-item- + {{filter.filterName}}" class="form-select">
+                            <option selected>Filter by {{filter.filterName}} (All)</option>
+                            <option *ngFor="let opt of filter.opts" value="{{opt}}">{{opt}}</option>
+                        </select>
                     </div>
                 </div>
             </div>
+            <div class="card under">
+                <div class="card-body-under">
+                    <div class="money-filter">
+                        <label class="filter-label">Price Range</label>
+                        <div id="price-range-min" class="range-control-container">
+                            <input type="range" id="range-control" class="form-range"
+                                (change)="registerMinPriceChange($event)" min="1" max="3100">
+                            <label for="range-control" class="range-control-label">Min</label>
+                        </div>
+                        <div class="show-value-container">
+                            <i class="bi bi-coin"></i>
+                            {{moneyFilterMin}}
+                        </div>
+                        <div id="price-range-max" class="range-control-container">
+                            <input type="range" id="range-control" class="form-range"
+                                (change)="registerMaxPriceChange($event)" min="1" max="3100">
+                            <label for="range-control" class="range-control-label">Max</label>
+                        </div>
+                        <div class="show-value-container">
+                            <i class="bi bi-coin"></i>
+                            {{moneyFilterMax}}
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button type="button" class="btn btn-secondary apply">
+                            <i class="bi bi-filter-circle-fill"></i>
+                            Apply Filters
+                        </button>
+                        <button type="button" class="btn btn-secondary reset">
+                            <i class="bi bi-x-circle-fill"></i>
+                            Reset Filters
+                        </button>
+                    </div>
+                    <div class="logo">THE&nbsp;<span class="red-text">OUTLET</span></div>
+                </div>
+            </div>
         </div>
-        <div class="col-10 items-panel row">
-            <div *ngFor="let item of items" class="item-card">
-                <img src="../../../assets/nike.png" class="product-image">
-                <span class="product-name">
-                    <i class="bi bi-cc-circle"></i>
-                    {{item.itemName}}
-                    <br><br>
-                    <span class="red-text">{{item.price}}{{item.currency}}</span>
-                </span>
-                <div>
-                    <button type="button" class="btn btn-secondary add-to-cart-btn" (click)="addToCart()">
-                        <i class="bi bi-cart-check-fill"></i>
-                        &nbsp;
-                        Add to Cart
-                    </button>
+        <div class="col-9 right-col">
+            <div class="card right-whole">
+                <div class="card-body-items-list">
+                    <div class="items-panel row">
+                        <div *ngFor="let item of items" class="item-card">
+                            <img src="../../../assets/nike.png" class="product-image">
+                            <span class="product-name">
+                                <i class="bi bi-cc-circle"></i>
+                                {{item.itemName}}
+                                <br><br>
+                                <span class="red-text">{{item.price}}{{item.currency}}</span>
+                            </span>
+                            <div>
+                                <button type="button" class="btn btn-secondary add-to-cart-btn" (click)="addToCart()">
+                                    <i class="bi bi-cart-check-fill"></i>
+                                    &nbsp;
+                                    Add to Cart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
