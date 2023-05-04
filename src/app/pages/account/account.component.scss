@@ -17,8 +17,8 @@
         padding: 3rem;
         background-color: $base-gray;
         width: 100%;
-        height: 90%;
-        margin-top: 3rem;
+        height: 97%;
+        margin-top: 1.2rem;
         border-radius: 5px;
 
         .welcome-msg {
@@ -48,19 +48,20 @@
 
         .account-widgets-container {
             width: 100%;
-            height: 87%;
+            height: 88.5%;
             color: #fff;
             text-align: center;
             margin-top: 2rem;
             padding-top: 3px;
             overflow-y: auto;
+            overflow-x: hidden;
 
             .widgets-row {
                 display: flex;
                 justify-content: center;
 
                 .personal-data {
-                    height: 50rem;
+                    height: 46.8rem;
                     margin: 0;
 
                     .personal-data-view {
@@ -106,7 +107,7 @@
                         margin-top: 15px;
 
                         .orders-card {
-                            height: 28rem;
+                            height: 24.8rem;
                         }
 
                         .orders-table {

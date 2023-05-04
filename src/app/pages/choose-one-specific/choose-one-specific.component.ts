@@ -33,10 +33,6 @@ export class ChooseOneSpecificComponent implements OnInit {
     {
       filterName: "Material",
       opts: ["Leather", "Polymer", "Cotton"]
-    },
-    {
-      filterName: "Type",
-      opts: ["Bomber", "Sports Jacket", "Slim fit", "Loosely Fit"]
     }
   ];
   rawItems: ClothItem[] | undefined = [];
