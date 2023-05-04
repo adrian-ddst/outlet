@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
 import { AppService } from 'src/app/services/app.service';
 
@@ -13,15 +13,12 @@ export class ChooseOneComponent implements OnInit {
   clothCategories: string[] | [] | undefined;
   isMan = true;
   isWoman = false;
-  chooseOneRouter: Router;
 
   constructor(
+    public router: Router,
     private route: ActivatedRoute,
-    private router: Router,
     private appService: AppService
-  ) {
-    this.chooseOneRouter = this.router;
-  }
+  ) { }
 
   ngOnInit(): void {
     this.appService.getCategories().pipe(
@@ -46,6 +43,6 @@ export class ChooseOneComponent implements OnInit {
   }
 
   navigateTo(specificCategory: string): void {
-    this.chooseOneRouter.navigateByUrl("/choose-one/" + this.category + "/specific/" + specificCategory);
+    this.router.navigateByUrl("/choose-one/" + this.category?.toLowerCase() + "/specific/" + specificCategory.toLowerCase());
   }
 }

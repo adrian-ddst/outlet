@@ -1,0 +1,59 @@
+<div class="product-page">
+    <div class="product-container">
+        <div class="row product-container-row">
+            <div class="col-6 image-container">
+                <img src="../../../assets/nike.png" class="product-image">
+            </div>
+            <div class="col-6 data-container">
+                <div class="title">
+                    <i class="bi bi-cc-circle"></i>
+                    &nbsp;
+                    {{product?.itemName}}
+                </div>
+                <div class="description mx-5">
+                    It is a long established fact that a reader will be distracted by the readable content of a page
+                    when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal
+                    distribution of letters, as opposed to using 'Content here, content here', making it look like
+                    readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their
+                    default model text, and a search for 'lorem ipsum' will uncover many web sites still in their
+                    infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose
+                    (injected humour and the like).
+                </div>
+                <div class="qty-and-price mx-5">
+                    <div class="qty">
+                        <button type="button" class="btn btn-secondary" (click)="minusQty()">
+                            <i class="bi bi-dash"></i>
+                        </button>
+                        <input type="text" class="form-control mx-2 qty-input" disabled [ngModel]="quantity">
+                        <button type="button" class="btn btn-secondary" (click)="plusQty()">
+                            <i class="bi bi-plus"></i>
+                        </button>
+                    </div>
+                    <div class="price">
+                        <i class="bi bi-coin"></i>
+                        {{ calculateProductPrice() }}
+                    </div>
+                </div>
+                <div class="size mx-5 mt-5">
+                    <span class="info">Sizes</span>
+                    <div class="size-list mt-2" *ngIf="torsoSizes.length > 0">
+                        <button type="button" class="btn btn-secondary mr-1" [disabled]="selectedSize == torsoSize"
+                            (click)="selectedSize = torsoSize"
+                            *ngFor="let torsoSize of torsoSizes">{{torsoSize}}</button>
+                    </div>
+                    <div class="size-list mt-2" *ngIf="legSizes.length > 0">
+                        <button type="button" class="btn btn-secondary mr-1" [disabled]="selectedSize == legSize"
+                            (click)="selectedSize = legSize" *ngFor="let legSize of legSizes">{{legSize}}</button>
+                    </div>
+                    <div class="size-list mt-2" *ngIf="shoeSizes.length > 0">
+                        <button type="button" class="btn btn-secondary mr-1" [disabled]="selectedSize == shoeSize"
+                            (click)="selectedSize = shoeSize" *ngFor="let shoeSize of shoeSizes">{{shoeSize}}</button>
+                    </div>
+                </div>
+                <div class="add-to-cart-btn-container mx-5">
+                    <button type="button" class="btn btn-secondary add-to-cart-btn">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

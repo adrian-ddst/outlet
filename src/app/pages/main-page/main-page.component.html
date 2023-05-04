@@ -7,11 +7,11 @@
             WHAT ARE YOU SHOPPING FOR TODAY ?
         </div>
         <div class="card-container-container">
-            <a [routerLink]="['/choose-one', 'men']" routerLinkActive="active" ariaCurrentWhenActive="page"
+            <a (click)="navigateTo('men')" routerLinkActive="active" ariaCurrentWhenActive="page"
                 class="card">
                 <span>MEN'S</span>
             </a>
-            <a [routerLink]="['/choose-one', 'women']" routerLinkActive="active" ariaCurrentWhenActive="page"
+            <a (click)="navigateTo('women')" routerLinkActive="active" ariaCurrentWhenActive="page"
                 class="card">
                 <span>WOMEN'S</span>
             </a>

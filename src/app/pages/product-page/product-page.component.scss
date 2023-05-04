@@ -1,0 +1,103 @@
+@import '../../../styles.scss';
+
+.product-page {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 3.7rem;
+    background: url("../../../assets/bg.jpg") no-repeat;
+    background-size: cover;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+
+    .product-container {
+        background-color: $base-gray;
+        width: calc(100vw - 26rem);
+        height: calc(100vh - 5.2rem);
+        border-radius: 5px;
+        margin-top: 1rem;
+
+        .product-container-row {
+            background-color: $white;
+            padding: 1rem 1.7rem 1rem 1.7rem;
+            margin: 0.7rem;
+            border-radius: 5px;
+            height: calc(100vh - 6.5rem);
+
+            .image-container {
+                background-color: $white;
+                border-radius: 5px;
+                height: calc(100vh - 9rem);
+
+                .product-image {
+                    width: 40rem;
+                }
+            }
+
+            .data-container {
+                background-color: $white;
+                border-radius: 5px;
+                height: calc(100vh - 9rem);
+
+                .title {
+                    font-size: 2rem;
+                    font-weight: 600;
+                    text-align: center;
+                    margin-top: 4rem;
+                }
+
+                .description {
+                    font-size: 1rem;
+                    font-weight: 500;
+                    text-align: justify;
+                    margin-top: 3rem;
+                }
+
+                .qty-and-price {
+                    margin-top: 3rem;
+                    display: flex;
+                    justify-content: space-between;
+
+                    .qty {
+                        display: inline-flex;
+                        font-size: 1.5rem;
+
+                        .qty-input {
+                            width: 5rem;
+                            height: 3.7rem;
+                            text-align: center;
+                            font-size: 1.5rem;
+                        }
+                    }
+
+                    .price {
+                        font-size: 2.5rem;
+                        color: $base-red;
+                    }
+                }
+
+                .size {
+                    .info {
+                        font-size: 1.3rem;
+                        font-weight: 600;
+                    }
+                }
+
+                .add-to-cart-btn-container {
+                    margin-top: 3rem;
+                    display: flex;
+                    justify-content: center;
+
+                    .add-to-cart-btn {
+                        background-color: $base-red;
+                        border-color: $base-red;
+                        font-size: 1.8rem;
+                        width: 100%;
+                        font-weight: 400;
+                        height: 5rem;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -215,10 +215,6 @@ a:hover {
     display: inline-flex;
     cursor: pointer;
 
-    .skip-arrow {
-        margin: 0 8px 4px 0;
-    }
-
     .red-text {
         color: $base-red;
     }
@@ -275,6 +271,7 @@ a:hover {
             line-height: 0.5;
             margin-right: 1.5rem;
             font-size: 2rem;
+            cursor: pointer;
         }
     }
 
@@ -293,6 +290,7 @@ a:hover {
             line-height: 0.5;
             margin-right: 1.5rem;
             font-size: 2rem;
+            cursor: pointer;
         }
     }
 
@@ -312,38 +310,20 @@ a:hover {
 
             .login-btn,
             .register-btn {
-                background-color: $base-gray;
-                border-color: $base-gray;
-                color: #fff;
-                border: 1px solid $base-gray;
-                border-radius: 4px;
                 margin-right: 1rem;
                 margin-top: 0.5rem;
-                transition: all 0.2s ease-in-out;
-                transform: translateY(-3px);
-                box-shadow: 0 4px 17px rgb(0, 0, 0);
-            }
-
-            .register-btn {
-                color: $base-red;
-            }
-
-            .login-btn:hover,
-            .register-btn:hover {
-                color: $base-red;
-            }
-
-            .register-btn:hover {
-                color: #fff;
             }
 
             .error-msg {
                 color: #fff;
                 display: none;
+                margin-top: 4px;
+                max-width: 13rem;
             }
             
             .narrower-err-msg {
                 max-width: 10rem;
+                margin-top: 4px;
             }
 
             .return-link {

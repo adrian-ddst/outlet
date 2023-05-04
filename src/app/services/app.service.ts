@@ -26,6 +26,14 @@ export class AppService {
     return this.http.post(SERVER_API_URL + "/getClothes", null, options);
   }
 
+  getProductByName(productName: string): Observable<any> {
+    const options: HttpRequestOptions = {
+      observe: 'body',
+      responseType: 'json'
+    };
+    return this.http.post(SERVER_API_URL + "/getProductByName", { productName: productName }, options);
+  }
+
   login(user: User): Observable<any> {
     const options: HttpRequestOptions = {
       observe: 'body',

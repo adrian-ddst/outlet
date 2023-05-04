@@ -180,15 +180,18 @@
                     margin-left: 1rem;
                     display: flex;
                     justify-content: space-evenly;
+                    height: 4.5rem;
 
                     .red-text {
                         color: $base-red;
                     }
                 }
 
-                .add-to-cart-btn {
-                    font-size: 1.1rem;
-                    font-weight: 500;
+                .add-to-cart-btn-container {
+                    .add-to-cart-btn {
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                    }
                 }
             }
 

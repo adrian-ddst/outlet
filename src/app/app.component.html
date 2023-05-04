@@ -1,18 +1,20 @@
 <!-- Toolbar -->
 <div class="toolbar" role="banner">
   <div class="return-home" (click)="goToHome()">
-    Return To Homepage
+    <i class="bi bi-house-fill"></i>
+    &nbsp;
+    Return to Homepage
   </div>
   <div class="spacer"></div>
   <div class="skip-to-login" (click)="goToAccountPage()">
-    <span>
-      <img src="../assets/forward-solid.svg" width="15" height="15" class="skip-arrow" />
-    </span>
+    <i class="bi bi-arrow-right"></i>
+    &nbsp;
     Skip directly to Account Page
     <span class="red-text" *ngIf="isLoggedIn">&nbsp;{{'(' + username + ')'}}</span>
   </div>
   <div class="app-component-actions">
-    <button type="button" *ngIf="isLoggedIn" class="btn btn-primary btn-sm sign-out-btn" title="Sign Out" (click)="signOut()">
+    <button type="button" *ngIf="isLoggedIn" class="btn btn-primary btn-sm sign-out-btn" title="Sign Out"
+      (click)="signOut()">
       <i class="bi bi-box-arrow-left"></i>
     </button>
   </div>
@@ -55,11 +57,15 @@
             <small id="passHelp" class="form-text text-muted">Your password is securely encrypted in our system.</small>
           </div>
           <div class="buttons-row">
-            <button type="button" class="btn btn-primary login-btn" (click)="login()">Login</button>
-            <button type="button" class="btn btn-primary register-btn"
-              (click)="registerPopupDisplayState = true">Register</button>
-            <span id="errorMsg" class="error-msg">Something went wrong. Please check your credentials or try again
-              later.</span>
+            <button type="button" class="btn btn-secondary login-btn" (click)="login()">
+              <i class="bi bi-box-arrow-in-right"></i>
+              Login
+            </button>
+            <button type="button" class="btn btn-secondary register-btn" (click)="registerPopupDisplayState = true">
+              <i class="bi bi-plus-circle-fill"></i>
+              Register
+            </button>
+            <span id="errorMsg" class="error-msg">Something went wrong. Please check your credentials.</span>
           </div>
         </form>
       </div>
@@ -99,9 +105,14 @@
             <small id="passHelp" class="form-text text-muted">The password must be at least 8 characters long.</small>
           </div>
           <div class="buttons-row">
-            <span class="return-link" (click)="registerPopupDisplayState = false"><< Back To Login</span>
-            <button type="button" class="btn btn-primary login-btn" (click)="register()">Register</button>
-            <span id="errorMsg" class="error-msg narrower-err-msg">Something went wrong. Please check your data.</span>
+            <span class="return-link" (click)="registerPopupDisplayState = false">
+              << Back To Login</span>
+                <button type="button" class="btn btn-secondary login-btn" (click)="register()">
+                  <i class="bi bi-plus-circle-fill"></i>
+                  Register
+                </button>
+                <span id="errorMsg" class="error-msg narrower-err-msg">Something went wrong. Please check your
+                  data.</span>
           </div>
         </form>
       </div>

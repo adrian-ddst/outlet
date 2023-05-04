@@ -61,7 +61,7 @@
             <div class="card right-whole">
                 <div class="card-body-items-list">
                     <div class="items-panel row">
-                        <div *ngFor="let item of items" class="item-card">
+                        <div *ngFor="let item of items" class="item-card" (click)="navigateTo(item)">
                             <img src="../../../assets/nike.png" class="product-image">
                             <span class="product-name">
                                 <i class="bi bi-cc-circle"></i>
@@ -69,7 +69,7 @@
                                 <br><br>
                                 <span class="red-text">{{item.price}}{{item.currency}}</span>
                             </span>
-                            <div>
+                            <div class="add-to-cart-btn-container">
                                 <button type="button" class="btn btn-secondary add-to-cart-btn" (click)="addToCart()">
                                     <i class="bi bi-cart-check-fill"></i>
                                     &nbsp;

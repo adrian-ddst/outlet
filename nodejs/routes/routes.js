@@ -99,6 +99,20 @@ router.post('/getClothes', async (req, res) => {
     }
 });
 
+router.post('/getProductByName', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    const productName = req.body.productName;
+    console.log("Received request to ['/getProductByName'] ... ");
+    try {
+        console.log(productName);
+        const data = await clothesModel.findOne({ itemName: productName });
+        res.status(200).json(data);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 router.post('/login', async (req, res) => {
     res.set(allowCORS, frontendURL);
     const { email, password } = req.body;
