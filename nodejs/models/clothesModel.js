@@ -20,6 +20,14 @@ const clothesSchema = new mongoose.Schema({
     currency: {
         required: true,
         type: String
+    },
+    description: {
+        required: true,
+        type: String
+    },
+    imageUrl: {
+        required: true,
+        type: String
     }
 })
 

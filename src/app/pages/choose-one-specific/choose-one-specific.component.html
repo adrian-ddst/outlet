@@ -62,7 +62,8 @@
                 <div class="card-body-items-list">
                     <div class="items-panel row">
                         <div *ngFor="let item of items" class="item-card" (click)="navigateTo(item)">
-                            <img src="../../../assets/nike.png" class="product-image">
+                            <img [src]="item.imageUrl" class="product-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
                             <span class="product-name">
                                 <i class="bi bi-cc-circle"></i>
                                 {{item.itemName}}

@@ -3,6 +3,14 @@ require('dotenv').config();
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const cloudinary = require('cloudinary').v2;
+
+// Cloudinary Configuration 
+cloudinary.config({
+    cloud_name: "di2n1y2e6",
+    api_key: "842555218398851",
+    api_secret: "fTOsYEEWukHpEyblxSIPKpseCU8"
+});
 
 const categoriesModel = require('../models/categoriesModel');
 const clothesModel = require('../models/clothesModel');
