@@ -1,79 +1,134 @@
 <div class="choose-one-grid row">
     <div class="category-message">
-        PLEASE CHOOSE YOUR DESIRED <span class="red-text">CATEGORY</span>
+        YOUR TOP <span class="red-text">CATEGORIES</span>
     </div>
 
-    <ng-container *ngFor="let clothCategory of clothCategories">
-        <ng-container [ngSwitch]="clothCategory">
-
-            <ng-container *ngSwitchCase="'jackets'">
-                <div class="card" (click)="navigateTo('jackets')">
-                    <img src="../../../assets/jacket.png" class="any-cloth-img">
-                    Jackets
-                </div>
+    <div class="specific-categories-container">
+        <div class="specific-categories-container-white row">
+            <ng-container *ngFor="let clothCategory of clothCategories">
+                <ng-container [ngSwitch]="clothCategory">
+                    <ng-container *ngSwitchCase="'jackets'">
+                        <div class="card" (click)="navigateTo('jackets')">
+                            <img *ngIf="isMan"
+                                src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683276234/outlet-clothes-images/tommy_frbbmb.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <img *ngIf="isWoman"
+                                src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683287217/outlet-clothes-images/woman-jacket-categ_ld2w6t.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Jackets
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'shoes'">
+                        <div class="card" (click)="navigateTo('shoes')" *ngSwitchCase="'shoes'">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285355/outlet-clothes-images/shoe-adidas_vhlclq.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Shoes
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'jeans'">
+                        <div class="card" *ngIf="isMan" (click)="navigateTo('jeans')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683286786/outlet-clothes-images/jeans-categ-2_txhkj1.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Jeans
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'sports'">
+                        <div class="card" (click)="navigateTo('sports')">
+                            <img *ngIf="isMan"
+                                src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285499/outlet-clothes-images/training-categ_syzoxm.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <img *ngIf="isWoman"
+                                src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683287266/outlet-clothes-images/training-woman-categ_jrijjg.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Sports
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'caps'">
+                        <div class="card" *ngIf="isMan" (click)="navigateTo('caps')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285556/outlet-clothes-images/cap-categ_br0uu2.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Caps
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'sweaters'">
+                        <div class="card" *ngIf="isMan" (click)="navigateTo('sweaters')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285639/outlet-clothes-images/sweater-categ_ectatc.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Sweaters
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'backpacks'">
+                        <div class="card" (click)="navigateTo('backpacks')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285706/outlet-clothes-images/backpack-categ_rjtfw2.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Backpacks
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'dresses'">
+                        <div class="card" *ngIf="isWoman" (click)="navigateTo('dresses')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285906/outlet-clothes-images/dress-categ_p8livn.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Dresses
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'sunglasses'">
+                        <div class="card" (click)="navigateTo('sunglasses')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285912/outlet-clothes-images/sunglasses-categ_z3oszo.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Sunglasses
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'shorts'">
+                        <div class="card" *ngIf="isWoman" (click)="navigateTo('shorts')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285918/outlet-clothes-images/shorts-categ_urrf3r.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Shorts
+                            </div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'accessories'">
+                        <div class="card" *ngIf="isWoman" (click)="navigateTo('accessories')">
+                            <img src="https://res.cloudinary.com/di2n1y2e6/image/upload/v1683285973/outlet-clothes-images/access-categ_dkngza.png"
+                                class="category-image"
+                                onerror="this.onerror=null;this.src='../../../assets/image-not-found.png';">
+                            <div class="category-name">
+                                Accessories
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-container>
             </ng-container>
-            <ng-container *ngSwitchCase="'shoes'">
-                <div class="card" (click)="navigateTo('shoes')" *ngSwitchCase="'shoes'">
-                    <img src="../../../assets/shoes.png" class="any-cloth-img">
-                    Shoes
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'jeans'">
-                <div class="card" *ngIf="isMan" (click)="navigateTo('jeans')">
-                    <img src="../../../assets/jeans.png" class="jeans-img">
-                    Jeans
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'sports'">
-                <div class="card" (click)="navigateTo('sports')">
-                    <img src="../../../assets/sports.png" class="any-cloth-img">
-                    Sports
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'caps'">
-                <div class="card" *ngIf="isMan" (click)="navigateTo('caps')">
-                    <img src="../../../assets/cap.png" class="any-cloth-img">
-                    Caps
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'sweaters'">
-                <div class="card" *ngIf="isMan" (click)="navigateTo('sweaters')">
-                    <img src="../../../assets/hoodie.png" class="sweater-img">
-                    Sweaters
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'backpacks'">
-                <div class="card" (click)="navigateTo('backpacks')">
-                    <img src="../../../assets/backpack.png" class="backpack-img">
-                    Backpacks
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'dresses'">
-                <div class="card" *ngIf="isWoman" (click)="navigateTo('dresses')">
-                    <img src="../../../assets/dress.png" class="dress-img">
-                    Dresses
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'sunglasses'">
-                <div class="card" (click)="navigateTo('sunglasses')">
-                    <img src="../../../assets/sunglasses.png" class="sunglasses-img">
-                    Sunglasses
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'shorts'">
-                <div class="card" *ngIf="isWoman" (click)="navigateTo('shorts')">
-                    <img src="../../../assets/shorts.png" class="shorts-img">
-                    Shorts
-                </div>
-            </ng-container>
-            <ng-container *ngSwitchCase="'accessories'">
-                <div class="card" *ngIf="isWoman" (click)="navigateTo('accessories')">
-                    <img src="../../../assets/accessories.png" class="accessories-img">
-                    Accessories
-                </div>
-            </ng-container>
-
-        </ng-container>
-    </ng-container>
-    
+        </div>
+    </div>
 </div>
