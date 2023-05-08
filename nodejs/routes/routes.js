@@ -177,6 +177,22 @@ router.post('/checkUserRole', async (req, res) => {
     }
 });
 
+router.post('/checkUserTokenSimple', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    const token = req.body.token;
+    console.log("Received request to ['/checkUserTokenSimple'] ...");
+    try {
+        const tokenState = verifyJWT(token);
+        if (tokenState['ok']) {
+            res.status(200).json({});
+        } else {
+            res.status(401).json(tokenState['msg']);
+        }
+    } catch (error) {
+        res.status(401).json({ message: "Bad Token" });
+    }
+});
+
 router.post('/register', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/register'] ...");

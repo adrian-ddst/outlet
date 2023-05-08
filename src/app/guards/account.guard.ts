@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { AppService } from '../services/app.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdminGuard {
+export class AccountGuard {
 
   constructor(
     public router: Router,
@@ -23,11 +23,9 @@ export class AdminGuard {
         this.preventAccessVisually();
         observer.next(false);
       }
-      this.appService.checkUserRole(currentlyLoggedAs.token).subscribe({
-        next(res) {
-          if (res && (res?.role === "ROLE_MASTER_ADMIN" || res?.role === "ROLE_EDITOR")) {
-            observer.next(true);
-          }
+      this.appService.checkUserTokenSimple(currentlyLoggedAs.token).subscribe({
+        next() {
+          observer.next(true);
         },
         error() {
           outerContext.preventAccessVisually();

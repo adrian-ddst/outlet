@@ -8,13 +8,14 @@ import { AccountComponent } from './pages/account/account.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
+import { AccountGuard } from './guards/account.guard';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
   { path: 'choose-one/:category', component: ChooseOneComponent },
   { path: 'choose-one/:category/specific/:specificCategory', component: ChooseOneSpecificComponent },
   { path: 'choose-one/:category/specific/:specificCategory/:productName', component: ProductPageComponent },
-  { path: 'account', component: AccountComponent },
+  { path: 'account', component: AccountComponent, canActivate: [() => inject(AccountGuard).canActivate()] },
   { path: 'admin', component: AdminComponent, canActivate: [() => inject(AdminGuard).canActivate()] },
   // 404 routes
   { path: '**', component: NotFoundComponent }

@@ -58,6 +58,14 @@ export class AppService {
     return this.http.post(SERVER_API_URL + "/checkUserRole", { token: token }, options);
   }
 
+  checkUserTokenSimple(token: String): Observable<any> {
+    const options: HttpRequestOptions = {
+      observe: 'body',
+      responseType: 'json'
+    };
+    return this.http.post(SERVER_API_URL + "/checkUserTokenSimple", { token: token }, options);
+  }
+
   register(user: User): Observable<any> {
     const options: HttpRequestOptions = {
       observe: 'body',
