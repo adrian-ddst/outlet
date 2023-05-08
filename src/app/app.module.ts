@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { AccountComponent } from './pages/account/account.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
+import { AdminComponent } from './pages/admin/admin.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
     ChooseOneSpecificComponent,
     SpinnerComponent,
     AccountComponent,
-    ProductPageComponent
+    ProductPageComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,

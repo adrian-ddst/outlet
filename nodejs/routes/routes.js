@@ -47,9 +47,8 @@ const isAuthorized = (req, res, next) => {
 };
 
 const generateJWT = (user) => {
-    const email = user.email;
     const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: user._id, email: user.email, firstName: user.firstName, lastName: user.lastName, role: user.role },
         process.env.JWT_SECRET,
         {
             expiresIn: "2h",
@@ -112,7 +111,6 @@ router.post('/getProductByName', async (req, res) => {
     const productName = req.body.productName;
     console.log("Received request to ['/getProductByName'] ... ");
     try {
-        console.log(productName);
         const data = await clothesModel.findOne({ itemName: productName });
         res.status(200).json(data);
     }
@@ -133,7 +131,6 @@ router.post('/login', async (req, res) => {
                 email: user.email,
                 firstName: user.firstName,
                 lastName: user.lastName,
-                role: user.role,
                 token: token
             });
         } else {
@@ -150,13 +147,33 @@ router.post('/silentAutoLogin', async (req, res) => {
     console.log("Received request to ['/silentAutoLogin'] with an existing token ...");
     try {
         const tokenState = verifyJWT(token);
+        const userData = jwt.decode(token);
         if (tokenState['ok']) {
-            res.status(200).json({});
+            res.status(200).json({
+                email: userData.email,
+                firstName: userData.firstName,
+                lastName: userData.lastName,
+                token: token
+            });
         } else {
             res.status(401).json(tokenState['msg']);
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+});
+
+router.post('/checkUserRole', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    const token = req.body.token;
+    console.log("Received request to ['/checkUserRole'] ...");
+    try {
+        const userData = jwt.decode(token);
+        res.status(200).json({
+            role: userData.role
+        })
+    } catch (error) {
+        res.status(401).json({ message: "Bad Token" });
     }
 });
 

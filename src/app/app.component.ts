@@ -14,7 +14,6 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked {
   title = 'outlet';
-  appRouter: Router;
   isLoggedIn: boolean = false;
 
   loginForm: FormGroup | undefined;
@@ -38,14 +37,14 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
   static showSpinner: boolean = true;
 
   constructor(
-    private router: Router,
+    public router: Router,
     private appService: AppService,
     private spinnerService: SpinnerService,
     private cdref: ChangeDetectorRef,
     private toastr: ToastrService
   ) {
-    this.appRouter = this.router;
-    this.appRouter.events.subscribe({
+    this.router = this.router;
+    this.router.events.subscribe({
       next(res: any) {
         if (res && res?.url !== "/") {
           AppComponent.showLoginPopup = false;
@@ -102,7 +101,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
 
   goToAccountPage(): void {
     if (this.isLoggedIn) {
-      this.appRouter.navigateByUrl('/account');
+      this.router.navigateByUrl('/account');
     } else {
       this.clearLoginAndRegisterInputs();
       AppComponent.showLoginPopup = true;
@@ -161,10 +160,16 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
     var currentContext = this;
     if (currentlyLoggedAs?.token) {
       this.appService.silentAutoLogin(currentlyLoggedAs.token).subscribe({
-        next() {
-          currentContext.isLoggedIn = true;
-          AppComponent.showLoginPopup = false;
-          currentContext.username = currentlyLoggedAs.firstName;
+        next(userData: any) {
+          if (userData) {
+            currentContext.isLoggedIn = true;
+            AppComponent.showLoginPopup = false;
+            localStorage.setItem("currentlyLoggedAs", JSON.stringify(userData))
+            currentContext.username = userData.firstName;
+          } else {
+            currentContext.isLoggedIn = false;
+            localStorage.clear();
+          }
         },
         error(err) {
           // BE returns 401 for bad token
@@ -172,7 +177,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
             currentContext.isLoggedIn = false;
             localStorage.clear();
           }
-        },
+        }
       })
     }
   }
@@ -215,7 +220,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
   }
 
   goToHome(): void {
-    this.appRouter.navigateByUrl('/');
+    this.router.navigateByUrl('/');
   }
 
 

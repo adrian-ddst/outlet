@@ -1,0 +1,21 @@
+@import '../../../styles.scss';
+
+.admin-page {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 3.7rem;
+    background: url("../../../assets/bg.jpg") no-repeat;
+    background-size: cover;
+    overflow-y: scroll;
+    display: flex;
+    justify-content: center;
+
+    .admin-page-contents-container {
+        width: 80%;
+        height: 70%;
+        background-color: $base-gray;
+        color: #fff;
+        border-radius: 5px;
+        margin: 5rem;
+    }
+}
