@@ -13,7 +13,7 @@
     .product-container {
         background-color: $base-gray;
         width: calc(100vw - 26rem);
-        height: calc(100vh - 5.2rem);
+        height: calc(100vh - 5.5rem);
         border-radius: 5px;
         margin-top: 1rem;
 
@@ -22,15 +22,16 @@
             padding: 1rem 1.7rem 1rem 1.7rem;
             margin: 0.7rem;
             border-radius: 5px;
-            height: calc(100vh - 6.5rem);
+            height: calc(100vh - 6.9rem);
 
             .image-container {
                 background-color: $white;
                 border-radius: 5px;
                 height: calc(100vh - 9rem);
+                text-align: center;
 
                 .product-image {
-                    width: 40rem;
+                    width: 36.5rem;
                 }
             }
 

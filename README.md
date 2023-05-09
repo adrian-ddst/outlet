@@ -10,3 +10,7 @@ Database User
 
     user: adrian
     pass: admin
+
+Initial res
+
+    1920 x 937

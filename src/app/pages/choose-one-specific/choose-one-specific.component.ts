@@ -26,10 +26,6 @@ export class ChooseOneSpecificComponent implements OnInit {
       opts: ["XL", "L", "M", "S", "XS"]
     },
     {
-      filterName: "Color",
-      opts: ["Black", "Blue", "White", "Red", "Green"]
-    },
-    {
       filterName: "Material",
       opts: ["Leather", "Polymer", "Cotton"]
     }
