@@ -27,6 +27,9 @@ export class AdminGuard {
         next(res) {
           if (res && (res?.role === "ROLE_MASTER_ADMIN" || res?.role === "ROLE_EDITOR")) {
             observer.next(true);
+          } else {
+            outerContext.preventAccessVisually();
+            observer.next(false);
           }
         },
         error() {
