@@ -14,6 +14,10 @@ export class AppService {
     private http: HttpClient
   ) { }
 
+  getXSRFToken(): Observable<any> {
+    return this.http.get(SERVER_API_URL + "/get-XSRF-token");
+  }
+
   getCategories(): Observable<any> {
     return this.http.get(SERVER_API_URL + "/getCategories");
   }

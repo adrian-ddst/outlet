@@ -80,7 +80,8 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.getXSRFToken();
     this.tryAutoLogin();
     AppComponent.showSpinner = false;
   }
@@ -97,6 +98,10 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
 
   ngAfterContentChecked(): void {
     this.cdref.detectChanges();
+  }
+
+  async getXSRFToken(): Promise<void> {
+    this.appService.getXSRFToken().subscribe();
   }
 
   goToAccountPage(): void {
