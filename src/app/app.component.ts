@@ -82,8 +82,10 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
 
   async ngOnInit(): Promise<void> {
     await this.getXSRFToken();
-    this.tryAutoLogin();
-    AppComponent.showSpinner = false;
+    setTimeout(() => {
+      this.tryAutoLogin();
+      AppComponent.showSpinner = false;
+    }, 1000);
   }
 
   ngAfterViewInit(): void {
@@ -178,7 +180,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
         },
         error(err) {
           // BE returns 401 for bad token
-          if (err && err['status'] === 401) {
+          if (err && err['status'] === 401 && err?.error?.includes('JWT')) {
             currentContext.isLoggedIn = false;
             localStorage.clear();
           }

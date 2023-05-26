@@ -1,16 +1,15 @@
 require('dotenv').config();
 
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const cloudinary = require('cloudinary').v2;
-var crypto = require('crypto');
+const express =         require('express');
+const jwt =             require('jsonwebtoken');
+const bcrypt =          require('bcryptjs');
+const cloudinary =      require('cloudinary').v2;
 
 // Cloudinary Configuration 
 cloudinary.config({
-    cloud_name: "di2n1y2e6",
-    api_key: "842555218398851",
-    api_secret: "fTOsYEEWukHpEyblxSIPKpseCU8"
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 const clothesModel = require('../models/clothesModel');
@@ -19,13 +18,12 @@ const userModel = require('../models/userModel');
 const categories = process.env.CATEGORIES;
 const jwtSecret = process.env.JWT_SECRET;
 const xsrfSecret = process.env.XSRF_SECRET;
-const xsrfEncodingAlgorithm = 'aes-256-cbc';
-
-var globalIV;
 
 const router = express.Router()
 const frontendURL = 'http://localhost:4200';
 const allowCORS = 'Access-Control-Allow-Origin';
+const XSRFGenericMessage = 'Missing or invalid XSRF Token';
+const JWTGenericMessage = 'Missing or invalid JWT Token';
 
 module.exports = router;
 
@@ -46,16 +44,16 @@ const generateJWT = (user) => {
 
 const verifyJWT = (token) => {
     let state = {
-        ok: false,
-        msg: ""
+        valid: false,
+        message: ""
     };
     jwt.verify(token, jwtSecret, (err) => {
         if (err) {
-            state.ok = false;
-            state.msg = "Bad Token";
+            state.valid = false;
+            state.message = JWTGenericMessage;
         } else {
-            state.ok = true;
-            state.msg = "ok";
+            state.valid = true;
+            state.message = "OK";
         }
     });
     return state;
@@ -63,6 +61,23 @@ const verifyJWT = (token) => {
 
 // -----------------------------------------------------------------------------------
 // -------------------------------------- JWT END ------------------------------------
+// -----------------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------------
+// --------------------------------- XSRF PROTECTION ---------------------------------
+// -----------------------------------------------------------------------------------
+
+const reqFromSameDomain = async (request) => {
+    if (!request || !request?.session?.id || !request?.headers || !request?.headers['x-xsrf-token']) {
+        return false;
+    }
+    if (await bcrypt.compare((request.session.id + '.' + xsrfSecret), request.headers['x-xsrf-token'])) {
+        return true;
+    }
+}
+
+// -----------------------------------------------------------------------------------
+// ------------------------------  XSRF PROTECTION END -------------------------------
 // -----------------------------------------------------------------------------------
 
 
@@ -78,7 +93,6 @@ router.get('/get-XSRF-token', async (req, res) => {
         res.cookie('XSRF-TOKEN', xsrf);
         res.status(200).json({});
     } catch (err) {
-        console.log(err);
         res.status(500).json(err);
     }
 });
@@ -143,18 +157,18 @@ router.post('/login', async (req, res) => {
 
 router.post('/silentAutoLogin', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    const token = req.body.token;
     console.log("Received request to ['/silentAutoLogin'] with an existing token ...");
 
-    console.log('current sessionId -> ', req.session.id);
-    console.log('received XSRF token => ', req.headers['x-xsrf-token']);
-
-    console.log(await bcrypt.compare('JAcTjC3ZR2FoOrptDWOShL-mle6R5Uwq' + '.' + xsrfSecret, '$2a$10$tZyjC2gcR7irsDvSI39Y7uldn1DT5SjbHfWe2SiwkXxp0fKkR7trm'));
-
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage});
+        return;
+    }
+    
+    const token = req.body.token;
     try {
-        const tokenState = verifyJWT(token);
+        const jwtTokenState = verifyJWT(token);
         const userData = jwt.decode(token);
-        if (tokenState['ok']) {
+        if (jwtTokenState['valid']) {
             res.status(200).json({
                 email: userData.email,
                 firstName: userData.firstName,
@@ -162,7 +176,7 @@ router.post('/silentAutoLogin', async (req, res) => {
                 token: token
             });
         } else {
-            res.status(401).json(tokenState['msg']);
+            res.status(401).json(jwtTokenState['message']);
         }
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -188,11 +202,11 @@ router.post('/checkUserTokenSimple', async (req, res) => {
     const token = req.body.token;
     console.log("Received request to ['/checkUserTokenSimple'] ...");
     try {
-        const tokenState = verifyJWT(token);
-        if (tokenState['ok']) {
+        const jwtTokenState = verifyJWT(token);
+        if (jwtTokenState['valid']) {
             res.status(200).json({});
         } else {
-            res.status(401).json(tokenState['msg']);
+            res.status(401).json(jwtTokenState['message']);
         }
     } catch (error) {
         res.status(401).json({ message: "Bad Token" });
