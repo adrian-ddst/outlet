@@ -50,7 +50,7 @@
                                         <th scope="col">Category</th>
                                         <th scope="col">Product Name</th>
                                         <th scope="col">Product Price</th>
-                                        <th scope="col">Description</th>
+                                        <th scope="col">Image URL</th>
                                         <th scope="col" class="actions-th">Actions</th>
                                     </tr>
                                 </thead>
@@ -59,7 +59,7 @@
                                         <td>{{item.genderName}}</td>
                                         <td>{{item.categoryName}}</td>
                                         <td class="item-name">{{item.itemName}}</td>
-                                        <td class="item-price">{{item.price}}</td>
+                                        <td class="item-price">{{item.price}}$</td>
                                         <td class="item-image-url" (click)="goToCloudinary(item.imageUrl!)">
                                             {{item.imageUrl}}</td>
                                         <td class="item-actions">
