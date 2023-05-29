@@ -10,7 +10,7 @@ const session =         require('express-session');
 
 const limiter = rateLimit({
     windowMs: 10 * 60 * 1000, // 10 minutes
-    max: 75 // Limit each IP to X requests
+    max: 500 // Limit each IP to X requests
 })
 
 const mongoString = process.env.DATABASE_URL;

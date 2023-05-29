@@ -15,12 +15,15 @@ export class AdminComponent implements OnInit {
   salesChart: any;
   productsTableData: ClothItem[] = [];
   user: User | undefined;
+  currentSection: 'widgets' | 'ordersMgmt' | 'addNew';
 
   constructor(
     private toastr: ToastrService,
     private appService: AppService,
     public router: Router
-  ) { }
+  ) {
+    this.currentSection = 'widgets';
+  }
 
   ngOnInit(): void {
     this.createChart();
@@ -29,36 +32,38 @@ export class AdminComponent implements OnInit {
   }
 
   createChart() {
-    this.salesChart = new Chart("SalesChart", {
-      type: 'bar',
-      data: {
-        labels: ['Jackets', 'Shoes', 'Sunglasses', 'Jeans', 'Sports', 'Caps', 'Sweaters', 'Backpacks', 'Dresses', 'Shorts', 'Accessories'],
-        datasets: [{
-          data: [500, 340, 200, 30, 45, 15, 160, 89, 400, 95, 50],
-          backgroundColor: [
-            '#740000',
-            '#00743e',
-            '#574036',
-            '#0000ff',
-            '#64005f',
-            '#00b1c9',
-            '#000000',
-            '#ad6a6a',
-            '#e96b22',
-            '#331a77',
-            '#c29d22'
-          ]
-        }]
-      },
-      options: {
-        aspectRatio: 1.25,
-        plugins: {
-          legend: {
-            display: false
+    setTimeout(() => {
+      this.salesChart = new Chart("SalesChart", {
+        type: 'bar',
+        data: {
+          labels: ['Jackets', 'Shoes', 'Sunglasses', 'Jeans', 'Sports', 'Caps', 'Sweaters', 'Backpacks', 'Dresses', 'Shorts', 'Accessories'],
+          datasets: [{
+            data: [500, 340, 200, 30, 45, 15, 160, 89, 400, 95, 50],
+            backgroundColor: [
+              '#740000',
+              '#00743e',
+              '#574036',
+              '#0000ff',
+              '#64005f',
+              '#00b1c9',
+              '#000000',
+              '#ad6a6a',
+              '#e96b22',
+              '#331a77',
+              '#c29d22'
+            ]
+          }]
+        },
+        options: {
+          aspectRatio: 1.25,
+          plugins: {
+            legend: {
+              display: false
+            }
           }
         }
-      }
-    });
+      });
+    }, 500);
   }
 
   getProductsForTable(): void {
@@ -80,6 +85,20 @@ export class AdminComponent implements OnInit {
   getTimestamp(): string {
     const time = new Date();
     return time.toString();
+  }
+
+  selectFirstOrderAtStart(): void {
+    setTimeout(() => {
+      document.getElementById('orders-table-row-1')!.style.backgroundColor = "#c0c0c0a9";
+    }, 500);
+  }
+
+  selectOrder(index: any): void {
+    // make the rest back white
+    Array.from(document.getElementById('orders-table-body')!.children!).forEach(child => {
+      (child as any)!.style.backgroundColor = "#fff";
+    });
+    document.getElementById('orders-table-row-' + index)!.style.backgroundColor = "#c0c0c0a9";
   }
 
 }

@@ -25,6 +25,16 @@
             margin-top: 1rem;
         }
 
+        .section-title {
+            width: 15rem;
+            font-size: 17px;
+            font-weight: 500;
+            color: #fff;
+            position: fixed;
+            right: 1.5rem;
+            top: 8.3rem;
+        }
+
         .card {
             all: unset;
             border-radius: 4px;
@@ -151,6 +161,10 @@
                         overflow: hidden;
                         overflow-y: scroll;
 
+                        .table {
+                            color: #000;
+                        }
+
                         .table>.thead-dark>tr>th {
                             font-weight: 500 !important;
                         }
@@ -223,6 +237,103 @@
 
                 .info-container:hover {
                     transform: translateY(-3px);
+                }
+            }
+        }
+
+        .orders-mgmt-container {
+
+            .row {
+                margin-left: 17px;
+                margin-right: 15px;
+                margin-top: 0;
+            }
+
+            .orders-table-container {
+                background-color: #fff;
+                border-radius: 4px;
+                height: 44.7rem;
+                box-shadow: 0 4px 17px rgb(0, 0, 0);
+                color: #000;
+                font-size: 1.5rem;
+                font-weight: 700;
+
+                .table-subcontainer {
+                    max-height: 20rem;
+                    overflow: hidden;
+                    overflow-y: scroll;
+                    padding-left: 0.5rem;
+                }
+            }
+
+            .orders-table-container .table {
+                font-size: 15px;
+                font-weight: 500;
+                text-align: left;
+
+                >.thead-dark {
+                    position: sticky;
+                    top: -1px;
+                }
+
+                >tbody>tr {
+                    cursor: pointer;
+                }
+            }
+
+            .orders-table-container .table>.thead-dark>tr>th {
+                font-weight: 500 !important;
+            }
+
+            .selected-order-headings {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .order-details-container {
+                width: 100%;
+                height: 17.5rem;
+
+                .order-products-table {
+                    padding-left: 0.5rem;
+                    width: 35rem;
+                    margin-top: 1.2rem;
+                    max-height: 15.8rem;
+                    overflow: hidden;
+                }
+
+                .order-customer-details {
+                    font-size: 15px;
+                    font-weight: 500;
+                    margin-left: 5rem;
+                    margin-top: 1rem;
+                    max-width: 40rem;
+                }
+
+                .order-actions {
+                    width: 30rem;
+                    margin-left: 13.9rem;
+                    margin-top: 1rem;
+
+                    .fulfill-btn {
+                        >.btn {
+                            width: 10rem;
+                        }
+                    }
+
+                    .refund-btn {
+                        margin-top: 1rem;
+
+                        >.btn {
+                            width: 10rem;
+                        }
+                    }
+
+                    .infos {
+                        font-size: 15px;
+                        font-weight: 500;
+                        margin-top: 1rem;
+                    }
                 }
             }
         }
