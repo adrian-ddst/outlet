@@ -110,7 +110,12 @@ router.get('/getCategories', async (req, res) => {
 router.post('/getClothes', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/getClothes'] ... ");
-    // req.body va avea filtrele
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage});
+        return;
+    }
+
     try {
         const data = await clothesModel.find();
         res.status(200).json(data);
@@ -122,8 +127,14 @@ router.post('/getClothes', async (req, res) => {
 
 router.post('/getProductByName', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    const productName = req.body.productName;
     console.log("Received request to ['/getProductByName'] ... ");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage});
+        return;
+    }
+
+    const productName = req.body.productName;
     try {
         const data = await clothesModel.findOne({ itemName: productName });
         res.status(200).json(data);
@@ -135,8 +146,14 @@ router.post('/getProductByName', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     res.set(allowCORS, frontendURL);
+    console.log("Received request to ['/login'] with credentials USER = ['" + req.body.email + "'] and PASS = ['" + req.body.password + "'] ...");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage});
+        return;
+    }
+
     const { email, password } = req.body;
-    console.log("Received request to ['/login'] with credentials USER = ['" + email + "'] and PASS = ['" + password + "'] ...");
     try {
         const user = await userModel.findOne({ email });
         if (user && (await bcrypt.compare(password, user.password))) {
@@ -185,8 +202,14 @@ router.post('/silentAutoLogin', async (req, res) => {
 
 router.post('/checkUserRole', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    const token = req.body.token;
     console.log("Received request to ['/checkUserRole'] ...");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage});
+        return;
+    }
+
+    const token = req.body.token;
     try {
         const userData = jwt.decode(token);
         res.status(200).json({
@@ -199,8 +222,14 @@ router.post('/checkUserRole', async (req, res) => {
 
 router.post('/checkUserTokenSimple', async (req, res) => {
     res.set(allowCORS, frontendURL);
-    const token = req.body.token;
     console.log("Received request to ['/checkUserTokenSimple'] ...");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage});
+        return;
+    }
+
+    const token = req.body.token;
     try {
         const jwtTokenState = verifyJWT(token);
         if (jwtTokenState['valid']) {
@@ -216,6 +245,12 @@ router.post('/checkUserTokenSimple', async (req, res) => {
 router.post('/register', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/register'] ...");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage});
+        return;
+    }
+
     const { firstName, lastName, email, password } = req.body;
     const newUser = new userModel({
         firstName: firstName,

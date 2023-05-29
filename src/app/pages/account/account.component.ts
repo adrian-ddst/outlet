@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/interfaces/userInterface';
 import { Chart } from 'chart.js/auto';
+import { AppService } from 'src/app/services/app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -17,17 +19,20 @@ export class AccountComponent implements OnInit {
 
   isEditMode = false;
   isViewMode = true;
+  isEditor = true;
 
   constructor(
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private appService: AppService,
+    public router: Router
   ) { }
 
   ngOnInit(): void {
     try {
       this.user = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
       this.createChart();
+      this.checkRole();
     } catch (error) {
-      console.error(error);
       this.toastr.error("You are not logged in!", '', { positionClass: "toast-top-left" });
     }
   }
@@ -35,7 +40,6 @@ export class AccountComponent implements OnInit {
   createChart() {
     this.expensesChart = new Chart("MyChart", {
       type: 'doughnut',
-
       data: {
         labels: ['Jackets', 'Shoes', 'Sunglasses'],
         datasets: [{
@@ -51,8 +55,19 @@ export class AccountComponent implements OnInit {
       options: {
         aspectRatio: 1.25
       }
-
     });
+  }
+
+  checkRole(): void {
+    this.appService.checkUserRole(this.user?.token!).subscribe(res => {
+      if (res?.role) {
+        this.user!.role = res?.role;
+      }
+    });
+  }
+
+  goToAdmin(): void {
+    this.router.navigateByUrl('/admin');
   }
 
   saveData(): void {

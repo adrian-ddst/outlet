@@ -28,7 +28,7 @@
 
         .intro {
             color: #fff;
-            width: 37rem;
+            width: 32rem;
             font-size: 1rem;
         }
 
@@ -43,6 +43,35 @@
 
             .red-text {
                 color: $base-red;
+            }
+        }
+
+        .site-administration-btn {
+            .card {
+                all: unset;
+                border-radius: 4px;
+                border: 1px solid $base-gray;
+                background-color: $base-gray;
+                font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                color: white;
+                font-size: 17px;
+                font-weight: 500;
+                height: 15px;
+                width: auto;
+                margin: 0 8px 16px;
+                padding: 16px;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                transition: all 0.2s ease-in-out;
+                line-height: 24px;
+                box-shadow: 0 4px 17px rgb(0, 0, 0);
+                cursor: pointer;
+            }
+
+            .card:hover {
+                transform: translateY(-3px);
             }
         }
 
@@ -72,7 +101,8 @@
                         .actions {
                             text-align: initial;
 
-                            .view, .edit {
+                            .view,
+                            .edit {
                                 margin-right: 5px;
                             }
                         }

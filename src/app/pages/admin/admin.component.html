@@ -1,5 +1,91 @@
 <div class="admin-page">
     <div class="admin-page-contents-container">
-        <p class="mx-5 my-5">admin page works!</p>
+        <div class="row">
+            <a ariaCurrentWhenActive="page" class="card">
+                <span><i class="bi bi-columns"></i>&nbsp;&nbsp;WIDGETS</span>
+            </a>
+            <a ariaCurrentWhenActive="page" class="card">
+                <span><i class="bi bi-bag-check-fill"></i>&nbsp;&nbsp;ORDERS MANAGEMENT</span>
+            </a>
+            <a ariaCurrentWhenActive="page" class="card">
+                <span><i class="bi bi-plus-lg"></i>&nbsp;&nbsp;ADD NEW PRODUCT</span>
+            </a>
+        </div>
+        <div class="widgets-container">
+            <div class="row">
+                <div class="col-4 chart-col">
+                    <div class="chart-container">
+                        Sales by Category (All Time)
+                        <canvas class="mt-3" id="SalesChart">{{ salesChart }}</canvas>
+                    </div>
+                </div>
+                <div class="col-2 small-widgets-col">
+                    <div class="row">
+                        <div class="money-widget">
+                            Sales Value for This Month
+                            <div class="money-widget-display-value">
+                                <i class="bi bi-coin"></i>&nbsp;9,307
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="registered-customers-widget">
+                            Newly Registered Customers
+                            <div class="registered-customers-display-value">
+                                <i class="bi bi-person-fill-add"></i>&nbsp;87
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 products-col">
+                    <div class="products-container">
+                        Active Products
+                        <div class="products-table">
+                            <table class="table">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Gender</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Product Name</th>
+                                        <th scope="col">Product Price</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col" class="actions-th">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of productsTableData">
+                                        <td>{{item.genderName}}</td>
+                                        <td>{{item.categoryName}}</td>
+                                        <td class="item-name">{{item.itemName}}</td>
+                                        <td class="item-price">{{item.price}}</td>
+                                        <td class="item-image-url" (click)="goToCloudinary(item.imageUrl!)">
+                                            {{item.imageUrl}}</td>
+                                        <td class="item-actions">
+                                            <button type="button" class="btn btn-secondary action-btn mr-1">
+                                                <i class="bi bi-pen-fill"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger action-btn mr-1">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-warning action-btn"
+                                                (click)="goToItem(item)">
+                                                <i class="bi bi-share-fill"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row below-info-row">
+                <div class="col-12 info-container">
+                    Currently Logged As: <strong>{{user?.firstName}}</strong> <span class="mx-3">|</span> Role:
+                    <strong>ROLE_EDITOR</strong> <span class="mx-3">|</span>
+                    Current Timestamp: <strong>{{getTimestamp()}}</strong>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

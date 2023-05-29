@@ -11,11 +11,220 @@
     justify-content: center;
 
     .admin-page-contents-container {
-        width: 80%;
-        height: 70%;
-        background-color: $base-gray;
+        width: 100%;
+        height: 86.7%;
+        background-color: #2b2b2b;
         color: #fff;
         border-radius: 5px;
-        margin: 5rem;
+        margin: 3rem 1rem;
+        overflow: hidden;
+        overflow-y: scroll;
+
+        .row {
+            margin-left: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            all: unset;
+            border-radius: 4px;
+            border: 1px solid $base-gray;
+            background-color: $base-gray;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            color: white;
+            font-size: 17px;
+            font-weight: 500;
+            height: 15px;
+            width: auto;
+            margin: 0 8px 16px;
+            padding: 16px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease-in-out;
+            line-height: 24px;
+            box-shadow: 0 4px 17px rgb(0, 0, 0);
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+        }
+
+        .widgets-container {
+            width: 100%;
+            height: auto;
+            color: black;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+
+            .row {
+                margin-top: 0;
+            }
+
+            .chart-col {
+                padding-left: 9px;
+                padding-right: 0;
+
+                .chart-container {
+                    border-radius: 4px;
+                    background-color: #fff;
+                    width: 100%;
+                    height: 35rem;
+                    box-shadow: 0 4px 17px rgb(0, 0, 0);
+                    transition: all 0.2s ease-in-out;
+                    padding: 16px;
+                    cursor: pointer;
+                }
+
+                .chart-container:hover {
+                    transform: translateY(-3px);
+                }
+            }
+
+            .small-widgets-col {
+                padding-left: 9px;
+                padding-right: 0;
+
+                .money-widget {
+                    border-radius: 4px;
+                    background-color: #fff;
+                    width: 100%;
+                    height: 17rem;
+                    box-shadow: 0 4px 17px rgb(0, 0, 0);
+                    transition: all 0.2s ease-in-out;
+                    padding: 16px;
+                    cursor: pointer;
+
+                    .money-widget-display-value {
+                        margin-top: 2.5rem;
+                        font-size: 3rem;
+                        font-weight: 400;
+                    }
+                }
+
+                .registered-customers-widget {
+                    border-radius: 4px;
+                    background-color: #fff;
+                    width: 100%;
+                    height: 17rem;
+                    box-shadow: 0 4px 17px rgb(0, 0, 0);
+                    transition: all 0.2s ease-in-out;
+                    margin-top: 1rem;
+                    padding: 16px;
+                    cursor: pointer;
+
+                    .registered-customers-display-value {
+                        margin-top: 3rem;
+                        font-size: 3rem;
+                        font-weight: 400;
+                    }
+                }
+
+                .money-widget:hover,
+                .registered-customers-widget:hover {
+                    transform: translateY(-3px);
+                }
+            }
+
+            .products-col {
+                padding-left: 27px;
+                padding-right: 27px;
+
+                .products-container {
+                    border-radius: 4px;
+                    background-color: #fff;
+                    width: 100%;
+                    height: 35rem;
+                    box-shadow: 0 4px 17px rgb(0, 0, 0);
+                    transition: all 0.2s ease-in-out;
+                    padding: 16px;
+
+                    .products-table {
+                        margin-top: 1rem;
+                        font-size: 15px;
+                        font-weight: 500;
+                        text-align: left;
+                        max-height: 475px;
+                        overflow: hidden;
+                        overflow-y: scroll;
+
+                        .table>.thead-dark>tr>th {
+                            font-weight: 500 !important;
+                        }
+
+                        .table>.thead-dark {
+                            position: sticky;
+                            top: -1px;
+                        }
+
+                        .actions-th {
+                            text-align: center;
+                        }
+
+                        .item-name {
+                            max-width: 150px;
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                        }
+
+                        .item-price {
+                            max-width: 50px;
+                        }
+
+                        .item-image-url {
+                            white-space: nowrap;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            max-width: 100px;
+                            color: rgb(0, 102, 255);
+                            text-decoration: underline;
+                            cursor: pointer;
+                        }
+
+                        .item-actions {
+                            width: 200px;
+                            text-align: center;
+
+                            .action-btn {
+                                padding: 0.1rem 0.5rem;
+                            }
+                        }
+                    }
+                }
+
+                .products-container:hover {
+                    transform: translateY(-3px);
+                }
+            }
+
+            .below-info-row {
+                margin-top: 1rem;
+                padding-left: 9px;
+                padding-right: 27px;
+
+                .info-container {
+                    width: 100%;
+                    height: 8.5rem;
+                    border-radius: 4px;
+                    background-color: #fff;
+                    box-shadow: 0 4px 17px rgb(0, 0, 0);
+                    transition: all 0.2s ease-in-out;
+                    text-align: left;
+                    padding-top: 3rem;
+                    font-size: 21px;
+                    font-weight: 500;
+                    padding-left: 3rem;
+                    cursor: pointer;
+                }
+
+                .info-container:hover {
+                    transform: translateY(-3px);
+                }
+            }
+        }
     }
 }

@@ -2,9 +2,15 @@
     <div class="account-panel">
         <h1 class="welcome-msg">Hey, {{user?.firstName}}</h1>
         <div class="row">
-            <div class="col-6">
+            <div class="col-6 d-flex">
                 <div class="intro">This is your account page. Here you can manage your personal data, your active and
                     fulfilled orders, or check our suggestions for you.</div>
+                <div class="site-administration-btn"
+                    *ngIf="user?.role === 'ROLE_EDITOR' || user?.role === 'ROLE_MASTER_ADMIN'">
+                    <a (click)="goToAdmin()" routerLinkActive="active" ariaCurrentWhenActive="page" class="card">
+                        <span><i class="bi bi-box-fill"></i>&nbsp;&nbsp;SITE ADMINISTRATION</span>
+                    </a>
+                </div>
             </div>
             <div class="col-6">
                 <div class="logo">THE&nbsp;<span class="red-text">OUTLET</span></div>
@@ -24,7 +30,8 @@
                                 (click)="isViewMode = false; isEditMode = true">
                                 <i class="bi bi-pencil-square"></i>
                             </button>
-                            <button type="button" class="btn btn-secondary save" [disabled]="isViewMode" (click)="saveData()">
+                            <button type="button" class="btn btn-secondary save" [disabled]="isViewMode"
+                                (click)="saveData()">
                                 Save
                             </button>
                         </div>

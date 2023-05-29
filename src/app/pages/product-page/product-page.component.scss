@@ -16,6 +16,8 @@
         height: calc(100vh - 5.5rem);
         border-radius: 5px;
         margin-top: 1rem;
+        overflow: hidden;
+        overflow-y: scroll;
 
         .product-container-row {
             background-color: $white;
