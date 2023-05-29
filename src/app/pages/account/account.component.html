@@ -97,53 +97,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row">1874</th>
-                                            <td>16/04/2023 16:45</td>
-                                            <td>1,203$</td>
-                                            <td>Fulfilled</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1875</th>
-                                            <td>23/04/2023 10:04</td>
-                                            <td>607$</td>
-                                            <td>Fulfilled</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1876</th>
-                                            <td>29/04/2023 22:13</td>
-                                            <td>908$</td>
-                                            <td>In Progress</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1877</th>
-                                            <td>29/04/2023 21:25</td>
-                                            <td>1,873$</td>
-                                            <td>In Progress</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1878</th>
-                                            <td>29/04/2023 21:33</td>
-                                            <td>1,302$</td>
-                                            <td>In Progress</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1879</th>
-                                            <td>30/04/2023 14:25</td>
-                                            <td>104$</td>
-                                            <td>In Progress</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1880</th>
-                                            <td>30/04/2023 15:17</td>
-                                            <td>1,504$</td>
-                                            <td>In Progress</td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row">1881</th>
-                                            <td>31/04/2023 16:23</td>
-                                            <td>93$</td>
-                                            <td>In Progress</td>
+                                        <tr *ngFor="let orderItem of customerOrders">
+                                            <th scope="row">{{orderItem.orderNumber}}</th>
+                                            <td>{{orderItem.orderDate}}</td>
+                                            <td>{{orderItem.orderTotal}}</td>
+                                            <td>{{orderItem.orderStatus}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

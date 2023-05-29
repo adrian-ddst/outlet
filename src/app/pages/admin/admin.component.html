@@ -4,7 +4,8 @@
             <a ariaCurrentWhenActive="page" class="card" (click)="currentSection = 'widgets'; createChart();">
                 <span><i class="bi bi-columns"></i>&nbsp;&nbsp;WIDGETS</span>
             </a>
-            <a ariaCurrentWhenActive="page" class="card" (click)="currentSection = 'ordersMgmt'; selectFirstOrderAtStart();">
+            <a ariaCurrentWhenActive="page" class="card"
+                (click)="currentSection = 'ordersMgmt'; selectFirstOrderAtStart();">
                 <span><i class="bi bi-bag-check-fill"></i>&nbsp;&nbsp;ORDERS MANAGEMENT</span>
             </a>
             <a ariaCurrentWhenActive="page" class="card" (click)="currentSection = 'addNew'">
@@ -104,61 +105,13 @@
                                 </tr>
                             </thead>
                             <tbody id="orders-table-body">
-                                <tr id="orders-table-row-1" (click)="selectOrder('1')">
-                                    <th scope="row">1874</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>16/04/2023 16:45</td>
-                                    <td>1,203$</td>
-                                    <td>Fulfilled</td>
-                                </tr>
-                                <tr id="orders-table-row-2" (click)="selectOrder('2')">
-                                    <th scope="row">1875</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>23/04/2023 10:04</td>
-                                    <td>607$</td>
-                                    <td>Fulfilled</td>
-                                </tr>
-                                <tr id="orders-table-row-3" (click)="selectOrder('3')">
-                                    <th scope="row">1876</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>29/04/2023 22:13</td>
-                                    <td>908$</td>
-                                    <td>In Progress</td>
-                                </tr>
-                                <tr id="orders-table-row-4" (click)="selectOrder('4')">
-                                    <th scope="row">1877</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>29/04/2023 21:25</td>
-                                    <td>1,873$</td>
-                                    <td>In Progress</td>
-                                </tr>
-                                <tr id="orders-table-row-5" (click)="selectOrder('5')">
-                                    <th scope="row">1878</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>29/04/2023 21:33</td>
-                                    <td>1,302$</td>
-                                    <td>In Progress</td>
-                                </tr>
-                                <tr id="orders-table-row-6" (click)="selectOrder('6')">
-                                    <th scope="row">1879</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>30/04/2023 14:25</td>
-                                    <td>104$</td>
-                                    <td>In Progress</td>
-                                </tr>
-                                <tr id="orders-table-row-7" (click)="selectOrder('7')">
-                                    <th scope="row">1880</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>30/04/2023 15:17</td>
-                                    <td>1,504$</td>
-                                    <td>In Progress</td>
-                                </tr>
-                                <tr id="orders-table-row-8" (click)="selectOrder('8')">
-                                    <th scope="row">1881</th>
-                                    <td>Adrian Tepsan</td>
-                                    <td>31/04/2023 16:23</td>
-                                    <td>93$</td>
-                                    <td>In Progress</td>
+                                <tr *ngFor="let orderItem of ordersTableData, let i = index"
+                                    [id]="'orders-table-row-' + (i + 1)" (click)="selectOrder(i + 1)">
+                                    <th scope="row">{{orderItem.orderNumber}}</th>
+                                    <td>{{orderItem.customerName}}</td>
+                                    <td>{{orderItem.orderDate}}</td>
+                                    <td>{{orderItem.orderTotal}}</td>
+                                    <td>{{orderItem.orderStatus}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -194,23 +147,23 @@
                                 <strong>First Name:</strong>&nbsp;
                                 <span>Adrian</span>
                             </div>
-                            <div>
+                            <div class="mt-1">
                                 <strong>Last Name:</strong>&nbsp;
                                 <span>Adrian Tepsan</span>
                             </div>
-                            <div>
+                            <div class="mt-1">
                                 <strong>Address:</strong>&nbsp;
                                 <span>Str. Marasesti, no. 15, b. 41, entrance B, appartment 20</span>
                             </div>
-                            <div>
+                            <div class="mt-1">
                                 <strong>Phone Number:</strong>&nbsp;
                                 <span>+40 756 699 537</span>
                             </div>
-                            <div>
+                            <div class="mt-1">
                                 <strong>Order Total:</strong>&nbsp;
                                 <span>2,050$</span>
                             </div>
-                            <div>
+                            <div class="mt-1">
                                 <strong>Payment Method:</strong>&nbsp;
                                 <span>VISA</span>
                             </div>
@@ -223,8 +176,11 @@
                                 <button type="button" class="btn btn-danger">Refund Order</button>
                             </div>
                             <div class="infos">
-                                <p>* Fulfilling an order will send a notification with the order details to the DeltaCourier Services, our delivery partner.</p>
-                                <p>* Refunding an order will send a notification with the order details to the client's bank provider in order to cancel the transaction. It may take up to 7 days for the refund to finalize.</p>
+                                <p>* Fulfilling an order will send a notification with the order details to the
+                                    DeltaCourier Services, our delivery partner.</p>
+                                <p>* Refunding an order will send a notification with the order details to the client's
+                                    bank provider in order to cancel the transaction. It may take up to 7 days for the
+                                    refund to finalize.</p>
                             </div>
                         </div>
                     </div>

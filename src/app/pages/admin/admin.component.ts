@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
+import { mockOrders } from 'src/app/constants/mocks.constants';
 import { ClothItem } from 'src/app/interfaces/clothItemInterface';
 import { User } from 'src/app/interfaces/userInterface';
 import { AppService } from 'src/app/services/app.service';
@@ -13,7 +14,13 @@ import { AppService } from 'src/app/services/app.service';
 })
 export class AdminComponent implements OnInit {
   salesChart: any;
+
+  chartLabels = ['Jackets', 'Shoes', 'Sunglasses', 'Jeans', 'Sports', 'Caps', 'Sweaters', 'Backpacks', 'Dresses', 'Shorts', 'Accessories'];
+  chartColors = ['#740000', '#00743e', '#574036', '#0000ff', '#64005f', '#00b1c9', '#000000', '#ad6a6a', '#e96b22', '#331a77', '#c29d22'];
+
   productsTableData: ClothItem[] = [];
+  ordersTableData: any[] = [];
+
   user: User | undefined;
   currentSection: 'widgets' | 'ordersMgmt' | 'addNew';
 
@@ -28,6 +35,7 @@ export class AdminComponent implements OnInit {
   ngOnInit(): void {
     this.createChart();
     this.getProductsForTable();
+    this.getOrdersForTable();
     this.user = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
   }
 
@@ -36,32 +44,13 @@ export class AdminComponent implements OnInit {
       this.salesChart = new Chart("SalesChart", {
         type: 'bar',
         data: {
-          labels: ['Jackets', 'Shoes', 'Sunglasses', 'Jeans', 'Sports', 'Caps', 'Sweaters', 'Backpacks', 'Dresses', 'Shorts', 'Accessories'],
+          labels: this.chartLabels,
           datasets: [{
             data: [500, 340, 200, 30, 45, 15, 160, 89, 400, 95, 50],
-            backgroundColor: [
-              '#740000',
-              '#00743e',
-              '#574036',
-              '#0000ff',
-              '#64005f',
-              '#00b1c9',
-              '#000000',
-              '#ad6a6a',
-              '#e96b22',
-              '#331a77',
-              '#c29d22'
-            ]
+            backgroundColor: this.chartColors
           }]
         },
-        options: {
-          aspectRatio: 1.25,
-          plugins: {
-            legend: {
-              display: false
-            }
-          }
-        }
+        options: { aspectRatio: 1.25, plugins: { legend: { display: false } } }
       });
     }, 500);
   }
@@ -72,6 +61,10 @@ export class AdminComponent implements OnInit {
         this.productsTableData = res;
       }
     })
+  }
+
+  getOrdersForTable(): void {
+    this.ordersTableData = mockOrders;
   }
 
   goToCloudinary(url: string) {

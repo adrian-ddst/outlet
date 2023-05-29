@@ -4,6 +4,7 @@ import { User } from 'src/app/interfaces/userInterface';
 import { Chart } from 'chart.js/auto';
 import { AppService } from 'src/app/services/app.service';
 import { Router } from '@angular/router';
+import { mockOrders } from 'src/app/constants/mocks.constants';
 
 @Component({
   selector: 'app-account',
@@ -16,6 +17,8 @@ export class AccountComponent implements OnInit {
 
   currentPass: string | undefined;
   newPass: string | undefined;
+
+  customerOrders: any[] = [];
 
   isEditMode = false;
   isViewMode = true;
@@ -32,6 +35,7 @@ export class AccountComponent implements OnInit {
       this.user = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
       this.createChart();
       this.checkRole();
+      this.getOrders();
     } catch (error) {
       this.toastr.error("You are not logged in!", '', { positionClass: "toast-top-left" });
     }
@@ -64,6 +68,10 @@ export class AccountComponent implements OnInit {
         this.user!.role = res?.role;
       }
     });
+  }
+
+  getOrders(): void {
+    this.customerOrders = mockOrders;
   }
 
   goToAdmin(): void {
