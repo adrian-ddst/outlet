@@ -1,9 +1,9 @@
 require('dotenv').config();
 
-const express =         require('express');
-const jwt =             require('jsonwebtoken');
-const bcrypt =          require('bcryptjs');
-const cloudinary =      require('cloudinary').v2;
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const cloudinary = require('cloudinary').v2;
 
 // Cloudinary Configuration 
 cloudinary.config({
@@ -112,7 +112,7 @@ router.post('/getClothes', async (req, res) => {
     console.log("Received request to ['/getClothes'] ... ");
 
     if (reqFromSameDomain(req) === false) {
-        res.status(401).json({ message: XSRFGenericMessage});
+        res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
 
@@ -130,7 +130,7 @@ router.post('/getProductByName', async (req, res) => {
     console.log("Received request to ['/getProductByName'] ... ");
 
     if (reqFromSameDomain(req) === false) {
-        res.status(401).json({ message: XSRFGenericMessage});
+        res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
 
@@ -149,7 +149,7 @@ router.post('/login', async (req, res) => {
     console.log("Received request to ['/login'] with credentials USER = ['" + req.body.email + "'] and PASS = ['" + req.body.password + "'] ...");
 
     if (reqFromSameDomain(req) === false) {
-        res.status(401).json({ message: XSRFGenericMessage});
+        res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
 
@@ -177,10 +177,10 @@ router.post('/silentAutoLogin', async (req, res) => {
     console.log("Received request to ['/silentAutoLogin'] with an existing token ...");
 
     if (reqFromSameDomain(req) === false) {
-        res.status(401).json({ message: XSRFGenericMessage});
+        res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
-    
+
     const token = req.body.token;
     try {
         const jwtTokenState = verifyJWT(token);
@@ -205,7 +205,7 @@ router.post('/checkUserRole', async (req, res) => {
     console.log("Received request to ['/checkUserRole'] ...");
 
     if (reqFromSameDomain(req) === false) {
-        res.status(401).json({ message: XSRFGenericMessage});
+        res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
 
@@ -225,7 +225,7 @@ router.post('/checkUserTokenSimple', async (req, res) => {
     console.log("Received request to ['/checkUserTokenSimple'] ...");
 
     if (reqFromSameDomain(req) === false) {
-        res.status(401).json({ message: XSRFGenericMessage});
+        res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
 
@@ -247,7 +247,7 @@ router.post('/register', async (req, res) => {
     console.log("Received request to ['/register'] ...");
 
     if (reqFromSameDomain(req) === false) {
-        res.status(401).json({ message: XSRFGenericMessage});
+        res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
 
@@ -265,7 +265,41 @@ router.post('/register', async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-})
+});
+
+router.post('/addNewProduct', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    console.log("Received request to ['/addNewProduct'] ... ");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage });
+        return;
+    }
+
+    const product = req.body.product;
+    // product.innerProduct
+    // product.image
+    try {
+        const upload = cloudinary.uploader.upload(
+            product.image,
+            {
+                public_id: product.image.slice(-10),
+                folder: "outlet-clothes-images"
+            }
+        );
+        var secureUrl = '';
+        upload.then((data) => {
+            if (data?.secure_url) {
+                secureUrl = data.secure_url;
+                res.status(200).json({ secureUrl: secureUrl });
+            }
+        }).catch((err) => {
+            res.status(500).json(err);
+        });;
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
 
 
 // Debug GET route
@@ -283,25 +317,7 @@ router.get('/debugGet', async (req, res) => {
 router.post('/debugPost', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/debugPost'] ... ");
-
-    // test on how to upload images to cloudinary ...
-    // *[ imageUrl ] este url-ul imaginii (poate fi blob)
-    // *[ {} ] e parametrul "options" al functiei de upload
-    // *[ public_id ] este numele imaginii in cloudinary (va trebui sa fie unic)
-    // *[ folder ] este numele folderului in care il pune, o sa pastram "outlet-clothes-images"
-    // *[ secureUrl ] va fi url-ul la care se gaseste imaginea... va trebui pus in db pe product
     try {
-        const imageUrl = "https://upload.wikimedia.org/wikipedia/commons/a/ae/Olympic_flag.jpg";
-        const upload = cloudinary.uploader.upload(imageUrl, { public_id: "test_flag", folder: "outlet-clothes-images" });
-        var secureUrl = '';
-        upload.then((data) => {
-            if (data?.secure_url) {
-                secureUrl = data.secure_url;
-                console.log("Image upload was successful ... URL: " + secureUrl);
-            }
-        }).catch((err) => {
-            console.log("Image upload has failed ... error: ", err);
-        });;
         res.status(200).json({ message: "ok" });
     } catch (err) {
         res.status(500).json(err);

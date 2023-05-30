@@ -111,6 +111,11 @@ body {
     left: 1rem !important;
 }
 
+.toast-top-right {
+    top: 4.5rem !important;
+    right: 2.5rem !important;
+}
+
 input[type="range"]::-webkit-slider-thumb {
     background-color: $base-red-dark;
     -webkit-box-shadow: 2px 3px 2px 0px rgba(0,0,0,0.6);

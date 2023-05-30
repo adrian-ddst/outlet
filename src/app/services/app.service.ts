@@ -78,6 +78,14 @@ export class AppService {
     return this.http.post(SERVER_API_URL + "/register", user, options);
   }
 
+  addNewProduct(product: any): Observable<any> {
+    const options: HttpRequestOptions = {
+      observe: 'body',
+      responseType: 'json'
+    };
+    return this.http.post(SERVER_API_URL + "/addNewProduct", { product: product }, options);
+  }
+
   // Debug Get method
   debugGet(): Observable<any> {
     return this.http.get(SERVER_API_URL + "/debugGet");

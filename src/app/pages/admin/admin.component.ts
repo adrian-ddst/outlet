@@ -15,7 +15,7 @@ import { AppService } from 'src/app/services/app.service';
 export class AdminComponent implements OnInit {
   salesChart: any;
 
-  chartLabels = ['Jackets', 'Shoes', 'Sunglasses', 'Jeans', 'Sports', 'Caps', 'Sweaters', 'Backpacks', 'Dresses', 'Shorts', 'Accessories'];
+  categories = ['Jackets', 'Shoes', 'Sunglasses', 'Jeans', 'Sports', 'Caps', 'Sweaters', 'Backpacks', 'Dresses', 'Shorts', 'Accessories'];
   chartColors = ['#740000', '#00743e', '#574036', '#0000ff', '#64005f', '#00b1c9', '#000000', '#ad6a6a', '#e96b22', '#331a77', '#c29d22'];
 
   productsTableData: ClothItem[] = [];
@@ -23,6 +23,18 @@ export class AdminComponent implements OnInit {
 
   user: User | undefined;
   currentSection: 'widgets' | 'ordersMgmt' | 'addNew';
+
+  productToAdd = {
+    innerProduct: {
+      itemName: "",
+      genderName: "none",
+      categoryName: "none",
+      description: "",
+      price: "",
+      currency: "$"
+    },
+    image: ""
+  }
 
   constructor(
     private toastr: ToastrService,
@@ -44,7 +56,7 @@ export class AdminComponent implements OnInit {
       this.salesChart = new Chart("SalesChart", {
         type: 'bar',
         data: {
-          labels: this.chartLabels,
+          labels: this.categories,
           datasets: [{
             data: [500, 340, 200, 30, 45, 15, 160, 89, 400, 95, 50],
             backgroundColor: this.chartColors
@@ -82,7 +94,10 @@ export class AdminComponent implements OnInit {
 
   selectFirstOrderAtStart(): void {
     setTimeout(() => {
-      document.getElementById('orders-table-row-1')!.style.backgroundColor = "#c0c0c0a9";
+      const $ordersTableRowFirst = document.getElementById('orders-table-row-1');
+      if ($ordersTableRowFirst) {
+        $ordersTableRowFirst.style.backgroundColor = "#c0c0c0a9";
+      }
     }, 500);
   }
 
@@ -92,6 +107,54 @@ export class AdminComponent implements OnInit {
       (child as any)!.style.backgroundColor = "#fff";
     });
     document.getElementById('orders-table-row-' + index)!.style.backgroundColor = "#c0c0c0a9";
+  }
+
+  uploadProductImage(imageRef: any): void {
+    const file: File = imageRef?.files[0];
+    if (file) {
+      var reader = new FileReader();
+      var imageInBase64;
+      var outerContext = this;
+      reader.readAsDataURL(file as Blob);
+      reader.onloadend = function () {
+        imageInBase64 = reader.result;
+        outerContext.populateImageContainerVisually(imageInBase64);
+        (outerContext.productToAdd.image as any) = imageInBase64;
+      }
+    }
+  }
+
+  populateImageContainerVisually(imageUrl: string | ArrayBuffer | null): void {
+    try {
+      (document.getElementById("productImgOnSide") as any).src = imageUrl;
+    } catch (err) { }
+  }
+
+  submit(): void {
+    console.log(this.productToAdd);
+
+    if (
+      this.productToAdd.innerProduct.itemName?.length > 0 &&
+      this.productToAdd.innerProduct.description?.length > 0 &&
+      this.productToAdd.innerProduct.genderName !== "none" &&
+      this.productToAdd.innerProduct.categoryName !== "none" &&
+      this.productToAdd.innerProduct.price?.toString().length > 0 &&
+      parseFloat(this.productToAdd.innerProduct.price) > 0 &&
+      this.productToAdd.innerProduct.price?.toString().includes('e') === false
+    ) {
+      console.log("ok");
+    } else {
+      this.toastr.error("All the product's fields are mandatory. Please complete them before submitting.", '', { positionClass: "toast-top-right" });
+    }
+
+    return;
+    this.appService.addNewProduct(this.productToAdd).subscribe(res => {
+      console.log(res);
+    });
+  }
+
+  reset(): void {
+    console.log('reset works!');
   }
 
 }

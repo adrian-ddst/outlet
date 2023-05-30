@@ -126,18 +126,21 @@
                             <table class="table">
                                 <thead class="thead-dark">
                                     <tr>
-                                        <th scope="col">Ordered Product</th>
+                                        <th scope="col" style="width: 360px;">Ordered Product</th>
                                         <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
                                     </tr>
                                 </thead>
                                 <tbody id="orders-table-body">
                                     <tr>
                                         <td>Armani Jacket 650</td>
                                         <td>320$</td>
+                                        <td>3</td>
                                     </tr>
                                     <tr>
                                         <td>Test Women Jacket</td>
                                         <td>400$</td>
+                                        <td>2</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -149,7 +152,7 @@
                             </div>
                             <div class="mt-1">
                                 <strong>Last Name:</strong>&nbsp;
-                                <span>Adrian Tepsan</span>
+                                <span>Tepsan</span>
                             </div>
                             <div class="mt-1">
                                 <strong>Address:</strong>&nbsp;
@@ -181,6 +184,91 @@
                                 <p>* Refunding an order will send a notification with the order details to the client's
                                     bank provider in order to cancel the transaction. It may take up to 7 days for the
                                     refund to finalize.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="add-new-container" *ngIf="currentSection === 'addNew'">
+            <div class="row">
+                <div class="new-product-forms-container">
+                    <div class="new-product-actions">
+                        <button type="button" class="btn btn-success submit-product-btn" (click)="submit()">
+                            <i class="bi bi-check2-all"></i>&nbsp;Submit
+                        </button>
+                        <button type="button" class="btn btn-secondary reset-product-btn" (click)="reset()">
+                            <i class="bi bi-x-lg"></i>&nbsp;Reset
+                        </button>
+                    </div>
+                    <div class="new-product-forms">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="product-img-container">
+                                    <img class="product-img" id="productImgOnSide"
+                                        src="../../../assets/image-not-found.png" width="450" height="600">
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="product-details-container">
+                                    <div class="product-name">
+                                        <label for="productName">Product Name</label>
+                                        <input type="text" class="form-control" id="productName"
+                                            [(ngModel)]="productToAdd.innerProduct.itemName" placeholder="Type here...">
+                                    </div>
+                                    <div class="product-image-url mt-3">
+                                        <label for="imageUrl">Upload Image</label>
+                                        <input type="file" accept="image/*" class="form-control" id="imageUrl"
+                                            (change)="uploadProductImage(imageUrl)" #imageUrl
+                                            placeholder="Click here to upload image (supported formats include: JPG, JPEG, PNG)">
+                                    </div>
+                                    <div class="gender-category mt-3">
+                                        <div class="gender">
+                                            <label for="gender">Gender</label>
+                                            <select class="form-select" id="gender"
+                                                [(ngModel)]="productToAdd.innerProduct.genderName">
+                                                <option selected disabled value="none">Select...</option>
+                                                <option value="men">Men</option>
+                                                <option value="women">Women</option>
+                                            </select>
+                                        </div>
+                                        <div class="category">
+                                            <label for="category">Category</label>
+                                            <select class="form-select" id="category"
+                                                [(ngModel)]="productToAdd.innerProduct.categoryName">
+                                                <option selected disabled value="none">Select...</option>
+                                                <option *ngFor="let categ of categories" [value]="categ">{{categ}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="product-description mt-3">
+                                        <label for="productDescription">Product Description</label>
+                                        <textarea class="form-control" id="productDescription" rows="5"
+                                            [(ngModel)]="productToAdd.innerProduct.description"
+                                            style="resize: none;"></textarea>
+                                    </div>
+                                    <div class="price-currency mt-3">
+                                        <div class="price">
+                                            <label for="price">Price</label>
+                                            <input type="number" class="form-control" id="price"
+                                                [(ngModel)]="productToAdd.innerProduct.price"
+                                                placeholder="Type here...">
+                                        </div>
+                                        <div class="currency">
+                                            <label for="currency">Currency</label>
+                                            <input type="text" class="form-control" id="currency" disabled
+                                                [(ngModel)]="productToAdd.innerProduct.currency">
+                                        </div>
+                                    </div>
+                                    <div class="infos">
+                                        <p>* The image container on the left side will be populated once you
+                                            successfully
+                                            upload the product image.</p>
+                                        <p>* Allowed image formats are JPG, JPEG and PNG. The maximum allowed file size
+                                            is 50 MB.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
