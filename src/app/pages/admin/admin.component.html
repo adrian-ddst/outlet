@@ -237,7 +237,7 @@
                                             <select class="form-select" id="category"
                                                 [(ngModel)]="productToAdd.innerProduct.categoryName">
                                                 <option selected disabled value="none">Select...</option>
-                                                <option *ngFor="let categ of categories" [value]="categ">{{categ}}
+                                                <option *ngFor="let categ of categories" [value]="categ.toLowerCase()">{{categ}}
                                                 </option>
                                             </select>
                                         </div>

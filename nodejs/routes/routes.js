@@ -288,10 +288,20 @@ router.post('/addNewProduct', async (req, res) => {
             }
         );
         var secureUrl = '';
-        upload.then((data) => {
+        upload.then(async (data) => {
             if (data?.secure_url) {
                 secureUrl = data.secure_url;
-                res.status(200).json({ secureUrl: secureUrl });
+                const newProduct = new clothesModel({
+                    itemName: product.innerProduct.itemName,
+                    genderName: product.innerProduct.genderName,
+                    categoryName: product.innerProduct.categoryName,
+                    price: product.innerProduct.price.toString(),
+                    currency: product.innerProduct.currency,
+                    description: product.innerProduct.description,
+                    imageUrl: product.image
+                });
+                const dataToSave = await newProduct.save();
+                res.status(200).json(dataToSave);
             }
         }).catch((err) => {
             res.status(500).json(err);

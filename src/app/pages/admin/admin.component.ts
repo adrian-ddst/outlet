@@ -131,30 +131,38 @@ export class AdminComponent implements OnInit {
   }
 
   submit(): void {
-    console.log(this.productToAdd);
+    if (this.allFormsValid()) {
+      this.appService.addNewProduct(this.productToAdd).subscribe(() => {
+        this.toastr.success(`Product "${this.productToAdd.innerProduct.itemName}" has been created successfully!`, '', { positionClass: "toast-top-right" });
+        this.reset();
+      });
+    } else {
+      this.toastr.error("All the product's fields are mandatory. Please complete and validate them before submitting.", '', { positionClass: "toast-top-right" });
+    }
+  }
 
-    if (
-      this.productToAdd.innerProduct.itemName?.length > 0 &&
+  allFormsValid(): boolean {
+    const productImg = (document.getElementById("imageUrl") as any)?.value;
+    return this.productToAdd.innerProduct.itemName?.length > 0 &&
       this.productToAdd.innerProduct.description?.length > 0 &&
       this.productToAdd.innerProduct.genderName !== "none" &&
       this.productToAdd.innerProduct.categoryName !== "none" &&
       this.productToAdd.innerProduct.price?.toString().length > 0 &&
       parseFloat(this.productToAdd.innerProduct.price) > 0 &&
-      this.productToAdd.innerProduct.price?.toString().includes('e') === false
-    ) {
-      console.log("ok");
-    } else {
-      this.toastr.error("All the product's fields are mandatory. Please complete them before submitting.", '', { positionClass: "toast-top-right" });
-    }
-
-    return;
-    this.appService.addNewProduct(this.productToAdd).subscribe(res => {
-      console.log(res);
-    });
+      this.productToAdd.innerProduct.price?.toString().includes('e') === false &&
+      productImg?.length > 0;
   }
 
   reset(): void {
-    console.log('reset works!');
+    this.populateImageContainerVisually("../../../assets/image-not-found.png");
+    (document.getElementById("imageUrl") as any).value = ""
+    this.productToAdd.image = "";
+    this.productToAdd.innerProduct.itemName = "";
+    this.productToAdd.innerProduct.genderName = "none";
+    this.productToAdd.innerProduct.categoryName = "none";
+    this.productToAdd.innerProduct.description = "";
+    this.productToAdd.innerProduct.price = "";
+    this.productToAdd.innerProduct.currency = "$";
   }
 
 }
