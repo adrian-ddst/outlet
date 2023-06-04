@@ -17,6 +17,7 @@ import { AccountComponent } from './pages/account/account.component';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { XsrfInterceptor } from './interceptors/XsrfInterceptor';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { XsrfInterceptor } from './interceptors/XsrfInterceptor';
     SpinnerComponent,
     AccountComponent,
     ProductPageComponent,
-    AdminComponent
+    AdminComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,

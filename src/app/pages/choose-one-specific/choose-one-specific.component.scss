@@ -99,7 +99,7 @@
                     position: absolute;
                     bottom: 0.7rem;
                     left: 1rem;
-        
+
                     .red-text {
                         color: $base-red;
                     }
@@ -172,6 +172,7 @@
                 margin-top: 1.5rem;
                 margin-bottom: 3rem;
                 box-shadow: 0 4px 17px rgb(0, 0, 0);
+                position: relative;
 
                 .product-image {
                     width: 18rem;
@@ -189,6 +190,10 @@
                 }
 
                 .add-to-cart-btn-container {
+                    position: absolute;
+                    bottom: 1.5rem;
+                    left: 30%;
+
                     .add-to-cart-btn {
                         font-size: 1.1rem;
                         font-weight: 500;

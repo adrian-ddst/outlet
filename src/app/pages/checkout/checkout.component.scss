@@ -1,0 +1,141 @@
+@import '../../../styles.scss';
+
+.checkout-page-container {
+    width: 100vw;
+    height: 100vh;
+    margin-top: 3.3rem;
+    display: flex;
+    background: url("../../../assets/bg.jpg") no-repeat;
+    background-size: cover;
+
+    .checkout {
+        width: 100%;
+        height: 87%;
+        margin-left: 3rem;
+        margin-right: 3rem;
+        margin-top: 3rem;
+        border-radius: 4px;
+        background-color: #2b2b2b;
+
+        .row {
+            background-color: #fff;
+            border-radius: 4px;
+            margin-left: 18px;
+            margin-right: 18px;
+            margin-top: 18px;
+            box-shadow: 0 4px 17px rgb(0, 0, 0);
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+
+        .row:hover {
+            transform: translateY(-3px);
+        }
+
+        .stepper {
+            height: 12rem;
+            display: flex;
+            justify-content: space-evenly;
+            padding-top: 2rem;
+
+            .separator {
+                border-bottom: 3px solid #000;
+                width: 10rem;
+                height: 3.5rem;
+            }
+
+            .big-heading {
+                font-size: 5.5rem;
+                color: #000;
+                display: grid;
+                text-align: center;
+
+                .stepper-step {
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .details {
+            height: 35.7rem;
+            position: relative;
+
+            .products-table {
+                margin-top: 9px;
+                font-size: 15px;
+                font-weight: 500;
+                overflow-y: scroll;
+                max-height: 240px;
+
+                .table>.thead-dark>tr>th {
+                    font-weight: 500 !important;
+                }
+
+                .product-url {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 100px;
+                    color: rgb(0, 102, 255);
+                    text-decoration: underline;
+                    cursor: pointer;
+                }
+            }
+
+            .delivery-details {
+                position: absolute;
+                font-weight: 600;
+                width: 100%;
+                padding-right: 27px;
+                bottom: 27px;
+
+                input {
+                    font-size: 14px;
+                }
+
+                .delivery-address>div {
+                    width: 33.3%;
+                }
+
+                .row {
+                    width: 15rem;
+                    margin-left: 43%;
+                    transition: none;
+                    box-shadow: none;
+                }
+
+                .row:hover {
+                    transform: none;
+                }
+
+                .checkout-any-btn {
+                    font-size: 15px;
+                }
+            }
+
+            .account-info-bad,
+            .account-info-ok,
+            .payment-info,
+            .confirmation-info {
+                margin-top: 10%;
+                text-align: center;
+                margin-left: 12rem;
+                margin-right: 12rem;
+            }
+
+            .continue-with-account,
+            .pay-now,
+            .return-home {
+                position: absolute;
+                width: 100%;
+                padding-right: 27px;
+                bottom: 27px;
+
+                button {
+                    width: 15rem;
+                }
+            }
+        }
+    }
+}

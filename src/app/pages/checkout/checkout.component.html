@@ -1,0 +1,135 @@
+<div class="checkout-page-container">
+    <div class="checkout">
+        <div class="row">
+            <div class="stepper">
+                <h1 class="big-heading" id="orderDetailsStep">
+                    <i class="bi bi-body-text"></i><span class="stepper-step">Order Details</span>
+                </h1>
+                <div class="separator"></div>
+                <h1 class="big-heading" id="accountStep">
+                    <i class="bi bi-person-fill"></i><span class="stepper-step">Account</span>
+                </h1>
+                <div class="separator"></div>
+                <h1 class="big-heading" id="paymentStep">
+                    <i class="bi bi-credit-card-fill"></i><span class="stepper-step">Payment</span>
+                </h1>
+                <div class="separator"></div>
+                <h1 class="big-heading" id="confirmationStep">
+                    <i class="bi bi-truck"></i><span class="stepper-step">Confirmation</span>
+                </h1>
+            </div>
+        </div>
+        <ng-container *ngIf="view === 'orderDetailsStep'">
+            <div class="row">
+                <div class="details">
+                    <div class="products-table">
+                        <table class="table">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Ordered Product</th>
+                                    <th scope="col">Product Page</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-table-body">
+                                <tr *ngFor="let orderItem of orderItems">
+                                    <td>{{orderItem.product.itemName}}</td>
+                                    <td class="product-url">Go To Product Page</td>
+                                    <td>{{orderItem.qty}}</td>
+                                    <td>{{orderItem.product.price}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="delivery-details">
+                        <div class="delivery-company">
+                            <label for="deliveryCompany">Delivery Company</label>
+                            <input type="text" class="form-control" id="deliveryCompany" disabled
+                                value="Delta Courier Services S.R.L.">
+                        </div>
+                        <div class="delivery-address mt-2 d-flex">
+                            <div>
+                                <label for="deliveryAddress">Delivery Address</label>
+                                <input type="text" class="form-control" id="deliveryAddress"
+                                    [(ngModel)]="deliveryOptions.address" placeholder="Type here...">
+                            </div>
+                            <div class="ml-2">
+                                <label for="country">Country</label>
+                                <input type="text" class="form-control" id="country" disabled
+                                    [(ngModel)]="deliveryOptions.country">
+                            </div>
+                            <div class="ml-2">
+                                <label for="city">City</label>
+                                <input type="text" class="form-control" id="city" [(ngModel)]="deliveryOptions.city"
+                                    placeholder="Type here...">
+                            </div>
+                        </div>
+                        <div class="delivery-phone mt-2">
+                            <label for="deliveryPhone mt-2">Contact Phone Number</label>
+                            <input type="number" class="form-control" id="deliveryPhone"
+                                [(ngModel)]="deliveryOptions.phone" placeholder="Type here...">
+                        </div>
+                        <div class="row">
+                            <button type="button" class="btn btn-success checkout-any-btn"
+                                (click)="submitOrderDetails()" [disabled]="cartStateOk() === false">
+                                <i class="bi bi-check2-all"></i>&nbsp;Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="view === 'accountStep'">
+            <div class="row">
+                <div class="details d-flex-justify-center">
+                    <div class="account-info-bad" *ngIf="!evalUser()">
+                        <h1>Before continuing, please log-in / register and return to this page.</h1>
+                    </div>
+                    <div class="account-info-ok" *ngIf="evalUser()">
+                        <h1>You are logged in as: <span class="red-text">{{user?.firstName}}</span>. Proceed ?</h1>
+                    </div>
+                    <div class="continue-with-account d-flex-justify-center" *ngIf="evalUser()">
+                        <button type="button" class="btn btn-success checkout-any-btn"
+                            (click)="switchView('paymentStep')">
+                            <i class="bi bi-check2-all"></i>&nbsp;OK
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="view === 'paymentStep'">
+            <div class="row">
+                <div class="details d-flex-justify-center">
+                    <div class="payment-info">
+                        <h2>Our payments are handled by an external provider. Please click the below button to be
+                            redirected to the payment process. You will be automatically returned here afterwards.</h2>
+                    </div>
+                    <div class="pay-now d-flex-justify-center">
+                        <button type="button" class="btn btn-danger checkout-any-btn"
+                            (click)="switchView('confirmationStep', true)">
+                            <i class="bi bi-check2-all"></i>&nbsp;Pay Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="view === 'confirmationStep'">
+            <div class="row">
+                <div class="details d-flex-justify-center">
+                    <div class="confirmation-info">
+                        <h2>Thank you for your order, <span class="red-text">{{user?.firstName}}</span>! Your products
+                            will be sent to the Delivery
+                            Company as soon as possible. We will keep you updated with the status of the order in your
+                            Account Page.</h2>
+                    </div>
+                    <div class="return-home d-flex-justify-center">
+                        <button type="button" class="btn btn-danger checkout-any-btn" (click)="returnHome()">
+                            <i class="bi bi-check2-all"></i>&nbsp;Return to Homepage
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

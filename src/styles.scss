@@ -120,3 +120,12 @@ input[type="range"]::-webkit-slider-thumb {
     background-color: $base-red-dark;
     -webkit-box-shadow: 2px 3px 2px 0px rgba(0,0,0,0.6);
 }
+
+.d-flex-justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+.red-text {
+    color: $base-red;
+}

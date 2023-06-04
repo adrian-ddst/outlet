@@ -3,13 +3,22 @@
   <div class="return-home" (click)="goToHome()">
     <i class="bi bi-house-fill"></i>
     &nbsp;
-    Return to Homepage
+    <span style="text-decoration: underline;">Return to Homepage</span>
   </div>
   <div class="spacer"></div>
+  <div class="mini-cart mx-4 px-3" *ngIf="cartItems.length > 0" (click)="goToCheckout()">
+    <span class="pr-2 mt-1">Items in Cart:</span>
+    <span class="mini-cart-products-counter">{{ cartItems.length }}</span>
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill"
+        viewBox="0 0 16 16">
+        <path
+          d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </svg>
+    </span>
+  </div>
   <div class="skip-to-login" (click)="goToAccountPage()">
-    <i class="bi bi-arrow-right"></i>
-    &nbsp;
-    Skip directly to Account Page
+    <span style="text-decoration: underline;">Skip directly to Account Page</span>
     <span class="red-text" *ngIf="isLoggedIn">&nbsp;{{'(' + username + ')'}}</span>
   </div>
   <div class="app-component-actions">

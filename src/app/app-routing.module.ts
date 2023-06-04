@@ -9,6 +9,7 @@ import { ProductPageComponent } from './pages/product-page/product-page.componen
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminGuard } from './guards/admin.guard';
 import { AccountGuard } from './guards/account.guard';
+import { CheckoutComponent } from './pages/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: MainPageComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'choose-one/:category/specific/:specificCategory/:productName', component: ProductPageComponent },
   { path: 'account', component: AccountComponent, canActivate: [() => inject(AccountGuard).canActivate()] },
   { path: 'admin', component: AdminComponent, canActivate: [() => inject(AdminGuard).canActivate()] },
+  { path: 'checkout', component: CheckoutComponent },
   // 404 routes
   { path: '**', component: NotFoundComponent }
 ];

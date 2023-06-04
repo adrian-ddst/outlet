@@ -6,6 +6,8 @@ import { User } from './interfaces/userInterface';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SpinnerService } from './interceptors/SpinnerService';
 import { ToastrService } from 'ngx-toastr';
+import { CartStateImpl } from './interfaces/cartStateInterface';
+import { mockOrderItems } from './constants/mocks.constants';
 
 @Component({
   selector: 'app-root',
@@ -35,6 +37,9 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
   static showLoginPopup: boolean = false;
   static showRegisterPopup: boolean = false;
   static showSpinner: boolean = true;
+
+  // cart state
+  static cartState: CartStateImpl = new CartStateImpl();
 
   constructor(
     public router: Router,
@@ -78,6 +83,10 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
         Validators.minLength(8)
       ])
     });
+
+    // todo
+    AppComponent.cartState.orderItems = mockOrderItems;
+
   }
 
   async ngOnInit(): Promise<void> {
@@ -230,6 +239,10 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
     this.router.navigateByUrl('/');
   }
 
+  goToCheckout(): void {
+    this.router.navigateByUrl('/checkout');
+  }
+
 
   // Debug methods
   debugGet(): void {
@@ -327,6 +340,14 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
 
   set spinnerDisplayState(value) {
     AppComponent.showSpinner = value;
+  }
+
+  get cartItems() {
+    return AppComponent.cartState.orderItems;
+  }
+
+  set cartItems(value) {
+    AppComponent.cartState.orderItems = value;
   }
 
   showToastrSuccess(msg: string): void {
