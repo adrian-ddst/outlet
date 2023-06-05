@@ -37,10 +37,13 @@
                                     <td>{{orderItem.product.itemName}}</td>
                                     <td class="product-url">Go To Product Page</td>
                                     <td>{{orderItem.qty}}</td>
-                                    <td>{{orderItem.product.price}}</td>
+                                    <td>${{orderItem.product.price}}</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="total">
+                        Total: ${{total}}
                     </div>
                     <div class="delivery-details">
                         <div class="delivery-company">
@@ -107,7 +110,7 @@
                     </div>
                     <div class="pay-now d-flex-justify-center">
                         <button type="button" class="btn btn-danger checkout-any-btn"
-                            (click)="switchView('confirmationStep', true)">
+                            (click)="saveOrder()">
                             <i class="bi bi-check2-all"></i>&nbsp;Pay Now
                         </button>
                     </div>

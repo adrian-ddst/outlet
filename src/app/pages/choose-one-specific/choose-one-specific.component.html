@@ -71,7 +71,8 @@
                                 <span class="red-text">{{item.price}}{{item.currency}}</span>
                             </span>
                             <div class="add-to-cart-btn-container">
-                                <button type="button" class="btn btn-secondary add-to-cart-btn" (click)="addToCart()">
+                                <button type="button" class="btn btn-secondary add-to-cart-btn"
+                                    (click)="$event.stopPropagation(); addToCart(item)">
                                     <i class="bi bi-cart-check-fill"></i>
                                     &nbsp;
                                     Add to Cart

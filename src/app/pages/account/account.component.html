@@ -97,11 +97,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let orderItem of customerOrders">
-                                            <th scope="row">{{orderItem.orderNumber}}</th>
-                                            <td>{{orderItem.orderDate}}</td>
-                                            <td>{{orderItem.orderTotal}}</td>
-                                            <td>{{orderItem.orderStatus}}</td>
+                                        <tr *ngFor="let order of customerOrders">
+                                            <th scope="row">{{order._id}}</th>
+                                            <td>{{order.date}}</td>
+                                            <td>${{order.total}}</td>
+                                            <td>{{order.status}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

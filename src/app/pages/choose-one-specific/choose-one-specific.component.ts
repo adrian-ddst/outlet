@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs';
+import { AppComponent } from 'src/app/app.component';
 import { ClothItem } from 'src/app/interfaces/clothItemInterface';
 import { AppService } from 'src/app/services/app.service';
 
@@ -36,6 +38,7 @@ export class ChooseOneSpecificComponent implements OnInit {
 
   constructor(
     public router: Router,
+    private toastr: ToastrService,
     private route: ActivatedRoute,
     private appService: AppService
   ) { }
@@ -62,8 +65,13 @@ export class ChooseOneSpecificComponent implements OnInit {
     this.router.navigateByUrl("/choose-one/" + this.category?.toLowerCase() + "/specific/" + this.specificCategory?.toLowerCase() + "/" + item.itemName);
   }
 
-  addToCart(): void {
-    console.log("add to cart works!");
+  addToCart(item: ClothItem): void {
+    if (AppComponent.cartState.orderItems.find(orderItem => orderItem.product?._id === item?._id)) {
+      AppComponent.cartState.orderItems.find(orderItem => orderItem.product?._id === item?._id)!.qty += 1;
+    } else {
+      AppComponent.cartState.orderItems.push({ product: item!, qty: 1 });
+    }
+    this.toastr.success("Product has been successfully added to cart!", '', { positionClass: "toast-top-left" });
   }
 
   registerMinPriceChange(event: any): void {

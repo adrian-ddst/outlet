@@ -4,7 +4,6 @@ import { User } from 'src/app/interfaces/userInterface';
 import { Chart } from 'chart.js/auto';
 import { AppService } from 'src/app/services/app.service';
 import { Router } from '@angular/router';
-import { mockOrders } from 'src/app/constants/mocks.constants';
 
 @Component({
   selector: 'app-account',
@@ -71,7 +70,15 @@ export class AccountComponent implements OnInit {
   }
 
   getOrders(): void {
-    this.customerOrders = mockOrders;
+    this.appService.getAllOrders().subscribe(res => {
+      if (res) {
+        this.customerOrders = res.filter((order: any) =>
+          order?.user?.firstName === this.user?.firstName &&
+          order?.user?.lastName === this.user?.lastName &&
+          order?.user?.email === this.user?.email
+        );
+      }
+    });
   }
 
   goToAdmin(): void {

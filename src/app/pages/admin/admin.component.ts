@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { ToastrService } from 'ngx-toastr';
-import { mockOrders } from 'src/app/constants/mocks.constants';
 import { ClothItem } from 'src/app/interfaces/clothItemInterface';
 import { User } from 'src/app/interfaces/userInterface';
 import { AppService } from 'src/app/services/app.service';
@@ -20,6 +19,8 @@ export class AdminComponent implements OnInit {
 
   productsTableData: ClothItem[] = [];
   ordersTableData: any[] = [];
+
+  selectedOrder: any;
 
   user: User | undefined;
   currentSection: 'widgets' | 'ordersMgmt' | 'addNew';
@@ -76,7 +77,11 @@ export class AdminComponent implements OnInit {
   }
 
   getOrdersForTable(): void {
-    this.ordersTableData = mockOrders;
+    this.appService.getAllOrders().subscribe(res => {
+      if (res) {
+        this.ordersTableData = res;
+      }
+    })
   }
 
   goToCloudinary(url: string) {
@@ -97,16 +102,18 @@ export class AdminComponent implements OnInit {
       const $ordersTableRowFirst = document.getElementById('orders-table-row-1');
       if ($ordersTableRowFirst) {
         $ordersTableRowFirst.style.backgroundColor = "#c0c0c0a9";
+        this.selectedOrder = this.ordersTableData[0];
       }
     }, 500);
   }
 
-  selectOrder(index: any): void {
+  selectOrder(index: any, order: any): void {
     // make the rest back white
     Array.from(document.getElementById('orders-table-body')!.children!).forEach(child => {
       (child as any)!.style.backgroundColor = "#fff";
     });
     document.getElementById('orders-table-row-' + index)!.style.backgroundColor = "#c0c0c0a9";
+    this.selectedOrder = order;
   }
 
   uploadProductImage(imageRef: any): void {

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { interval } from 'rxjs';
 import { AppComponent } from 'src/app/app.component';
 import { CartItem } from 'src/app/interfaces/cartStateInterface';
 import { User } from 'src/app/interfaces/userInterface';
@@ -22,6 +21,7 @@ export class CheckoutComponent implements OnInit {
   }
   user: User | undefined;
   orderItems: CartItem[] = [];
+  total: number = 0;
 
   constructor(
     private toastr: ToastrService,
@@ -31,6 +31,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrderItems();
+    this.calculateTotalPrice();
     this.switchView('orderDetailsStep');
     this.populateDeliveryOptionsIfPossible();
     this.getLoggedUser();
@@ -44,6 +45,12 @@ export class CheckoutComponent implements OnInit {
     this.orderItems = AppComponent.cartState.orderItems;
   }
 
+  calculateTotalPrice(): void {
+    for (let i = 0; i < AppComponent.cartState.orderItems.length; i++) {
+      this.total += (AppComponent.cartState.orderItems[i].product.price! * AppComponent.cartState.orderItems[i].qty);
+    }
+  }
+
   submitOrderDetails(): void {
     if (this.deliveryOptionsFormsValid()) {
       this.switchView('accountStep');
@@ -53,26 +60,13 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  switchView(view: 'orderDetailsStep' | 'accountStep' | 'paymentStep' | 'confirmationStep', delay?: boolean): void {
-    if (delay) {
-      AppComponent.showSpinner = true;
-      interval(3000).subscribe(() => {
-        document.getElementById("orderDetailsStep")!.style.color = "#000";
-        document.getElementById("accountStep")!.style.color = "#000";
-        document.getElementById("paymentStep")!.style.color = "#000";
-        document.getElementById("confirmationStep")!.style.color = "#000";
-        document.getElementById(view)!.style.color = "#d30000";
-        this.view = view;
-        AppComponent.showSpinner = false;
-      })
-    } else {
-      document.getElementById("orderDetailsStep")!.style.color = "#000";
-      document.getElementById("accountStep")!.style.color = "#000";
-      document.getElementById("paymentStep")!.style.color = "#000";
-      document.getElementById("confirmationStep")!.style.color = "#000";
-      document.getElementById(view)!.style.color = "#d30000";
-      this.view = view;
-    }
+  switchView(view: 'orderDetailsStep' | 'accountStep' | 'paymentStep' | 'confirmationStep'): void {
+    document.getElementById("orderDetailsStep")!.style.color = "#000";
+    document.getElementById("accountStep")!.style.color = "#000";
+    document.getElementById("paymentStep")!.style.color = "#000";
+    document.getElementById("confirmationStep")!.style.color = "#000";
+    document.getElementById(view)!.style.color = "#d30000";
+    this.view = view;
   }
 
   populateDeliveryOptionsIfPossible(): void {
@@ -99,6 +93,23 @@ export class CheckoutComponent implements OnInit {
       this.deliveryOptions.city.length > 0 &&
       this.deliveryOptions.phone.toString().length > 0 &&
       this.deliveryOptions.phone.toString().includes('e') === false;
+  }
+
+  saveOrder(): void {
+    if (!this.user) {
+      this.toastr.error("You are not logged in!", '', { positionClass: "toast-top-left" });
+      return;
+    }
+    const outerContext = this;
+    this.appService.saveOrder(AppComponent.cartState, this.user, this.total, this.deliveryOptions).subscribe({
+      next() {
+        outerContext.switchView('confirmationStep');
+        AppComponent.cartState.orderItems = [];
+      },
+      error() {
+        outerContext.toastr.error("An error has occurred with your order. Please try again.", '', { positionClass: "toast-top-left" });
+      }
+    })
   }
 
   returnHome(): void {

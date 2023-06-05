@@ -257,6 +257,7 @@
                 color: #000;
                 font-size: 1.5rem;
                 font-weight: 700;
+                position: relative;
 
                 .table-subcontainer {
                     max-height: 20rem;
@@ -288,11 +289,16 @@
             .selected-order-headings {
                 display: flex;
                 justify-content: space-between;
+                position: absolute;
+                bottom: 18rem;
+                width: 98%;
             }
 
             .order-details-container {
                 width: 100%;
                 height: 17.5rem;
+                position: absolute;
+                bottom: 1rem;
 
                 .order-products-table {
                     padding-left: 0.5rem;
@@ -305,14 +311,14 @@
                 .order-customer-details {
                     font-size: 15px;
                     font-weight: 500;
-                    margin-left: 4.3rem;
+                    margin-left: 10rem;
                     margin-top: 1rem;
                     max-width: 40rem;
                 }
 
                 .order-actions {
                     width: 30rem;
-                    margin-left: 14.5rem;
+                    margin-left: 18.5rem;
                     margin-top: 1rem;
 
                     .fulfill-btn {
@@ -386,15 +392,18 @@
                             height: 35px;
                         }
 
-                        .gender-category, .price-currency {
+                        .gender-category,
+                        .price-currency {
                             display: flex;
 
-                            .gender, .price {
+                            .gender,
+                            .price {
                                 width: 49.5%;
                                 margin-right: 15px;
                             }
 
-                            .category, .currency {
+                            .category,
+                            .currency {
                                 width: 49.5%;
                             }
                         }

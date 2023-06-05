@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { switchMap } from 'rxjs';
+import { AppComponent } from 'src/app/app.component';
 import { ClothItem } from 'src/app/interfaces/clothItemInterface';
 import { AppService } from 'src/app/services/app.service';
 
@@ -28,6 +30,7 @@ export class ProductPageComponent implements OnInit {
 
   constructor(
     public router: Router,
+    private toastr: ToastrService,
     private route: ActivatedRoute,
     private appService: AppService
   ) { }
@@ -54,12 +57,21 @@ export class ProductPageComponent implements OnInit {
   plusQty() {
     this.quantity += 1;
   }
-  
+
   calculateProductPrice(): number {
     if (this.quantity === 0) {
       return this.product?.price!;
     }
     return this.product?.price! * this.quantity
   }
-  
+
+  addToCart(): void {
+    if (AppComponent.cartState.orderItems.find(orderItem => orderItem.product?._id === this.product?._id)) {
+      AppComponent.cartState.orderItems.find(orderItem => orderItem.product?._id === this.product?._id)!.qty += this.quantity;
+    } else {
+      AppComponent.cartState.orderItems.push({ product: this.product!, qty: this.quantity });
+    }
+    this.toastr.success("Product has been successfully added to cart!", '', { positionClass: "toast-top-left" });
+  }
+
 }

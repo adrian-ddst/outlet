@@ -14,6 +14,7 @@ cloudinary.config({
 
 const clothesModel = require('../models/clothesModel');
 const userModel = require('../models/userModel');
+const ordersModel = require('../models/ordersModel');
 
 const categories = process.env.CATEGORIES;
 const jwtSecret = process.env.JWT_SECRET;
@@ -306,6 +307,53 @@ router.post('/addNewProduct', async (req, res) => {
         }).catch((err) => {
             res.status(500).json(err);
         });;
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.post('/saveOrder', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    console.log("Received request to ['/saveOrder'] ... ");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage });
+        return;
+    }
+
+    const { cartState, user, total, deliveryOptions } = req.body;
+    try {
+        const newOrder = new ordersModel({
+            orderItems: cartState.orderItems,
+            user: {
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName
+            },
+            date: Date.now(),
+            total: total,
+            status: "Created",
+            deliveryOptions: deliveryOptions
+        });
+        const dataToSave = await newOrder.save();
+        res.status(200).json(dataToSave);
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.get('/getOrders', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    console.log("Received request to ['/getOrders'] ... ");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage });
+        return;
+    }
+
+    try {
+        const data = await ordersModel.find();
+        res.status(200).json(data);
     } catch (err) {
         res.status(500).json(err);
     }

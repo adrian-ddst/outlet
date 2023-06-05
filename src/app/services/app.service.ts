@@ -4,6 +4,7 @@ import { SERVER_API_URL } from '../constants/app.constants';
 import { HttpRequestOptions } from '../interfaces/httpRequestOptionsInterface';
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/userInterface';
+import { CartStateImpl } from '../interfaces/cartStateInterface';
 
 @Injectable({
   providedIn: 'root'
@@ -84,6 +85,18 @@ export class AppService {
       responseType: 'json'
     };
     return this.http.post(SERVER_API_URL + "/addNewProduct", { product: product }, options);
+  }
+
+  saveOrder(cartState: CartStateImpl, user: User, total: number, deliveryOptions: any): Observable<any> {
+    const options: HttpRequestOptions = {
+      observe: 'body',
+      responseType: 'json'
+    };
+    return this.http.post(SERVER_API_URL + "/saveOrder", { cartState: cartState, user: user, total: total, deliveryOptions }, options);
+  }
+
+  getAllOrders(): Observable<any> {
+    return this.http.get(SERVER_API_URL + "/getOrders");
   }
 
   // Debug Get method

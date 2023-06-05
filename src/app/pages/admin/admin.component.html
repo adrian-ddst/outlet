@@ -105,21 +105,21 @@
                                 </tr>
                             </thead>
                             <tbody id="orders-table-body">
-                                <tr *ngFor="let orderItem of ordersTableData, let i = index"
-                                    [id]="'orders-table-row-' + (i + 1)" (click)="selectOrder(i + 1)">
-                                    <th scope="row">{{orderItem.orderNumber}}</th>
-                                    <td>{{orderItem.customerName}}</td>
-                                    <td>{{orderItem.orderDate}}</td>
-                                    <td>{{orderItem.orderTotal}}</td>
-                                    <td>{{orderItem.orderStatus}}</td>
+                                <tr *ngFor="let order of ordersTableData, let i = index"
+                                    [id]="'orders-table-row-' + (i + 1)" (click)="selectOrder(i + 1, order)">
+                                    <th scope="row">{{order?._id}}</th>
+                                    <td>{{order?.user?.firstName}} {{order?.user?.lastName}}</td>
+                                    <td>{{order?.date}}</td>
+                                    <td>${{order?.total}}</td>
+                                    <td>{{order?.status}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="p-2 mt-2 selected-order-headings">
                         <div>Order Details</div>
-                        <div>Customer Details</div>
-                        <div style="margin-right: 20%;">Order Actions</div>
+                        <div style="margin-left: 14.5rem;">Customer Details</div>
+                        <div style="margin-right: 25.5rem;">Order Actions</div>
                     </div>
                     <div class="order-details-container d-flex">
                         <div class="order-products-table">
@@ -132,15 +132,10 @@
                                     </tr>
                                 </thead>
                                 <tbody id="orders-table-body">
-                                    <tr>
-                                        <td>Armani Jacket 650</td>
-                                        <td>320$</td>
-                                        <td>3</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Test Women Jacket</td>
-                                        <td>400$</td>
-                                        <td>2</td>
+                                    <tr *ngFor="let orderItem of selectedOrder?.orderItems">
+                                        <td>{{orderItem?.product?.itemName}}</td>
+                                        <td>${{orderItem?.product?.price}}</td>
+                                        <td>{{orderItem?.qty}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -148,23 +143,23 @@
                         <div class="order-customer-details">
                             <div>
                                 <strong>First Name:</strong>&nbsp;
-                                <span>Adrian</span>
+                                <span>{{selectedOrder?.user?.firstName}}</span>
                             </div>
                             <div class="mt-1">
                                 <strong>Last Name:</strong>&nbsp;
-                                <span>Tepsan</span>
+                                <span>{{selectedOrder?.user?.lastName}}</span>
                             </div>
                             <div class="mt-1">
                                 <strong>Address:</strong>&nbsp;
-                                <span>Str. Marasesti, no. 15, b. 41, entrance B, appartment 20</span>
+                                <span>{{selectedOrder?.deliveryOptions?.address}}</span>
                             </div>
                             <div class="mt-1">
                                 <strong>Phone Number:</strong>&nbsp;
-                                <span>+40 756 699 537</span>
+                                <span>+40{{selectedOrder?.deliveryOptions?.phone}}</span>
                             </div>
                             <div class="mt-1">
                                 <strong>Order Total:</strong>&nbsp;
-                                <span>2,050$</span>
+                                <span>${{selectedOrder?.total}}</span>
                             </div>
                             <div class="mt-1">
                                 <strong>Payment Method:</strong>&nbsp;
@@ -237,7 +232,8 @@
                                             <select class="form-select" id="category"
                                                 [(ngModel)]="productToAdd.innerProduct.categoryName">
                                                 <option selected disabled value="none">Select...</option>
-                                                <option *ngFor="let categ of categories" [value]="categ.toLowerCase()">{{categ}}
+                                                <option *ngFor="let categ of categories" [value]="categ.toLowerCase()">
+                                                    {{categ}}
                                                 </option>
                                             </select>
                                         </div>

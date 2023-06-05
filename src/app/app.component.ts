@@ -7,7 +7,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SpinnerService } from './interceptors/SpinnerService';
 import { ToastrService } from 'ngx-toastr';
 import { CartStateImpl } from './interfaces/cartStateInterface';
-import { mockOrderItems } from './constants/mocks.constants';
 
 @Component({
   selector: 'app-root',
@@ -83,10 +82,6 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
         Validators.minLength(8)
       ])
     });
-
-    // todo
-    AppComponent.cartState.orderItems = mockOrderItems;
-
   }
 
   async ngOnInit(): Promise<void> {
