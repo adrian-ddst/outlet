@@ -151,7 +151,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
         next(response) {
           const user = response;
           document.getElementById("errorMsg")!.style.display = "none";
-          localStorage.setItem("currentlyLoggedAs", JSON.stringify(user));
+          sessionStorage.setItem("currentlyLoggedAs", JSON.stringify(user));
           componentScope.isLoggedIn = true;
           AppComponent.showLoginPopup = false;
           componentScope.username = user['firstName'];
@@ -167,7 +167,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
   }
 
   tryAutoLogin(): void {
-    const currentlyLoggedAs = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
+    const currentlyLoggedAs = JSON.parse(sessionStorage.getItem("currentlyLoggedAs")!);
     var currentContext = this;
     if (currentlyLoggedAs?.token) {
       this.appService.silentAutoLogin(currentlyLoggedAs.token).subscribe({
@@ -175,18 +175,18 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
           if (userData) {
             currentContext.isLoggedIn = true;
             AppComponent.showLoginPopup = false;
-            localStorage.setItem("currentlyLoggedAs", JSON.stringify(userData))
+            sessionStorage.setItem("currentlyLoggedAs", JSON.stringify(userData))
             currentContext.username = userData.firstName;
           } else {
             currentContext.isLoggedIn = false;
-            localStorage.clear();
+            sessionStorage.clear();
           }
         },
         error(err) {
           // BE returns 401 for bad token
           if (err && err['status'] === 401 && err?.error?.includes('JWT')) {
             currentContext.isLoggedIn = false;
-            localStorage.clear();
+            sessionStorage.clear();
           }
         }
       })
@@ -194,7 +194,7 @@ export class AppComponent implements OnInit, AfterViewInit, AfterContentChecked 
   }
 
   signOut(): void {
-    localStorage.clear();
+    sessionStorage.clear();
     this.isLoggedIn = false;
     this.goToHome();
     this.showToastrWarn("You have signed out.");

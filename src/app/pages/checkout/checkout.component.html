@@ -28,6 +28,7 @@
                                 <tr>
                                     <th scope="col">Ordered Product</th>
                                     <th scope="col">Product Page</th>
+                                    <th scope="col">Size</th>
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Price</th>
                                 </tr>
@@ -36,6 +37,7 @@
                                 <tr *ngFor="let orderItem of orderItems">
                                     <td>{{orderItem.product.itemName}}</td>
                                     <td class="product-url">Go To Product Page</td>
+                                    <td>L (large)</td>
                                     <td>{{orderItem.qty}}</td>
                                     <td>${{orderItem.product.price}}</td>
                                 </tr>

@@ -31,7 +31,7 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     try {
-      this.user = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
+      this.user = JSON.parse(sessionStorage.getItem("currentlyLoggedAs")!);
       this.createChart();
       this.checkRole();
       this.getOrders();

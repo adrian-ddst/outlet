@@ -49,7 +49,7 @@ export class AdminComponent implements OnInit {
     this.createChart();
     this.getProductsForTable();
     this.getOrdersForTable();
-    this.user = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
+    this.user = JSON.parse(sessionStorage.getItem("currentlyLoggedAs")!);
   }
 
   createChart() {

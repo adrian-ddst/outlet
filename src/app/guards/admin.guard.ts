@@ -16,7 +16,7 @@ export class AdminGuard {
   ) { }
 
   canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-    const currentlyLoggedAs = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
+    const currentlyLoggedAs = JSON.parse(sessionStorage.getItem("currentlyLoggedAs")!);
     const outerContext = this;
     return new Observable<boolean>(observer => {
       if (!currentlyLoggedAs || !currentlyLoggedAs?.token) {

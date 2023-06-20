@@ -76,7 +76,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getLoggedUser(): any {
-    this.user = JSON.parse(localStorage.getItem("currentlyLoggedAs")!);
+    this.user = JSON.parse(sessionStorage.getItem("currentlyLoggedAs")!);
     return this.user;
   }
 

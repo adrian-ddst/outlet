@@ -127,6 +127,7 @@
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col" style="width: 360px;">Ordered Product</th>
+                                        <th scope="col" style="width: 100px;">Size</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Quantity</th>
                                     </tr>
@@ -134,6 +135,7 @@
                                 <tbody id="orders-table-body">
                                     <tr *ngFor="let orderItem of selectedOrder?.orderItems">
                                         <td>{{orderItem?.product?.itemName}}</td>
+                                        <td>L (large)</td>
                                         <td>${{orderItem?.product?.price}}</td>
                                         <td>{{orderItem?.qty}}</td>
                                     </tr>

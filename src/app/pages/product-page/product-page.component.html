@@ -32,7 +32,7 @@
                 <div class="size mx-5 mt-5">
                     <span class="info">Sizes</span>
                     <div class="size-list mt-2" *ngIf="torsoSizes.length > 0">
-                        <button type="button" class="btn btn-secondary mr-1" [disabled]="selectedSize == torsoSize"
+                        <button type="button" class="btn btn-secondary mr-1" [disabled]="torsoSize == 'L'"
                             (click)="selectedSize = torsoSize"
                             *ngFor="let torsoSize of torsoSizes">{{torsoSize}}</button>
                     </div>
