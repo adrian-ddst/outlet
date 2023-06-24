@@ -12,6 +12,8 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
 const clothesModel = require('../models/clothesModel');
 const userModel = require('../models/userModel');
 const ordersModel = require('../models/ordersModel');
@@ -358,6 +360,38 @@ router.get('/getOrders', async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+router.post('/getPaymentGateway', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    console.log("Received request to ['/getPaymentGateway'] ... ");
+
+    if (reqFromSameDomain(req) === false) {
+        res.status(401).json({ message: XSRFGenericMessage });
+        return;
+    }
+
+    try {
+        const product = await stripe.products.create({
+            name: 'Outlet Cart Total',
+        });
+        const price = await stripe.prices.create({
+            currency: 'usd',
+            unit_amount: 1000,
+            product: product.id,
+        });
+        const paymentLink = await stripe.paymentLinks.create({
+            line_items: [
+                {
+                    price: price.id,
+                    quantity: 1,
+                },
+            ],
+        });
+        res.status(200).json({ url: paymentLink.url });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+})
 
 
 // Debug GET route

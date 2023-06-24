@@ -106,15 +106,14 @@
         <ng-container *ngIf="view === 'paymentStep'">
             <div class="row">
                 <div class="details d-flex-justify-center">
-                    <div class="payment-info">
-                        <h2>Our payments are handled by an external provider. Please click the below button to be
-                            redirected to the payment process. You will be automatically returned here afterwards.</h2>
-                    </div>
-                    <div class="pay-now d-flex-justify-center">
-                        <button type="button" class="btn btn-danger checkout-any-btn"
-                            (click)="saveOrder()">
-                            <i class="bi bi-check2-all"></i>&nbsp;Pay Now
-                        </button>
+                    <div class="col-12">
+                        <div class="d-flex-justify-center payment-info">
+                            <h3>Our payments are handled by <a href="https://www.stripe.com"
+                                    style="color: rgb(0, 102, 255); text-decoration: underline;">Stripe.com</a>. Please
+                                proceed with the payment process on our associate's form and return here afterwards for
+                                the order confirmation.
+                            </h3>
+                        </div>
                     </div>
                 </div>
             </div>

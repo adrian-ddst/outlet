@@ -67,6 +67,24 @@ export class CheckoutComponent implements OnInit {
     document.getElementById("confirmationStep")!.style.color = "#000";
     document.getElementById(view)!.style.color = "#d30000";
     this.view = view;
+
+    if (view === 'paymentStep') {
+      this.getPaymentGateway();
+    }
+  }
+
+  getPaymentGateway(): void {
+    this.appService.getPaymentGateway().subscribe(res => {
+      if (res?.url) {
+        const paymentWindow = window.open(res.url, "_blank", "width=800px, height=1010px");
+        const timer = setInterval(() => {
+          if (paymentWindow?.closed) {
+            clearInterval(timer);
+            this.saveOrder();
+          }
+        }, 500);
+      }
+    });
   }
 
   populateDeliveryOptionsIfPossible(): void {
