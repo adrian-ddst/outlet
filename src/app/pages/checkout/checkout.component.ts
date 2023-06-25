@@ -74,7 +74,12 @@ export class CheckoutComponent implements OnInit {
   }
 
   getPaymentGateway(): void {
-    this.appService.getPaymentGateway().subscribe(res => {
+    const payload = {
+      total: this.total,
+      orderName: `${this.user?.firstName}'s Cart Total`,
+      description: `Your ordered products: ${AppComponent.cartState.orderItems.map(item => item.product.itemName).join(', ')}`
+    }
+    this.appService.getPaymentGateway(payload).subscribe(res => {
       if (res?.url) {
         const paymentWindow = window.open(res.url, "_blank", "width=800px, height=1010px");
         const timer = setInterval(() => {

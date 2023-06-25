@@ -371,12 +371,18 @@ router.post('/getPaymentGateway', async (req, res) => {
     }
 
     try {
+        const payload = {
+            total: req.body.total,
+            orderName: req.body.orderName,
+            description: req.body.description
+        };
         const product = await stripe.products.create({
-            name: 'Outlet Cart Total',
+            name: payload.orderName,
+            description: payload.description
         });
         const price = await stripe.prices.create({
             currency: 'usd',
-            unit_amount: 1000,
+            unit_amount: payload.total * 100,
             product: product.id,
         });
         const paymentLink = await stripe.paymentLinks.create({
