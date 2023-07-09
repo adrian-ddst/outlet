@@ -170,10 +170,12 @@
                         </div>
                         <div class="order-actions">
                             <div class="fulfill-btn">
-                                <button type="button" class="btn btn-success">Fulfill Order</button>
+                                <button type="button" class="btn btn-success" (click)="fulfill()"
+                                    [disabled]="selectedOrder?.status !== 'Created' || disableActions">Fulfill Order</button>
                             </div>
                             <div class="refund-btn">
-                                <button type="button" class="btn btn-danger">Refund Order</button>
+                                <button type="button" class="btn btn-danger" (click)="refund()"
+                                    [disabled]="selectedOrder?.status !== 'Created' || disableActions">Refund Order</button>
                             </div>
                             <div class="infos">
                                 <p>* Fulfilling an order will send a notification with the order details to the

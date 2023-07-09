@@ -107,6 +107,14 @@ export class AppService {
     return this.http.post(SERVER_API_URL + "/getPaymentGateway", payload, options);
   }
 
+  updateOrder(orderId: string, action: string): Observable<any> {
+    const options: HttpRequestOptions = {
+      observe: 'body',
+      responseType: 'json'
+    };
+    return this.http.post(SERVER_API_URL + "/updateOrder", { orderId: orderId, action: action }, options);
+  }
+
   // Debug Get method
   debugGet(): Observable<any> {
     return this.http.get(SERVER_API_URL + "/debugGet");

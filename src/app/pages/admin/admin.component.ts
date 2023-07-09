@@ -37,6 +37,8 @@ export class AdminComponent implements OnInit {
     image: ""
   }
 
+  disableActions: boolean = false;
+
   constructor(
     private toastr: ToastrService,
     private appService: AppService,
@@ -114,6 +116,7 @@ export class AdminComponent implements OnInit {
     });
     document.getElementById('orders-table-row-' + index)!.style.backgroundColor = "#c0c0c0a9";
     this.selectedOrder = order;
+    this.disableActions = false;
   }
 
   uploadProductImage(imageRef: any): void {
@@ -170,6 +173,20 @@ export class AdminComponent implements OnInit {
     this.productToAdd.innerProduct.description = "";
     this.productToAdd.innerProduct.price = "";
     this.productToAdd.innerProduct.currency = "$";
+  }
+
+  fulfill(): void {
+    this.disableActions = true;
+    this.appService.updateOrder(this.selectedOrder._id, "fulfill").subscribe(() => {
+      this.getOrdersForTable();
+    })
+  }
+
+  refund(): void {
+    this.disableActions = true;
+    this.appService.updateOrder(this.selectedOrder._id, "refund").subscribe(() => {
+      this.getOrdersForTable();
+    })
   }
 
 }

@@ -4,6 +4,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const cloudinary = require('cloudinary').v2;
+const ObjectID = require('mongodb').ObjectId;
 
 // Cloudinary Configuration 
 cloudinary.config({
@@ -114,7 +115,7 @@ router.post('/getClothes', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/getClothes'] ... ");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -132,7 +133,7 @@ router.post('/getProductByName', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/getProductByName'] ... ");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -151,7 +152,7 @@ router.post('/login', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/login'] with credentials USER = ['" + req.body.email + "'] and PASS = ['" + req.body.password + "'] ...");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -179,7 +180,7 @@ router.post('/silentAutoLogin', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/silentAutoLogin'] with an existing token ...");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -207,7 +208,7 @@ router.post('/checkUserRole', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/checkUserRole'] ...");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -227,7 +228,7 @@ router.post('/checkUserTokenSimple', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/checkUserTokenSimple'] ...");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -249,7 +250,7 @@ router.post('/register', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/register'] ...");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -274,7 +275,7 @@ router.post('/addNewProduct', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/addNewProduct'] ... ");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -318,7 +319,7 @@ router.post('/saveOrder', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/saveOrder'] ... ");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -348,7 +349,7 @@ router.get('/getOrders', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/getOrders'] ... ");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -365,7 +366,7 @@ router.post('/getPaymentGateway', async (req, res) => {
     res.set(allowCORS, frontendURL);
     console.log("Received request to ['/getPaymentGateway'] ... ");
 
-    if (reqFromSameDomain(req) === false) {
+    if ((await reqFromSameDomain(req)) === false) {
         res.status(401).json({ message: XSRFGenericMessage });
         return;
     }
@@ -399,6 +400,28 @@ router.post('/getPaymentGateway', async (req, res) => {
     }
 })
 
+router.post('/updateOrder', async (req, res) => {
+    res.set(allowCORS, frontendURL);
+    console.log("Received request to ['/updateOrder'] ... ");
+
+    if ((await reqFromSameDomain(req)) === false) {
+        res.status(401).json({ message: XSRFGenericMessage });
+        return;
+    }
+
+    try {
+        const oid = req.body.orderId;
+        const action = req.body.action;
+        const query = { "_id": new ObjectID(oid) };
+        const newStatus = action === "fulfill" ? { status: "In Delivery" } : { status: "Cancelled" };
+
+        let update = await ordersModel.findOneAndUpdate(query, newStatus);
+        res.status(200).json({ update });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+})
 
 // Debug GET route
 router.get('/debugGet', async (req, res) => {
